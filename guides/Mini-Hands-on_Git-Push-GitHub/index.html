@@ -1,0 +1,1146 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../hands-on/Hands-on-04_Category-CRUD/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Git và GitHub - Phát triển ứng dụng Web mã nguồn mở</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mini-hands-on-luu-va-ong-bo-ma-nguon-len-github" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-header__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Phát triển ứng dụng Web mã nguồn mở
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Git và GitHub
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-nav__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Phát triển ứng dụng Web mã nguồn mở
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chuẩn bị
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chuẩn bị
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preparation/Pre-Lab-00_Environment-Setup-Windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-Lab 00 - Chuẩn bị môi trường
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thực hành
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thực hành
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hands-on/Hands-on-01_PHP-Docker_Baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 01 - PHP và Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hands-on/Hands-on-02_MySQL-Database-Schema-Seed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 02 - MySQL-Database-Schema-Seed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hands-on/Hands-on-03_PHP-MySQLi-Category-Listing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 03 - PHP-MySQLi-Category-Listing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hands-on/Hands-on-04_Category-CRUD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 04 - Hands-on 04 – Xây dựng CRUD quản lý danh mục
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hướng dẫn
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hướng dẫn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git và GitHub
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git và GitHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-nhan-biet-trang-thai-hien-tai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Nhận biết trạng thái hiện tại
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-mo-hinh-lam-viec-cua-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Mô hình làm việc của Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-nhan-biet-trang-thai-hien-tai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Nhận biết trạng thái hiện tại
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-mo-hinh-lam-viec-cua-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Mô hình làm việc của Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mini-hands-on-luu-va-ong-bo-ma-nguon-len-github">MINI HANDS-ON -- LƯU VÀ ĐỒNG BỘ MÃ NGUỒN LÊN GITHUB</h1>
+<h2 id="1-muc-tieu">1. Mục tiêu</h2>
+<p>Sau khi hoàn thành nội dung này, người học có thể:</p>
+<ul>
+<li>Phân biệt mã nguồn đang có trên máy, thay đổi đã được stage, commit
+    cục bộ và commit đã được push lên GitHub.</li>
+<li>Kiểm tra đúng repository và remote trước khi cập nhật.</li>
+<li>Thực hiện quy trình Git cơ bản:
+    <code>status → diff → add → commit → push</code>.</li>
+<li>Kiểm tra lại trạng thái repository sau khi push.</li>
+<li>Xử lý trường hợp repository chưa có commit nào và thực hiện cập nhật
+    ở các buổi tiếp theo.</li>
+</ul>
+<blockquote>
+<p>Bối cảnh: dự án đã chạy thành công trên máy cá nhân nhưng <code>git status</code>
+cho thấy <code>No commits yet</code> và các file vẫn là <code>Untracked files</code>.</p>
+</blockquote>
+<hr />
+<h2 id="2-nhan-biet-trang-thai-hien-tai">2. Nhận biết trạng thái hiện tại</h2>
+<p>Ví dụ:</p>
+<pre><code class="language-cmd">git status
+</code></pre>
+<p>Kết quả:</p>
+<pre><code class="language-text">On branch main
+
+No commits yet
+
+Untracked files:
+        .env.example
+        .gitignore
+        README.md
+        compose.yaml
+        docker/
+        public/
+</code></pre>
+<p>Điều này có nghĩa:</p>
+<ul>
+<li>Repository Git đã được khởi tạo.</li>
+<li>Đang làm việc trên nhánh <code>main</code>.</li>
+<li>Chưa có commit nào.</li>
+<li>Các file đang tồn tại trên máy nhưng Git chưa theo dõi.</li>
+<li>Mã nguồn chưa được lưu thành một phiên bản Git.</li>
+<li>Chưa có commit để push lên GitHub.</li>
+</ul>
+<p>Ghi nhớ:</p>
+<pre><code class="language-text">ỨNG DỤNG CHẠY ĐƯỢC
+        ≠
+ĐÃ COMMIT VÀO GIT
+        ≠
+ĐÃ PUSH LÊN GITHUB
+</code></pre>
+<hr />
+<h2 id="3-mo-hinh-lam-viec-cua-git">3. Mô hình làm việc của Git</h2>
+<pre><code class="language-text">Working Directory
+      │
+      │ git add
+      ▼
+Staging Area
+      │
+      │ git commit
+      ▼
+Local Repository
+      │
+      │ git push
+      ▼
+GitHub Repository
+</code></pre>
+<p>Khu vực             Ý nghĩa</p>
+<hr />
+<p>Working Directory   Các file và thay đổi đang có trên máy
+  Staging Area        Các thay đổi đã chọn cho commit tiếp theo
+  Local Repository    Lịch sử commit được lưu trên máy
+  GitHub Repository   Repository từ xa nhận các commit qua <code>push</code></p>
+<hr />
+<h1 id="4-phan-a-push-lan-au-len-github">4. Phần A -- Push lần đầu lên GitHub</h1>
+<h2 id="buoc-1-vao-thu-muc-du-an">Bước 1 -- Vào thư mục dự án</h2>
+<pre><code class="language-cmd">D:
+cd D:\PTUDW-ST-2026\php-mysql-sales
+git status
+</code></pre>
+<h2 id="buoc-2-kiem-tra-remote">Bước 2 -- Kiểm tra remote</h2>
+<pre><code class="language-cmd">git remote -v
+</code></pre>
+<p>Kết quả phải có dạng:</p>
+<pre><code class="language-text">origin  https://github.com/&lt;username&gt;/&lt;repository&gt;.git (fetch)
+origin  https://github.com/&lt;username&gt;/&lt;repository&gt;.git (push)
+</code></pre>
+<p>Kiểm tra:</p>
+<ul>
+<li><code>&lt;username&gt;</code> đúng tài khoản.</li>
+<li><code>&lt;repository&gt;</code> đúng dự án.</li>
+<li>Không push nếu <code>origin</code> đang trỏ nhầm repository.</li>
+</ul>
+<blockquote>
+<p><strong>Nguyên tắc:</strong> Trước lần push đầu tiên, phải biết mã nguồn sẽ được
+push đến repository nào.</p>
+</blockquote>
+<h2 id="buoc-3-stage-cac-file">Bước 3 -- Stage các file</h2>
+<pre><code class="language-cmd">git add .
+git status
+</code></pre>
+<p>Các file phải chuyển từ:</p>
+<pre><code class="language-text">Untracked files:
+</code></pre>
+<p>sang:</p>
+<pre><code class="language-text">Changes to be committed:
+</code></pre>
+<p>Ví dụ:</p>
+<pre><code class="language-text">new file:   .env.example
+new file:   .gitignore
+new file:   README.md
+new file:   compose.yaml
+new file:   docker/php/Dockerfile
+new file:   public/index.php
+</code></pre>
+<h2 id="buoc-4-tao-commit-au-tien">Bước 4 -- Tạo commit đầu tiên</h2>
+<pre><code class="language-cmd">git commit -m &quot;Initialize PHP Docker development environment&quot;
+</code></pre>
+<p>Kiểm tra:</p>
+<pre><code class="language-cmd">git log -1 --oneline
+</code></pre>
+<p>Kết quả có dạng:</p>
+<pre><code class="language-text">&lt;commit-id&gt; Initialize PHP Docker development environment
+</code></pre>
+<h2 id="buoc-5-push-lan-au">Bước 5 -- Push lần đầu</h2>
+<pre><code class="language-cmd">git push -u origin main
+</code></pre>
+<p>Tùy chọn <code>-u</code> thiết lập nhánh <code>main</code> cục bộ theo dõi <code>origin/main</code>.</p>
+<p>Từ các lần sau, thông thường chỉ cần:</p>
+<pre><code class="language-cmd">git push
+</code></pre>
+<h2 id="buoc-6-kiem-tra-sau-khi-push">Bước 6 -- Kiểm tra sau khi push</h2>
+<pre><code class="language-cmd">git status
+git log -1 --oneline
+</code></pre>
+<p>Mong đợi:</p>
+<pre><code class="language-text">On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+</code></pre>
+<p>Mở repository trên GitHub và xác nhận:</p>
+<ul>
+<li>Các file đã xuất hiện.</li>
+<li>Commit vừa tạo đã xuất hiện.</li>
+<li>Đúng repository và đúng nhánh.</li>
+</ul>
+<h3 id="checkpoint">Checkpoint</h3>
+<pre><code class="language-text">[ ] origin đúng repository
+[ ] git add thành công
+[ ] commit được tạo
+[ ] push thành công
+[ ] GitHub có mã nguồn mới
+[ ] working tree clean
+</code></pre>
+<hr />
+<h1 id="5-phan-b-bang-huong-dan-cap-nhat-ma-nguon-len-github">5. Phần B -- Bảng hướng dẫn cập nhật mã nguồn lên GitHub</h1>
+<p>Sau lần push đầu tiên, sử dụng bảng sau mỗi khi hoàn thành một phần công
+việc:</p>
+<hr />
+<pre><code>               Bước Mục đích         Lệnh                               Kết quả cần kiểm
+                                                                        tra
+</code></pre>
+<hr />
+<pre><code>                  1 Xem trạng thái   `git status`                       Biết file mới,
+                                                                        sửa hoặc xóa
+
+                  2 Xem nội dung     `git diff`                         Xác nhận thay
+                    thay đổi                                            đổi đúng
+
+                  3 Chọn thay đổi    `git add &lt;file&gt;` hoặc `git add .`  File được đưa
+                    cần lưu                                             vào staging
+
+                  4 Kiểm tra staging `git status`                       Chỉ stage các
+                                                                        file mong muốn
+
+                  5 Tạo phiên bản    `git commit -m "Mo ta thay doi"`   Có commit mới
+
+                  6 Kiểm tra commit  `git log -1 --oneline`             Thấy commit vừa
+                                                                        tạo
+
+                  7 Đồng bộ GitHub   `git push`                         Commit được gửi
+                                                                        lên remote
+
+                  8 Kiểm tra cuối    `git status`                       Working tree
+                                                                        sạch, nhánh đồng
+                                                                        bộ
+
+                  9 Xác nhận GitHub  Mở repository                      File và commit
+                                                                        mới đã xuất hiện
+</code></pre>
+<hr />
+<hr />
+<h2 id="6-quy-trinh-cap-nhat-chuan">6. Quy trình cập nhật chuẩn</h2>
+<h3 id="kiem-tra-truoc-khi-commit">Kiểm tra trước khi commit</h3>
+<pre><code class="language-cmd">git status
+git diff
+</code></pre>
+<h3 id="stage">Stage</h3>
+<p>Một file:</p>
+<pre><code class="language-cmd">git add public\index.php
+</code></pre>
+<p>Hoặc toàn bộ thay đổi đã được kiểm tra:</p>
+<pre><code class="language-cmd">git add .
+</code></pre>
+<p>Sau đó:</p>
+<pre><code class="language-cmd">git status
+</code></pre>
+<h3 id="commit">Commit</h3>
+<p>Ví dụ:</p>
+<pre><code class="language-cmd">git commit -m &quot;Add database connection&quot;
+</code></pre>
+<p>Thông điệp commit nên ngắn gọn và mô tả đúng nội dung.</p>
+<p>Ví dụ tốt:</p>
+<pre><code class="language-text">Initialize PHP Docker development environment
+Add MySQL database service
+Add database connection
+Add category listing
+Add product management
+Add REST API endpoints
+</code></pre>
+<p>Tránh:</p>
+<pre><code class="language-text">update
+fix
+abc
+test
+123
+</code></pre>
+<h3 id="push-va-kiem-tra">Push và kiểm tra</h3>
+<pre><code class="language-cmd">git push
+git status
+git log -1 --oneline
+</code></pre>
+<hr />
+<h2 id="7-bang-tra-cuu-nhanh">7. Bảng tra cứu nhanh</h2>
+<p>Tình huống                           Lệnh</p>
+<hr />
+<p>Xem trạng thái                       <code>git status</code>
+  Xem thay đổi chưa stage              <code>git diff</code>
+  Xem remote                           <code>git remote -v</code>
+  Stage một file                       <code>git add &lt;ten-file&gt;</code>
+  Stage toàn bộ thay đổi đã kiểm tra   <code>git add .</code>
+  Tạo commit                           <code>git commit -m "Mo ta thay doi"</code>
+  Xem commit gần nhất                  <code>git log -1 --oneline</code>
+  Push lần đầu nhánh <code>main</code>            <code>git push -u origin main</code>
+  Push các lần tiếp theo               <code>git push</code>
+  Lấy cập nhật từ remote               <code>git pull</code></p>
+<hr />
+<h2 id="8-workflow-au-va-cuoi-buoi-thuc-hanh">8. Workflow đầu và cuối buổi thực hành</h2>
+<h3 id="au-buoi">Đầu buổi</h3>
+<pre><code class="language-cmd">cd &lt;thu-muc-du-an&gt;
+git status
+git pull
+docker compose up -d
+docker compose ps
+</code></pre>
+<h3 id="trong-buoi">Trong buổi</h3>
+<pre><code class="language-text">Edit
+ ↓
+Run / Test
+ ↓
+git status
+ ↓
+git diff
+</code></pre>
+<h3 id="cuoi-buoi">Cuối buổi</h3>
+<pre><code class="language-cmd">git status
+git diff
+git add .
+git status
+git commit -m &quot;&lt;mo-ta-thay-doi&gt;&quot;
+git push
+git status
+</code></pre>
+<p>Nếu kết thúc môi trường Docker:</p>
+<pre><code class="language-cmd">docker compose down
+</code></pre>
+<hr />
+<h2 id="9-mot-so-trang-thai-git-thuong-gap">9. Một số trạng thái Git thường gặp</h2>
+<h3 id="no-commits-yet"><code>No commits yet</code></h3>
+<p>Repository chưa có commit.</p>
+<pre><code class="language-cmd">git add .
+git status
+git commit -m &quot;&lt;noi-dung-commit&gt;&quot;
+git push -u origin main
+</code></pre>
+<h3 id="untracked-files"><code>Untracked files</code></h3>
+<p>Git phát hiện file mới nhưng chưa theo dõi.</p>
+<pre><code class="language-cmd">git add &lt;ten-file&gt;
+</code></pre>
+<h3 id="changes-not-staged-for-commit"><code>Changes not staged for commit</code></h3>
+<p>File đã được Git theo dõi nhưng có thay đổi chưa stage.</p>
+<pre><code class="language-cmd">git diff
+git add &lt;ten-file&gt;
+</code></pre>
+<h3 id="changes-to-be-committed"><code>Changes to be committed</code></h3>
+<p>Thay đổi đã nằm trong Staging Area. Nếu đúng:</p>
+<pre><code class="language-cmd">git commit -m &quot;&lt;mo-ta-thay-doi&gt;&quot;
+</code></pre>
+<h3 id="nothing-to-commit-working-tree-clean"><code>nothing to commit, working tree clean</code></h3>
+<p>Không có thay đổi chưa commit. Nếu đồng thời có:</p>
+<pre><code class="language-text">Your branch is up to date with 'origin/main'.
+</code></pre>
+<p>thì nhánh cục bộ đang đồng bộ với remote tracking branch.</p>
+<hr />
+<h2 id="10-nguyen-tac-lam-viec">10. Nguyên tắc làm việc</h2>
+<ol>
+<li><strong>Kiểm tra trạng thái trước khi thao tác:</strong> dùng <code>git status</code>.</li>
+<li><strong>Xem thay đổi trước khi commit:</strong> dùng <code>git diff</code>.</li>
+<li><strong>Commit theo đơn vị công việc có ý nghĩa:</strong> không chờ đến cuối dự
+    án mới commit.</li>
+<li><strong>Không đưa thông tin bí mật vào Git:</strong> không commit <code>.env</code>, mật
+    khẩu, API key hoặc access token; dùng <code>.env.example</code> cho giá trị
+    mẫu.</li>
+<li><strong>Push sau checkpoint ổn định:</strong></li>
+</ol>
+<pre><code class="language-text">Code
+ ↓
+Run
+ ↓
+Test
+ ↓
+PASS
+ ↓
+git status / git diff
+ ↓
+Commit
+ ↓
+Push
+</code></pre>
+<hr />
+<h2 id="11-cau-hoi-cung-co">11. Câu hỏi củng cố</h2>
+<ol>
+<li><code>git add</code> và <code>git commit</code> khác nhau như thế nào?</li>
+<li>Vì sao ứng dụng chạy thành công chưa có nghĩa mã nguồn đã có trên
+    GitHub?</li>
+<li><code>git push</code> thực hiện việc gì?</li>
+<li>Vì sao cần kiểm tra <code>git remote -v</code> trước lần push đầu tiên?</li>
+<li><code>git status</code> và <code>git diff</code> khác nhau như thế nào?</li>
+<li>Vì sao <code>.env</code> không nên được commit?</li>
+<li>Khi nào dùng <code>git push -u origin main</code> và khi nào chỉ cần
+    <code>git push</code>?</li>
+<li>Vì sao nên tạo các commit có ý nghĩa theo từng checkpoint?</li>
+</ol>
+<hr />
+<h2 id="12-checklist">12. Checklist</h2>
+<ul>
+<li>[ ] Đang đứng đúng thư mục repository.</li>
+<li>[ ] Đã kiểm tra <code>git status</code>.</li>
+<li>[ ] Đã kiểm tra <code>git remote -v</code>.</li>
+<li>[ ] <code>origin</code> đúng repository.</li>
+<li>[ ] Đã kiểm tra các file cần đưa vào Git.</li>
+<li>[ ] Đã thực hiện <code>git add</code>.</li>
+<li>[ ] Đã kiểm tra staging bằng <code>git status</code>.</li>
+<li>[ ] Đã tạo commit với thông điệp có ý nghĩa.</li>
+<li>[ ] Đã kiểm tra commit bằng <code>git log -1 --oneline</code>.</li>
+<li>[ ] Đã push lên GitHub.</li>
+<li>[ ] Đã kiểm tra repository trên GitHub.</li>
+<li>[ ] <code>git status</code> cuối cùng ở trạng thái sạch.</li>
+</ul>
+<hr />
+<h2 id="13-ghi-nho">13. Ghi nhớ</h2>
+<pre><code class="language-text">git status
+     ↓
+git diff
+     ↓
+git add
+     ↓
+git status
+     ↓
+git commit
+     ↓
+git push
+     ↓
+git status
+</code></pre>
+<p>Về mặt khái niệm:</p>
+<pre><code class="language-text">MÃ NGUỒN TRÊN MÁY
+        ↓ git add
+   STAGING AREA
+        ↓ git commit
+ LOCAL REPOSITORY
+        ↓ git push
+GITHUB REPOSITORY
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

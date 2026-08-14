@@ -1,0 +1,1825 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Hands-on-03_PHP-MySQLi-Category-Listing/">
+      
+      
+        <link rel="next" href="../../guides/Mini-Hands-on_Git-Push-GitHub/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Hands-on 04 - Hands-on 04 – Xây dựng CRUD quản lý danh mục - Phát triển ứng dụng Web mã nguồn mở</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hands-on-04-xay-dung-crud-quan-ly-danh-muc" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-header__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Phát triển ứng dụng Web mã nguồn mở
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hands-on 04 - Hands-on 04 – Xây dựng CRUD quản lý danh mục
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-nav__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Phát triển ứng dụng Web mã nguồn mở
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chuẩn bị
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chuẩn bị
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preparation/Pre-Lab-00_Environment-Setup-Windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-Lab 00 - Chuẩn bị môi trường
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thực hành
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thực hành
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-01_PHP-Docker_Baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 01 - PHP và Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-02_MySQL-Database-Schema-Seed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 02 - MySQL-Database-Schema-Seed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-03_PHP-MySQLi-Category-Listing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 03 - PHP-MySQLi-Category-Listing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 04 - Hands-on 04 – Xây dựng CRUD quản lý danh mục
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 04 - Hands-on 04 – Xây dựng CRUD quản lý danh mục
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-ket-qua-au-vao-tu-hands-on-03" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Kết quả đầu vào từ Hands-on 03
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hướng dẫn
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hướng dẫn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/Mini-Hands-on_Git-Push-GitHub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git và GitHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-ket-qua-au-vao-tu-hands-on-03" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Kết quả đầu vào từ Hands-on 03
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hands-on-04-xay-dung-crud-quan-ly-danh-muc">Hands-on 04 – Xây dựng CRUD quản lý danh mục</h1>
+<h2 id="1-muc-tieu">1. Mục tiêu</h2>
+<p>Sau khi hoàn thành Hands-on này, người học có thể:</p>
+<ul>
+<li>giải thích khái niệm CRUD trong ứng dụng Web;</li>
+<li>phân biệt vai trò của HTTP <code>GET</code> và <code>POST</code> trong các thao tác dữ liệu cơ bản;</li>
+<li>nhận dữ liệu biểu mẫu bằng <code>$_POST</code>;</li>
+<li>thực hiện <code>INSERT</code>, <code>SELECT</code>, <code>UPDATE</code>, <code>DELETE</code> với MySQLi;</li>
+<li>sử dụng <strong>prepared statement</strong> và <code>bind_param()</code> khi đưa dữ liệu vào câu SQL;</li>
+<li>truyền mã danh mục qua URL khi cần xác định bản ghi để chỉnh sửa;</li>
+<li>sử dụng <code>input type="hidden"</code> để gửi mã bản ghi khi xóa;</li>
+<li>chuyển hướng người dùng bằng <code>header('Location: ...')</code>;</li>
+<li>giải thích vì sao thao tác xóa không nên được thực hiện trực tiếp bằng một liên kết GET;</li>
+<li>nhận biết ảnh hưởng của khóa ngoại khi xóa dữ liệu đang được bảng khác tham chiếu.</li>
+</ul>
+<blockquote>
+<p><strong>Nguyên tắc thực hành:</strong> Project được phát triển từng bước từ kết quả Hands-on 03. Với file đã tồn tại, chỉ sửa hoặc bổ sung phần cần thiết. Không thay toàn bộ file nếu chỉ cần thay một thuộc tính hoặc một đoạn mã nhỏ.</p>
+</blockquote>
+<hr />
+<h2 id="2-ket-qua-au-vao-tu-hands-on-03">2. Kết quả đầu vào từ Hands-on 03</h2>
+<p>Trang:</p>
+<pre><code class="language-text">http://localhost:8080/categories/
+</code></pre>
+<p>đã đọc dữ liệu từ bảng <code>categories</code> và hiển thị bằng Bootstrap.</p>
+<p>Cấu trúc liên quan:</p>
+<pre><code class="language-text">public/
+└── categories/
+    └── index.php
+
+src/
+├── config/
+│   └── database.php
+└── includes/
+    ├── header.php
+    ├── navbar.php
+    └── footer.php
+</code></pre>
+<p>Trong <code>index.php</code>, giao diện đã có các nút:</p>
+<pre><code class="language-text">Thêm danh mục
+Sửa
+Xóa
+</code></pre>
+<p>nhưng các nút này chưa thực hiện thao tác dữ liệu.</p>
+<hr />
+<h1 id="3-crud-la-gi">3. CRUD là gì?</h1>
+<p>CRUD là bốn thao tác cơ bản khi làm việc với dữ liệu:</p>
+<table>
+<thead>
+<tr>
+<th>CRUD</th>
+<th>SQL</th>
+<th>Chức năng trong bài</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create</td>
+<td><code>INSERT</code></td>
+<td>Thêm danh mục</td>
+</tr>
+<tr>
+<td>Read</td>
+<td><code>SELECT</code></td>
+<td>Xem danh sách danh mục</td>
+</tr>
+<tr>
+<td>Update</td>
+<td><code>UPDATE</code></td>
+<td>Sửa danh mục</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td><code>DELETE</code></td>
+<td>Xóa danh mục</td>
+</tr>
+</tbody>
+</table>
+<p>Phần <strong>Read</strong> đã được hoàn thành ở Hands-on 03.</p>
+<p>Trong Hands-on này, ta tiếp tục:</p>
+<pre><code class="language-text">Create
+   ↓
+Update
+   ↓
+Delete
+</code></pre>
+<hr />
+<h1 id="4-chuc-nang-create-them-danh-muc">4. Chức năng Create – Thêm danh mục</h1>
+<h2 id="41-tao-trang-them-danh-muc">4.1. Tạo trang thêm danh mục</h2>
+<h3 id="lenh-thuc-thi">Lệnh thực thi</h3>
+<pre><code class="language-cmd">type nul &gt; public\categories\create.php
+</code></pre>
+<p>Đây là file mới nên ta xây dựng đầy đủ nội dung.</p>
+<p>Mở <code>public/categories/create.php</code> và nhập:</p>
+<pre><code class="language-php">&lt;?php
+
+$pageTitle = 'Thêm danh mục';
+
+require_once '/var/www/src/includes/header.php';
+require_once '/var/www/src/includes/navbar.php';
+
+?&gt;
+
+&lt;div class=&quot;container mt-4&quot;&gt;
+
+    &lt;h2 class=&quot;mb-4&quot;&gt;Thêm danh mục&lt;/h2&gt;
+
+    &lt;form method=&quot;post&quot;&gt;
+
+        &lt;div class=&quot;mb-3&quot;&gt;
+            &lt;label for=&quot;categoryName&quot; class=&quot;form-label&quot;&gt;
+                Tên danh mục
+            &lt;/label&gt;
+
+            &lt;input
+                type=&quot;text&quot;
+                class=&quot;form-control&quot;
+                id=&quot;categoryName&quot;
+                name=&quot;category_name&quot;
+                required
+            &gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;mb-3&quot;&gt;
+            &lt;label for=&quot;description&quot; class=&quot;form-label&quot;&gt;
+                Mô tả
+            &lt;/label&gt;
+
+            &lt;textarea
+                class=&quot;form-control&quot;
+                id=&quot;description&quot;
+                name=&quot;description&quot;
+                rows=&quot;3&quot;
+            &gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+
+        &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;
+            Lưu
+        &lt;/button&gt;
+
+        &lt;a href=&quot;/categories/&quot; class=&quot;btn btn-secondary&quot;&gt;
+            Hủy
+        &lt;/a&gt;
+
+    &lt;/form&gt;
+
+&lt;/div&gt;
+
+&lt;?php
+
+require_once '/var/www/src/includes/footer.php';
+</code></pre>
+<h3 id="kien-thuc-moi">Kiến thức mới</h3>
+<pre><code class="language-html">&lt;form method=&quot;post&quot;&gt;
+</code></pre>
+<p>cho biết dữ liệu biểu mẫu sẽ được gửi bằng HTTP POST.</p>
+<p>Do không khai báo <code>action</code>, dữ liệu được gửi về chính:</p>
+<pre><code class="language-text">/categories/create.php
+</code></pre>
+<p>Luồng ban đầu:</p>
+<pre><code class="language-text">GET create.php
+      ↓
+hiển thị form
+      ↓
+người dùng nhập dữ liệu
+      ↓
+POST create.php
+</code></pre>
+<p>Hai thuộc tính:</p>
+<pre><code class="language-html">name=&quot;category_name&quot;
+name=&quot;description&quot;
+</code></pre>
+<p>xác định tên dữ liệu mà PHP sẽ nhận.</p>
+<p>Ví dụ:</p>
+<pre><code class="language-php">$_POST['category_name']
+$_POST['description']
+</code></pre>
+<p>Thuộc tính:</p>
+<pre><code class="language-html">required
+</code></pre>
+<p>yêu cầu trình duyệt kiểm tra trường tên danh mục trước khi gửi form.</p>
+<hr />
+<h1 id="5-lien-ket-nut-them-danh-muc">5. Liên kết nút “Thêm danh mục”</h1>
+<p><code>public/categories/index.php</code> đã tồn tại từ Hands-on 03. Vì vậy <strong>không thay toàn bộ thẻ hoặc toàn bộ file</strong>.</p>
+<p>Tìm nút <strong>Thêm danh mục</strong> đang có:</p>
+<pre><code class="language-text">href=&quot;#&quot;
+</code></pre>
+<p>Chỉ thay giá trị <code>href</code> bằng:</p>
+<pre><code class="language-text">/categories/create.php
+</code></pre>
+<p>Sau thay đổi, nhấn nút <strong>Thêm danh mục</strong> phải mở:</p>
+<pre><code class="language-text">http://localhost:8080/categories/create.php
+</code></pre>
+<h2 id="checkpoint-04-01">Checkpoint 04-01</h2>
+<p>Kiểm tra:</p>
+<pre><code class="language-text">[ ] create.php hiển thị
+[ ] nút Thêm danh mục đã liên kết tới create.php
+[ ] form có Tên danh mục
+[ ] form có Mô tả
+[ ] trường Tên danh mục có required
+[ ] nút Hủy quay về danh sách
+</code></pre>
+<p>Ở checkpoint này chưa ghi dữ liệu vào MySQL.</p>
+<hr />
+<h1 id="6-xu-ly-du-lieu-post">6. Xử lý dữ liệu POST</h1>
+<p>Bây giờ bổ sung phần xử lý vào <code>create.php</code>.</p>
+<h2 id="61-ket-noi-database">6.1. Kết nối database</h2>
+<p>Trong phần PHP ở đầu file, ngay sau:</p>
+<pre><code class="language-php">$pageTitle = 'Thêm danh mục';
+</code></pre>
+<p>thêm:</p>
+<pre><code class="language-php">require_once '/var/www/src/config/database.php';
+
+$error = '';
+</code></pre>
+<p><code>$error</code> dùng để lưu thông báo khi dữ liệu không hợp lệ hoặc không thể ghi vào database.</p>
+<hr />
+<h2 id="62-nhan-du-lieu-tu-form">6.2. Nhận dữ liệu từ form</h2>
+<p>Ngay sau phần trên, thêm:</p>
+<pre><code class="language-php">if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $categoryName = trim($_POST['category_name'] ?? '');
+    $description = trim($_POST['description'] ?? '');
+
+    if ($categoryName === '') {
+
+        $error = 'Tên danh mục không được để trống.';
+
+    } else {
+
+        // Phần INSERT sẽ bổ sung ở bước tiếp theo.
+
+    }
+}
+</code></pre>
+<h3 id="giai-thich">Giải thích</h3>
+<pre><code class="language-php">$_SERVER['REQUEST_METHOD']
+</code></pre>
+<p>cho biết phương thức HTTP của request.</p>
+<p>Điều kiện:</p>
+<pre><code class="language-php">$_SERVER['REQUEST_METHOD'] === 'POST'
+</code></pre>
+<p>chỉ xử lý dữ liệu khi người dùng thực sự gửi form.</p>
+<p>Toán tử:</p>
+<pre><code class="language-php">?? ''
+</code></pre>
+<p>cung cấp chuỗi rỗng nếu phần tử tương ứng không tồn tại.</p>
+<p>Hàm:</p>
+<pre><code class="language-php">trim(...)
+</code></pre>
+<p>loại bỏ khoảng trắng thừa ở đầu và cuối chuỗi.</p>
+<p>Ta vẫn kiểm tra:</p>
+<pre><code class="language-php">$categoryName === ''
+</code></pre>
+<p>ở phía server dù HTML đã có <code>required</code>.</p>
+<blockquote>
+<p>Kiểm tra ở trình duyệt giúp trải nghiệm người dùng tốt hơn; kiểm tra ở server mới là phần xử lý mà ứng dụng phải kiểm soát.</p>
+</blockquote>
+<hr />
+<h1 id="7-thuc-hien-insert-bang-prepared-statement">7. Thực hiện INSERT bằng prepared statement</h1>
+<p>Thay dòng chú thích:</p>
+<pre><code class="language-php">// Phần INSERT sẽ bổ sung ở bước tiếp theo.
+</code></pre>
+<p>bằng:</p>
+<pre><code class="language-php">$sql = &quot;
+    INSERT INTO categories
+        (CategoryName, Description)
+    VALUES
+        (?, ?)
+&quot;;
+
+$stmt = $conn-&gt;prepare($sql);
+
+$stmt-&gt;bind_param(
+    'ss',
+    $categoryName,
+    $description
+);
+
+if ($stmt-&gt;execute()) {
+
+    header('Location: /categories/');
+    exit;
+
+} else {
+
+    $error = 'Không thể thêm danh mục.';
+}
+
+$stmt-&gt;close();
+</code></pre>
+<h2 id="71-vi-sao-dung-dau">7.1. Vì sao dùng dấu <code>?</code></h2>
+<p>Trong câu SQL:</p>
+<pre><code class="language-sql">VALUES (?, ?)
+</code></pre>
+<p>hai dấu <code>?</code> là các <strong>placeholder</strong>.</p>
+<p>Ta không ghép trực tiếp dữ liệu người dùng vào chuỗi SQL.</p>
+<p>Dữ liệu được gắn sau bằng:</p>
+<pre><code class="language-php">$stmt-&gt;bind_param(
+    'ss',
+    $categoryName,
+    $description
+);
+</code></pre>
+<p>Trong đó:</p>
+<pre><code class="language-text">s → string
+s → string
+</code></pre>
+<p>Hai giá trị đều là chuỗi.</p>
+<p>Prepared statement giúp tách <strong>cấu trúc câu SQL</strong> khỏi <strong>dữ liệu đầu vào</strong>, đồng thời là biện pháp quan trọng để hạn chế SQL Injection.</p>
+<hr />
+<h1 id="8-hien-thi-loi-va-giu-lai-du-lieu-a-nhap">8. Hiển thị lỗi và giữ lại dữ liệu đã nhập</h1>
+<h2 id="81-hien-thi-thong-bao-loi">8.1. Hiển thị thông báo lỗi</h2>
+<p>Trong phần HTML của <code>create.php</code>, ngay dưới:</p>
+<pre><code class="language-html">&lt;h2 class=&quot;mb-4&quot;&gt;Thêm danh mục&lt;/h2&gt;
+</code></pre>
+<p>chèn:</p>
+<pre><code class="language-php">&lt;?php if ($error !== ''): ?&gt;
+
+    &lt;div class=&quot;alert alert-danger&quot;&gt;
+        &lt;?= htmlspecialchars($error) ?&gt;
+    &lt;/div&gt;
+
+&lt;?php endif; ?&gt;
+</code></pre>
+<hr />
+<h2 id="82-giu-lai-ten-danh-muc">8.2. Giữ lại tên danh mục</h2>
+<p>Trong thẻ <code>&lt;input&gt;</code> của tên danh mục, bổ sung thuộc tính:</p>
+<pre><code class="language-php">value=&quot;&lt;?= htmlspecialchars($_POST['category_name'] ?? '') ?&gt;&quot;
+</code></pre>
+<p>Không cần thay toàn bộ thẻ <code>&lt;input&gt;</code>.</p>
+<p>Mục đích: nếu server phát hiện lỗi, dữ liệu người dùng vừa nhập không bị mất khỏi form.</p>
+<hr />
+<h2 id="83-giu-lai-mo-ta">8.3. Giữ lại mô tả</h2>
+<p>Trong <code>&lt;textarea&gt;</code>, thay phần nội dung rỗng giữa thẻ mở và đóng bằng:</p>
+<pre><code class="language-php">&lt;?= htmlspecialchars($_POST['description'] ?? '') ?&gt;
+</code></pre>
+<p>Kết quả về ý nghĩa:</p>
+<pre><code class="language-text">POST không hợp lệ
+      ↓
+hiển thị lại form
+      ↓
+giữ dữ liệu người dùng vừa nhập
+</code></pre>
+<hr />
+<h1 id="9-redirect-sau-khi-them-thanh-cong">9. Redirect sau khi thêm thành công</h1>
+<p>Đoạn:</p>
+<pre><code class="language-php">header('Location: /categories/');
+exit;
+</code></pre>
+<p>yêu cầu trình duyệt chuyển về trang danh sách sau khi <code>INSERT</code> thành công.</p>
+<p>Luồng:</p>
+<pre><code class="language-text">POST create.php
+      ↓
+INSERT thành công
+      ↓
+Location: /categories/
+      ↓
+GET /categories/
+      ↓
+hiển thị danh sách mới
+</code></pre>
+<p><code>exit</code> kết thúc script ngay sau khi gửi lệnh chuyển hướng.</p>
+<hr />
+<h1 id="10-kiem-tra-create">10. Kiểm tra Create</h1>
+<p>Mở:</p>
+<pre><code class="language-text">http://localhost:8080/categories/create.php
+</code></pre>
+<p>Thử nhập:</p>
+<pre><code class="language-text">Tên danh mục: Thiết bị mạng
+Mô tả: Router, switch và các thiết bị mạng
+</code></pre>
+<p>Nhấn <strong>Lưu</strong>.</p>
+<p>Kết quả mong đợi:</p>
+<ol>
+<li>dữ liệu được thêm vào MySQL;</li>
+<li>trình duyệt quay về <code>/categories/</code>;</li>
+<li>danh mục mới xuất hiện trong bảng;</li>
+<li>tiếng Việt hiển thị đúng.</li>
+</ol>
+<h2 id="checkpoint-04-02">Checkpoint 04-02</h2>
+<pre><code class="language-text">[ ] PHP nhận dữ liệu bằng POST
+[ ] dữ liệu được trim
+[ ] server kiểm tra tên danh mục rỗng
+[ ] INSERT dùng prepared statement
+[ ] bind_param dùng kiểu ss
+[ ] INSERT thành công
+[ ] redirect về danh sách
+[ ] danh mục mới xuất hiện
+</code></pre>
+<hr />
+<h1 id="11-chuc-nang-update-sua-danh-muc">11. Chức năng Update – Sửa danh mục</h1>
+<p>Chức năng sửa cần biết <strong>bản ghi nào</strong> đang được chỉnh sửa.</p>
+<p>Ta sử dụng URL dạng:</p>
+<pre><code class="language-text">/categories/edit.php?id=2
+</code></pre>
+<p>Trong đó:</p>
+<pre><code class="language-text">id=2
+</code></pre>
+<p>xác định danh mục có <code>CategoryID = 2</code>.</p>
+<hr />
+<h1 id="12-cap-nhat-lien-ket-sua">12. Cập nhật liên kết “Sửa”</h1>
+<p>Trong <code>public/categories/index.php</code>, tìm nút <strong>Sửa</strong>.</p>
+<p>Hiện tại thuộc tính là:</p>
+<pre><code class="language-text">href=&quot;#&quot;
+</code></pre>
+<p>Chỉ thay giá trị <code>href</code> bằng:</p>
+<pre><code class="language-php">/categories/edit.php?id=&lt;?= $category['CategoryID'] ?&gt;
+</code></pre>
+<p>Không thay toàn bộ thẻ <code>&lt;a&gt;</code>.</p>
+<p>Sau thay đổi, mỗi dòng sẽ tạo URL khác nhau, ví dụ:</p>
+<pre><code class="language-text">/categories/edit.php?id=1
+/categories/edit.php?id=2
+/categories/edit.php?id=3
+</code></pre>
+<hr />
+<h1 id="13-tao-editphp">13. Tạo <code>edit.php</code></h1>
+<h3 id="lenh-thuc-thi_1">Lệnh thực thi</h3>
+<pre><code class="language-cmd">type nul &gt; public\categories\edit.php
+</code></pre>
+<p>Đây là file mới nên nhập đầy đủ nội dung:</p>
+<pre><code class="language-php">&lt;?php
+
+$pageTitle = 'Sửa danh mục';
+
+require_once '/var/www/src/config/database.php';
+
+$error = '';
+
+$categoryID = isset($_GET['id'])
+    ? (int) $_GET['id']
+    : 0;
+
+if ($categoryID &lt;= 0) {
+    die('Mã danh mục không hợp lệ.');
+}
+
+/*
+ * Đọc dữ liệu hiện tại của danh mục
+ */
+$sql = &quot;
+    SELECT
+        CategoryID,
+        CategoryName,
+        Description
+    FROM categories
+    WHERE CategoryID = ?
+&quot;;
+
+$stmt = $conn-&gt;prepare($sql);
+$stmt-&gt;bind_param('i', $categoryID);
+$stmt-&gt;execute();
+
+$result = $stmt-&gt;get_result();
+$category = $result-&gt;fetch_assoc();
+
+$stmt-&gt;close();
+
+if (!$category) {
+    die('Không tìm thấy danh mục.');
+}
+
+
+/*
+ * Xử lý khi người dùng gửi form
+ */
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $categoryName = trim($_POST['category_name'] ?? '');
+    $description = trim($_POST['description'] ?? '');
+
+    if ($categoryName === '') {
+
+        $error = 'Tên danh mục không được để trống.';
+
+    } else {
+
+        $sql = &quot;
+            UPDATE categories
+            SET
+                CategoryName = ?,
+                Description = ?
+            WHERE CategoryID = ?
+        &quot;;
+
+        $stmt = $conn-&gt;prepare($sql);
+
+        $stmt-&gt;bind_param(
+            'ssi',
+            $categoryName,
+            $description,
+            $categoryID
+        );
+
+        if ($stmt-&gt;execute()) {
+
+            header('Location: /categories/');
+            exit;
+
+        } else {
+
+            $error = 'Không thể cập nhật danh mục.';
+        }
+
+        $stmt-&gt;close();
+    }
+}
+
+require_once '/var/www/src/includes/header.php';
+require_once '/var/www/src/includes/navbar.php';
+
+?&gt;
+
+&lt;div class=&quot;container mt-4&quot;&gt;
+
+    &lt;h2 class=&quot;mb-4&quot;&gt;Sửa danh mục&lt;/h2&gt;
+
+    &lt;?php if ($error !== ''): ?&gt;
+
+        &lt;div class=&quot;alert alert-danger&quot;&gt;
+            &lt;?= htmlspecialchars($error) ?&gt;
+        &lt;/div&gt;
+
+    &lt;?php endif; ?&gt;
+
+    &lt;form method=&quot;post&quot;&gt;
+
+        &lt;div class=&quot;mb-3&quot;&gt;
+
+            &lt;label class=&quot;form-label&quot;&gt;
+                Mã danh mục
+            &lt;/label&gt;
+
+            &lt;input
+                type=&quot;text&quot;
+                class=&quot;form-control&quot;
+                value=&quot;&lt;?= $category['CategoryID'] ?&gt;&quot;
+                disabled
+            &gt;
+
+        &lt;/div&gt;
+
+        &lt;div class=&quot;mb-3&quot;&gt;
+
+            &lt;label for=&quot;categoryName&quot; class=&quot;form-label&quot;&gt;
+                Tên danh mục
+            &lt;/label&gt;
+
+            &lt;input
+                type=&quot;text&quot;
+                class=&quot;form-control&quot;
+                id=&quot;categoryName&quot;
+                name=&quot;category_name&quot;
+                value=&quot;&lt;?= htmlspecialchars(
+                    $_POST['category_name']
+                    ?? $category['CategoryName']
+                ) ?&gt;&quot;
+                required
+            &gt;
+
+        &lt;/div&gt;
+
+        &lt;div class=&quot;mb-3&quot;&gt;
+
+            &lt;label for=&quot;description&quot; class=&quot;form-label&quot;&gt;
+                Mô tả
+            &lt;/label&gt;
+
+            &lt;textarea
+                class=&quot;form-control&quot;
+                id=&quot;description&quot;
+                name=&quot;description&quot;
+                rows=&quot;3&quot;
+            &gt;&lt;?= htmlspecialchars(
+                $_POST['description']
+                ?? $category['Description']
+                ?? ''
+            ) ?&gt;&lt;/textarea&gt;
+
+        &lt;/div&gt;
+
+        &lt;button type=&quot;submit&quot; class=&quot;btn btn-warning&quot;&gt;
+            Cập nhật
+        &lt;/button&gt;
+
+        &lt;a href=&quot;/categories/&quot; class=&quot;btn btn-secondary&quot;&gt;
+            Hủy
+        &lt;/a&gt;
+
+    &lt;/form&gt;
+
+&lt;/div&gt;
+
+&lt;?php
+
+require_once '/var/www/src/includes/footer.php';
+
+$conn-&gt;close();
+</code></pre>
+<hr />
+<h1 id="14-phan-tich-luong-update">14. Phân tích luồng Update</h1>
+<h2 id="141-get-xac-inh-ban-ghi">14.1. GET xác định bản ghi</h2>
+<p>Ví dụ:</p>
+<pre><code class="language-text">GET /categories/edit.php?id=2
+</code></pre>
+<p>PHP đọc:</p>
+<pre><code class="language-php">$_GET['id']
+</code></pre>
+<p>sau đó chuyển sang số nguyên:</p>
+<pre><code class="language-php">(int) $_GET['id']
+</code></pre>
+<p>Nếu ID không hợp lệ:</p>
+<pre><code class="language-php">if ($categoryID &lt;= 0)
+</code></pre>
+<p>script dừng.</p>
+<hr />
+<h2 id="142-select-du-lieu-hien-tai">14.2. SELECT dữ liệu hiện tại</h2>
+<pre><code class="language-sql">SELECT
+    CategoryID,
+    CategoryName,
+    Description
+FROM categories
+WHERE CategoryID = ?
+</code></pre>
+<p>Prepared statement tiếp tục được sử dụng ngay cả khi ID đã được ép sang số nguyên.</p>
+<p>Kiểu:</p>
+<pre><code class="language-text">i → integer
+</code></pre>
+<p>được khai báo bằng:</p>
+<pre><code class="language-php">$stmt-&gt;bind_param('i', $categoryID);
+</code></pre>
+<hr />
+<h2 id="143-hien-thi-du-lieu-cu">14.3. Hiển thị dữ liệu cũ</h2>
+<p>Kết quả <code>SELECT</code> được lấy bằng:</p>
+<pre><code class="language-php">$category = $result-&gt;fetch_assoc();
+</code></pre>
+<p>Sau đó đưa vào form.</p>
+<p>Ví dụ:</p>
+<pre><code class="language-php">$category['CategoryName']
+</code></pre>
+<p>là tên danh mục hiện tại.</p>
+<hr />
+<h2 id="144-post-cap-nhat-du-lieu">14.4. POST cập nhật dữ liệu</h2>
+<p>Khi nhấn <strong>Cập nhật</strong>, request trở thành:</p>
+<pre><code class="language-text">POST /categories/edit.php?id=2
+</code></pre>
+<p>ID vẫn xác định bản ghi cần sửa; dữ liệu mới nằm trong <code>$_POST</code>.</p>
+<p>Câu SQL:</p>
+<pre><code class="language-sql">UPDATE categories
+SET
+    CategoryName = ?,
+    Description = ?
+WHERE CategoryID = ?
+</code></pre>
+<hr />
+<h2 id="145-y-nghia-ssi">14.5. Ý nghĩa <code>ssi</code></h2>
+<pre><code class="language-php">$stmt-&gt;bind_param(
+    'ssi',
+    $categoryName,
+    $description,
+    $categoryID
+);
+</code></pre>
+<p>Trong đó:</p>
+<pre><code class="language-text">s → CategoryName → string
+s → Description  → string
+i → CategoryID   → integer
+</code></pre>
+<hr />
+<h1 id="15-kiem-tra-update">15. Kiểm tra Update</h1>
+<p>Tại:</p>
+<pre><code class="language-text">http://localhost:8080/categories/
+</code></pre>
+<p>nhấn <strong>Sửa</strong> một danh mục.</p>
+<p>Ví dụ URL:</p>
+<pre><code class="language-text">http://localhost:8080/categories/edit.php?id=2
+</code></pre>
+<p>Kiểm tra form phải hiển thị dữ liệu hiện tại.</p>
+<p>Thay đổi tên hoặc mô tả rồi nhấn:</p>
+<pre><code class="language-text">Cập nhật
+</code></pre>
+<p>Kết quả mong đợi:</p>
+<pre><code class="language-text">GET edit.php?id=...
+       ↓
+SELECT dữ liệu cũ
+       ↓
+hiển thị form
+       ↓
+POST dữ liệu mới
+       ↓
+UPDATE
+       ↓
+redirect
+       ↓
+danh sách đã thay đổi
+</code></pre>
+<h2 id="checkpoint-04-03">Checkpoint 04-03</h2>
+<pre><code class="language-text">[ ] nút Sửa truyền đúng CategoryID
+[ ] edit.php đọc id từ GET
+[ ] ID được kiểm tra
+[ ] dữ liệu hiện tại được SELECT
+[ ] form hiển thị dữ liệu cũ
+[ ] UPDATE dùng prepared statement
+[ ] bind_param dùng ssi
+[ ] cập nhật thành công
+[ ] redirect về danh sách
+</code></pre>
+<hr />
+<h1 id="16-chuc-nang-delete-xoa-danh-muc">16. Chức năng Delete – Xóa danh mục</h1>
+<p>Không nên thiết kế thao tác xóa bằng URL như:</p>
+<pre><code class="language-text">/categories/delete.php?id=4
+</code></pre>
+<p>rồi xóa dữ liệu ngay khi URL được truy cập.</p>
+<p>Trong bài này ta sử dụng:</p>
+<pre><code class="language-text">POST → delete.php
+</code></pre>
+<p>thay vì:</p>
+<pre><code class="language-text">GET → delete.php?id=...
+</code></pre>
+<hr />
+<h1 id="17-thay-nut-xoa-bang-form-post">17. Thay nút Xóa bằng form POST</h1>
+<p>Ở bước này thay đổi nhiều hơn một thuộc tính vì phần tử ban đầu là liên kết <code>&lt;a&gt;</code>, trong khi thao tác xóa cần một <code>&lt;form method="post"&gt;</code>.</p>
+<p>Trong <code>public/categories/index.php</code>, <strong>chỉ tìm đúng thẻ nút Xóa hiện tại</strong>:</p>
+<pre><code class="language-php">&lt;a href=&quot;#&quot; class=&quot;btn btn-sm btn-danger&quot;&gt;
+    Xóa
+&lt;/a&gt;
+</code></pre>
+<p>Thay <strong>riêng thẻ này</strong> bằng:</p>
+<pre><code class="language-php">&lt;form
+    action=&quot;/categories/delete.php&quot;
+    method=&quot;post&quot;
+    class=&quot;d-inline&quot;
+    onsubmit=&quot;return confirm('Bạn có chắc muốn xóa danh mục này?');&quot;
+&gt;
+    &lt;input
+        type=&quot;hidden&quot;
+        name=&quot;id&quot;
+        value=&quot;&lt;?= $category['CategoryID'] ?&gt;&quot;
+    &gt;
+
+    &lt;button
+        type=&quot;submit&quot;
+        class=&quot;btn btn-sm btn-danger&quot;
+    &gt;
+        Xóa
+    &lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Không thay các phần còn lại của <code>index.php</code>.</p>
+<hr />
+<h1 id="18-phan-tich-form-xoa">18. Phân tích form xóa</h1>
+<h2 id="181-gui-bang-post">18.1. Gửi bằng POST</h2>
+<pre><code class="language-html">method=&quot;post&quot;
+</code></pre>
+<p>cho biết đây là thao tác làm thay đổi dữ liệu.</p>
+<p>Ở mức cơ bản của Hands-on:</p>
+<pre><code class="language-text">GET
+→ đọc/truy cập dữ liệu
+
+POST
+→ gửi dữ liệu để thực hiện thay đổi
+</code></pre>
+<hr />
+<h2 id="182-hidden-input">18.2. Hidden input</h2>
+<pre><code class="language-html">&lt;input
+    type=&quot;hidden&quot;
+    name=&quot;id&quot;
+    value=&quot;&lt;?= $category['CategoryID'] ?&gt;&quot;
+&gt;
+</code></pre>
+<p>ID cần được gửi đến server nhưng người dùng không cần nhập lại.</p>
+<p>PHP sẽ đọc bằng:</p>
+<pre><code class="language-php">$_POST['id']
+</code></pre>
+<hr />
+<h2 id="183-xac-nhan-truoc-khi-xoa">18.3. Xác nhận trước khi xóa</h2>
+<pre><code class="language-html">onsubmit=&quot;return confirm('Bạn có chắc muốn xóa danh mục này?');&quot;
+</code></pre>
+<p>Nếu người dùng chọn <strong>Cancel</strong>, form không được gửi.</p>
+<p>Nếu chọn <strong>OK</strong>, form gửi POST tới <code>delete.php</code>.</p>
+<blockquote>
+<p><code>confirm()</code> chỉ là bước xác nhận phía giao diện. Quyết định xử lý dữ liệu vẫn phải được thực hiện ở phía server.</p>
+</blockquote>
+<hr />
+<h1 id="19-tao-deletephp">19. Tạo <code>delete.php</code></h1>
+<h3 id="lenh-thuc-thi_2">Lệnh thực thi</h3>
+<pre><code class="language-cmd">type nul &gt; public\categories\delete.php
+</code></pre>
+<p>Nhập:</p>
+<pre><code class="language-php">&lt;?php
+
+require_once '/var/www/src/config/database.php';
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Location: /categories/');
+    exit;
+}
+
+$categoryID = isset($_POST['id'])
+    ? (int) $_POST['id']
+    : 0;
+
+if ($categoryID &lt;= 0) {
+    header('Location: /categories/');
+    exit;
+}
+
+$sql = &quot;
+    DELETE FROM categories
+    WHERE CategoryID = ?
+&quot;;
+
+$stmt = $conn-&gt;prepare($sql);
+$stmt-&gt;bind_param('i', $categoryID);
+
+$stmt-&gt;execute();
+
+$stmt-&gt;close();
+$conn-&gt;close();
+
+header('Location: /categories/');
+exit;
+</code></pre>
+<hr />
+<h1 id="20-phan-tich-xu-ly-delete">20. Phân tích xử lý Delete</h1>
+<h2 id="201-chi-chap-nhan-post">20.1. Chỉ chấp nhận POST</h2>
+<pre><code class="language-php">if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Location: /categories/');
+    exit;
+}
+</code></pre>
+<p>Nếu người dùng cố mở trực tiếp:</p>
+<pre><code class="language-text">/categories/delete.php
+</code></pre>
+<p>bằng GET, script không xóa dữ liệu mà chuyển về danh sách.</p>
+<hr />
+<h2 id="202-nhan-id">20.2. Nhận ID</h2>
+<pre><code class="language-php">$categoryID = isset($_POST['id'])
+    ? (int) $_POST['id']
+    : 0;
+</code></pre>
+<p>ID được lấy từ hidden input và chuyển sang số nguyên.</p>
+<hr />
+<h2 id="203-delete-bang-prepared-statement">20.3. DELETE bằng prepared statement</h2>
+<pre><code class="language-sql">DELETE FROM categories
+WHERE CategoryID = ?
+</code></pre>
+<p>và:</p>
+<pre><code class="language-php">$stmt-&gt;bind_param('i', $categoryID);
+</code></pre>
+<p>tiếp tục áp dụng cùng nguyên tắc đã học ở Create và Update.</p>
+<hr />
+<h1 id="21-kiem-tra-delete">21. Kiểm tra Delete</h1>
+<p>Nên thử với danh mục vừa tạo trong phần Create, ví dụ:</p>
+<pre><code class="language-text">Thiết bị mạng
+</code></pre>
+<p>Mở:</p>
+<pre><code class="language-text">http://localhost:8080/categories/
+</code></pre>
+<p>Nhấn <strong>Xóa</strong>.</p>
+<p>Luồng mong đợi:</p>
+<pre><code class="language-text">[Xóa]
+  ↓
+confirm()
+  ↓
+OK
+  ↓
+POST delete.php
+  ↓
+DELETE
+  ↓
+redirect
+  ↓
+danh mục biến mất
+</code></pre>
+<h2 id="checkpoint-04-04">Checkpoint 04-04</h2>
+<pre><code class="language-text">[ ] nút Xóa gửi bằng POST
+[ ] CategoryID được gửi bằng hidden input
+[ ] có hộp xác nhận
+[ ] delete.php chỉ chấp nhận POST
+[ ] ID được kiểm tra
+[ ] DELETE dùng prepared statement
+[ ] xóa được danh mục thử nghiệm
+[ ] redirect về danh sách
+</code></pre>
+<hr />
+<h1 id="22-truong-hop-khong-the-xoa-do-khoa-ngoai">22. Trường hợp không thể xóa do khóa ngoại</h1>
+<p>Bảng <code>products</code> có thể chứa các sản phẩm đang tham chiếu đến <code>categories</code>.</p>
+<p>Ví dụ:</p>
+<pre><code class="language-text">categories
+CategoryID = 1
+      ↑
+      │
+products
+CategoryID = 1
+</code></pre>
+<p>Nếu cố xóa danh mục đang được sản phẩm sử dụng, MySQL có thể từ chối thao tác để bảo vệ tính toàn vẹn tham chiếu.</p>
+<p>Điều này giúp tránh tình trạng:</p>
+<pre><code class="language-text">sản phẩm còn tồn tại
+       ↓
+CategoryID trỏ tới danh mục không còn tồn tại
+</code></pre>
+<p>Vì vậy khi thử Delete trong Hands-on này, nên xóa <strong>danh mục thử nghiệm vừa tạo</strong>, thay vì xóa các danh mục seed đang được sản phẩm sử dụng.</p>
+<blockquote>
+<p>Ở phiên bản hiện tại, Hands-on chưa xây dựng giao diện xử lý lỗi khóa ngoại hoàn chỉnh. Mục tiêu ở đây là nhận biết vai trò của ràng buộc dữ liệu. Việc xử lý lỗi thân thiện hơn có thể được bổ sung khi ứng dụng được hoàn thiện.</p>
+</blockquote>
+<hr />
+<h1 id="23-tong-hop-luong-crud">23. Tổng hợp luồng CRUD</h1>
+<p>Sau Hands-on 04:</p>
+<pre><code class="language-text">                 categories
+                     │
+       ┌─────────────┼─────────────┐
+       │             │             │
+     INSERT        SELECT        UPDATE
+       │             │             │
+       ↓             ↓             ↓
+    Create          Read         Update
+       │                           │
+       └─────────────┬─────────────┘
+                     │
+                   DELETE
+                     ↓
+                   Delete
+</code></pre>
+<p>Hay ngắn gọn:</p>
+<pre><code class="language-text">Create  → INSERT
+Read    → SELECT
+Update  → UPDATE
+Delete  → DELETE
+</code></pre>
+<hr />
+<h1 id="24-kiem-tra-truoc-khi-commit">24. Kiểm tra trước khi commit</h1>
+<h3 id="lenh-thuc-thi_3">Lệnh thực thi</h3>
+<pre><code class="language-cmd">git status
+git diff
+</code></pre>
+<p>Các thay đổi chính dự kiến:</p>
+<pre><code class="language-text">public/categories/index.php
+public/categories/create.php
+public/categories/edit.php
+public/categories/delete.php
+</code></pre>
+<p>Kiểm tra lại:</p>
+<pre><code class="language-text">http://localhost:8080/categories/
+</code></pre>
+<p>và thử lần lượt:</p>
+<pre><code class="language-text">Thêm
+Sửa
+Xóa
+</code></pre>
+<hr />
+<h1 id="25-commit-va-push-len-github">25. Commit và push lên GitHub</h1>
+<h3 id="stage">Stage</h3>
+<pre><code class="language-cmd">git add .
+git status
+</code></pre>
+<h3 id="commit">Commit</h3>
+<pre><code class="language-cmd">git commit -m &quot;Add category CRUD operations&quot;
+</code></pre>
+<h3 id="push">Push</h3>
+<pre><code class="language-cmd">git push
+</code></pre>
+<h3 id="kiem-tra">Kiểm tra</h3>
+<pre><code class="language-cmd">git status
+git log -1 --oneline
+</code></pre>
+<p>Kết quả checkpoint của bài thực hành:</p>
+<pre><code class="language-text">3f3e863 Add category CRUD operations
+</code></pre>
+<p>và:</p>
+<pre><code class="language-text">nothing to commit, working tree clean
+</code></pre>
+<hr />
+<h1 id="26-checkpoint-hands-on-04">26. Checkpoint Hands-on 04</h1>
+<pre><code class="language-text">[ ] Create hoạt động
+[ ] Read hoạt động
+[ ] Update hoạt động
+[ ] Delete hoạt động
+[ ] dữ liệu form được nhận bằng POST
+[ ] INSERT dùng prepared statement
+[ ] UPDATE dùng prepared statement
+[ ] DELETE dùng prepared statement
+[ ] hiểu ý nghĩa s, i trong bind_param()
+[ ] thao tác xóa không dùng GET trực tiếp
+[ ] có xác nhận trước khi xóa
+[ ] hiểu vai trò của hidden input
+[ ] hiểu vai trò của redirect
+[ ] nhận biết ảnh hưởng của khóa ngoại
+[ ] dữ liệu tiếng Việt hiển thị đúng
+[ ] Git working tree clean
+[ ] đã push commit lên GitHub
+</code></pre>
+<hr />
+<h1 id="27-kien-thuc-can-ghi-nho">27. Kiến thức cần ghi nhớ</h1>
+<h3 id="get-va-post">GET và POST</h3>
+<pre><code class="language-text">GET
+→ thường dùng để lấy/truy cập tài nguyên
+
+POST
+→ gửi dữ liệu để thực hiện xử lý/thay đổi
+</code></pre>
+<p>Trong CRUD thực tế còn có các HTTP method khác như <code>PUT</code>, <code>PATCH</code>, <code>DELETE</code>. Chúng sẽ phù hợp hơn khi xây dựng REST API ở các Hands-on sau.</p>
+<h3 id="_get"><code>$_GET</code></h3>
+<p>Đọc dữ liệu truyền qua query string:</p>
+<pre><code class="language-text">edit.php?id=2
+</code></pre>
+<pre><code class="language-php">$_GET['id']
+</code></pre>
+<h3 id="_post"><code>$_POST</code></h3>
+<p>Đọc dữ liệu gửi từ form:</p>
+<pre><code class="language-php">$_POST['category_name']
+</code></pre>
+<h3 id="prepared-statement">Prepared statement</h3>
+<p>Thay vì ghép dữ liệu vào SQL:</p>
+<pre><code class="language-text">SQL + dữ liệu người dùng
+</code></pre>
+<p>ta dùng:</p>
+<pre><code class="language-text">SQL có placeholder
+        ↓
+prepare()
+        ↓
+bind_param()
+        ↓
+execute()
+</code></pre>
+<h3 id="bind_param"><code>bind_param()</code></h3>
+<p>Một số kiểu thường gặp:</p>
+<pre><code class="language-text">s → string
+i → integer
+d → double
+</code></pre>
+<p>Ví dụ:</p>
+<pre><code class="language-php">'ssi'
+</code></pre>
+<p>có nghĩa:</p>
+<pre><code class="language-text">string
+string
+integer
+</code></pre>
+<h3 id="redirect">Redirect</h3>
+<pre><code class="language-php">header('Location: /categories/');
+exit;
+</code></pre>
+<p>chuyển người dùng về trang danh sách sau khi xử lý thành công.</p>
+<h3 id="khoa-ngoai">Khóa ngoại</h3>
+<p>Khóa ngoại giúp bảo vệ mối quan hệ giữa các bảng và ngăn một số thao tác có thể làm dữ liệu mất tính nhất quán.</p>
+<hr />
+<h1 id="28-tu-trang-web-ong-en-crud">28. Từ trang Web động đến CRUD</h1>
+<p>Hands-on 03 đã chuyển:</p>
+<pre><code class="language-text">HTML tĩnh
+   ↓
+PHP + MySQL
+   ↓
+dữ liệu động
+</code></pre>
+<p>Hands-on 04 tiếp tục:</p>
+<pre><code class="language-text">dữ liệu động
+   ↓
+Create
+Read
+Update
+Delete
+   ↓
+ứng dụng quản lý dữ liệu
+</code></pre>
+<p>Điểm quan trọng không chỉ là các nút <strong>Thêm – Sửa – Xóa</strong> hoạt động, mà là hiểu được mỗi thao tác giao diện được ánh xạ như thế nào sang HTTP, PHP, MySQLi và SQL.</p>
+<hr />
+<h1 id="29-chuan-bi-cho-hands-on-tiep-theo">29. Chuẩn bị cho Hands-on tiếp theo</h1>
+<p>Sau khi CRUD Category hoàn chỉnh, project đã có nền tảng để phát triển các chức năng có quan hệ dữ liệu phức tạp hơn.</p>
+<p>Ở các bước tiếp theo, có thể mở rộng sang quản lý <strong>sản phẩm</strong>, nơi người học sẽ phải làm việc với:</p>
+<pre><code class="language-text">products
+   ↓
+CategoryID
+   ↓
+categories
+</code></pre>
+<p>và các vấn đề mới như:</p>
+<pre><code class="language-text">khóa ngoại
+JOIN
+chọn danh mục
+giá sản phẩm
+tồn kho
+hình ảnh sản phẩm
+</code></pre>
+<p>Đây là bước tiếp theo để chuyển từ CRUD một bảng độc lập sang xử lý dữ liệu có quan hệ trong ứng dụng bán hàng.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

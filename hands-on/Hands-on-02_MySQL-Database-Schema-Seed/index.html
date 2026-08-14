@@ -1,0 +1,1336 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Hands-on-01_PHP-Docker_Baseline/">
+      
+      
+        <link rel="next" href="../Hands-on-03_PHP-MySQLi-Category-Listing/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Hands-on 02 - MySQL-Database-Schema-Seed - Phát triển ứng dụng Web mã nguồn mở</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hands-on-02-xay-dung-co-so-du-lieu-mysql-va-du-lieu-mau" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-header__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Phát triển ứng dụng Web mã nguồn mở
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hands-on 02 - MySQL-Database-Schema-Seed
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-nav__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Phát triển ứng dụng Web mã nguồn mở
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chuẩn bị
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chuẩn bị
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preparation/Pre-Lab-00_Environment-Setup-Windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-Lab 00 - Chuẩn bị môi trường
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thực hành
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thực hành
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-01_PHP-Docker_Baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 01 - PHP và Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 02 - MySQL-Database-Schema-Seed
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 02 - MySQL-Database-Schema-Seed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-ket-qua-can-at" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Kết quả cần đạt
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-03_PHP-MySQLi-Category-Listing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 03 - PHP-MySQLi-Category-Listing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-04_Category-CRUD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 04 - Hands-on 04 – Xây dựng CRUD quản lý danh mục
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hướng dẫn
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hướng dẫn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/Mini-Hands-on_Git-Push-GitHub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git và GitHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-ket-qua-can-at" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Kết quả cần đạt
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hands-on-02-xay-dung-co-so-du-lieu-mysql-va-du-lieu-mau">Hands-on 02: Xây dựng cơ sở dữ liệu MySQL và dữ liệu mẫu</h1>
+<h2 id="1-muc-tieu">1. Mục tiêu</h2>
+<p>Sau khi hoàn thành Hands-on 02, người học có thể:</p>
+<ul>
+<li>Bổ sung MySQL vào dự án PHP bằng Docker Compose.</li>
+<li>Hiểu mô hình nhiều service <code>web</code> và <code>db</code>.</li>
+<li>Quản lý cấu hình bằng <code>.env</code>, <code>.env.example</code> và <code>.gitignore</code>.</li>
+<li>Sử dụng named volume để lưu dữ liệu MySQL.</li>
+<li>Chuyển mô hình dữ liệu thành các bảng quan hệ bằng <code>schema.sql</code>.</li>
+<li>Sử dụng khóa chính, khóa ngoại và các ràng buộc dữ liệu cơ bản.</li>
+<li>Chuẩn hóa dữ liệu tiếng Việt với <code>utf8mb4</code>.</li>
+<li>Quản lý nhiều hình ảnh cho một sản phẩm.</li>
+<li>Tạo dữ liệu mẫu bằng <code>seed.sql</code>.</li>
+<li>Cho MySQL tự động chạy <code>schema.sql</code> và <code>seed.sql</code> khi khởi tạo.</li>
+<li>Kiểm tra cấu trúc, dữ liệu và commit/push checkpoint lên GitHub.</li>
+</ul>
+<blockquote>
+<p><strong>Phạm vi Hands-on 02:</strong> dừng ở việc hoàn thành cơ sở dữ liệu và nạp dữ liệu mẫu. Kết nối PHP với MySQL bằng MySQLi sẽ thực hiện ở Hands-on tiếp theo.</p>
+</blockquote>
+<hr />
+<h2 id="2-ket-qua-can-at">2. Kết quả cần đạt</h2>
+<pre><code class="language-text">php-mysql-sales/
+├── database/
+│   ├── schema.sql
+│   └── seed.sql
+├── docker/
+│   └── php/
+│       └── Dockerfile
+├── public/
+│   └── index.php
+├── src/
+│   ├── config/
+│   └── includes/
+├── .env
+├── .env.example
+├── .gitignore
+├── compose.yaml
+└── README.md
+</code></pre>
+<p>MySQL có 9 bảng:</p>
+<pre><code class="language-text">categories
+suppliers
+customers
+employees
+shippers
+products
+product_images
+orders
+orderdetail
+</code></pre>
+<hr />
+<h1 id="3-khoi-ong-lai-du-an">3. Khởi động lại dự án</h1>
+<h2 id="muc-ich">Mục đích</h2>
+<p>Kiểm tra source code và khởi động lại môi trường Docker sau khi mở máy.</p>
+<h2 id="lenh-thuc-thi">Lệnh thực thi</h2>
+<pre><code class="language-cmd">cd /d D:\PTUDW-ST-2026\php-mysql-sales
+git status
+docker compose up -d
+docker compose ps
+</code></pre>
+<h2 id="ket-qua-mong-oi">Kết quả mong đợi</h2>
+<p>Service <code>web</code> hoạt động và <code>http://localhost:8080</code> truy cập bình thường.</p>
+<h2 id="giai-thich">Giải thích</h2>
+<ul>
+<li><code>git status</code>: kiểm tra trạng thái mã nguồn.</li>
+<li><code>docker compose up -d</code>: tạo/khởi động service và chạy nền.</li>
+<li><code>docker compose ps</code>: xem trạng thái container.</li>
+</ul>
+<h2 id="checkpoint">Checkpoint</h2>
+<ul>
+<li>[ ] Đúng thư mục dự án.</li>
+<li>[ ] Git hoạt động bình thường.</li>
+<li>[ ] <code>web</code> đang Up.</li>
+<li>[ ] <code>http://localhost:8080</code> hoạt động.</li>
+</ul>
+<hr />
+<h1 id="4-cau-hinh-moi-truong-mysql">4. Cấu hình môi trường MySQL</h1>
+<h2 id="muc-ich_1">Mục đích</h2>
+<p>Tách thông tin cấu hình khỏi <code>compose.yaml</code> để dễ thay đổi giữa các môi trường.</p>
+<p>Tạo <code>.env</code>:</p>
+<pre><code class="language-env">MYSQL_ROOT_PASSWORD=root
+MYSQL_DATABASE=ql_banhang
+MYSQL_USER=appuser
+MYSQL_PASSWORD=apppassword
+</code></pre>
+<p>Cập nhật <code>.env.example</code> với các biến tương ứng:</p>
+<pre><code class="language-env">MYSQL_ROOT_PASSWORD=root
+MYSQL_DATABASE=ql_banhang
+MYSQL_USER=appuser
+MYSQL_PASSWORD=apppassword
+</code></pre>
+<h2 id="giai-thich_1">Giải thích</h2>
+<table>
+<thead>
+<tr>
+<th>Biến</th>
+<th>Ý nghĩa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MYSQL_ROOT_PASSWORD</code></td>
+<td>Mật khẩu tài khoản quản trị MySQL</td>
+</tr>
+<tr>
+<td><code>MYSQL_DATABASE</code></td>
+<td>Database được tạo khi MySQL khởi tạo</td>
+</tr>
+<tr>
+<td><code>MYSQL_USER</code></td>
+<td>Tài khoản dành cho ứng dụng</td>
+</tr>
+<tr>
+<td><code>MYSQL_PASSWORD</code></td>
+<td>Mật khẩu của tài khoản ứng dụng</td>
+</tr>
+</tbody>
+</table>
+<p><code>.env</code> là cấu hình cục bộ, còn <code>.env.example</code> là mẫu cấu hình được đưa lên GitHub.</p>
+<hr />
+<h1 id="5-cap-nhat-gitignore">5. Cập nhật <code>.gitignore</code></h1>
+<h2 id="noi-dung-can-them">Nội dung cần thêm</h2>
+<pre><code class="language-gitignore"># Local environment configuration
+.env
+</code></pre>
+<h2 id="giai-thich_2">Giải thích</h2>
+<pre><code class="language-text">.env         → cấu hình riêng → không commit
+.env.example → mẫu cấu hình  → được commit
+</code></pre>
+<p>Trong các hands-on sau, <code>.gitignore</code> chỉ được bổ sung khi thực tế phát sinh file/thư mục cần bỏ qua.</p>
+<hr />
+<h1 id="6-cau-hinh-mysql-va-named-volume-trong-composeyaml">6. Cấu hình MySQL và named volume trong <code>compose.yaml</code></h1>
+<pre><code class="language-yaml">services:
+  web:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    ports:
+      - &quot;8080:80&quot;
+    volumes:
+      - ./public:/var/www/html
+
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+
+volumes:
+  mysql_data:
+</code></pre>
+<blockquote>
+<p>Nếu <code>schema.sql</code> và <code>seed.sql</code> chưa được tạo tại thời điểm cấu hình service <code>db</code>, bổ sung hai dòng mount tương ứng sau khi tạo hai file này.</p>
+</blockquote>
+<h2 id="giai-thich_3">Giải thích <code>${...}</code></h2>
+<pre><code class="language-yaml">MYSQL_DATABASE: ${MYSQL_DATABASE}
+</code></pre>
+<p>Docker Compose lấy giá trị từ <code>.env</code>:</p>
+<pre><code class="language-text">.env → compose.yaml → MySQL container
+</code></pre>
+<h2 id="giai-thich-named-volume">Giải thích named volume</h2>
+<pre><code class="language-yaml">- mysql_data:/var/lib/mysql
+</code></pre>
+<p><code>/var/lib/mysql</code> là nơi MySQL lưu dữ liệu. <code>mysql_data</code> là named volume được Docker quản lý bên ngoài vòng đời container.</p>
+<p>Hai dòng cuối:</p>
+<pre><code class="language-yaml">volumes:
+  mysql_data:
+</code></pre>
+<p>khai báo named volume ở cấp Compose project.</p>
+<h3 id="phan-biet-hai-lenh">Phân biệt hai lệnh</h3>
+<pre><code class="language-cmd">docker compose down
+</code></pre>
+<p>Xóa container/network nhưng giữ volume.</p>
+<pre><code class="language-cmd">docker compose down -v
+</code></pre>
+<p>Xóa cả named volume.</p>
+<blockquote>
+<p><strong>Cảnh báo:</strong> <code>-v</code> làm mất dữ liệu trong volume. Chỉ dùng khi chủ động muốn khởi tạo lại database từ đầu.</p>
+</blockquote>
+<hr />
+<h1 id="7-tao-databaseschemasql">7. Tạo <code>database/schema.sql</code></h1>
+<h2 id="muc-ich_2">Mục đích</h2>
+<p><code>schema.sql</code> lưu cấu trúc CSDL dưới dạng mã nguồn để database có thể được tái tạo trên máy khác.</p>
+<h2 id="lenh-thuc-thi_1">Lệnh thực thi</h2>
+<p>Nếu cần tạo thư mục:</p>
+<pre><code class="language-cmd">mkdir database
+</code></pre>
+<p>Tạo file:</p>
+<pre><code class="language-cmd">type nul &gt; database\schema.sql
+</code></pre>
+<h2 id="noi-dung-schemasql">Nội dung <code>schema.sql</code></h2>
+<blockquote>
+<p>Lưu file bằng <strong>UTF-8</strong>.</p>
+</blockquote>
+<pre><code class="language-sql">SET NAMES utf8mb4;
+
+CREATE TABLE categories (
+    CategoryID INT AUTO_INCREMENT PRIMARY KEY,
+    CategoryName VARCHAR(200) NOT NULL,
+    Description TEXT
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE suppliers (
+    SupplierID INT AUTO_INCREMENT PRIMARY KEY,
+    SupplierName VARCHAR(200) NOT NULL,
+    ContactName VARCHAR(100),
+    Address VARCHAR(200),
+    City VARCHAR(100),
+    PostalCode VARCHAR(20),
+    Country VARCHAR(100),
+    Phone VARCHAR(20)
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE customers (
+    CustomerID INT AUTO_INCREMENT PRIMARY KEY,
+    CustomerName VARCHAR(100) NOT NULL,
+    ContactName VARCHAR(100),
+    Address VARCHAR(200),
+    City VARCHAR(100),
+    PostalCode VARCHAR(20),
+    Country VARCHAR(100)
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE employees (
+    EmployeeID INT AUTO_INCREMENT PRIMARY KEY,
+    LastName VARCHAR(50) NOT NULL,
+    FirstName VARCHAR(50) NOT NULL,
+    BirthDate DATE,
+    Photo VARCHAR(255),
+    Notes TEXT
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE shippers (
+    ShipperID INT AUTO_INCREMENT PRIMARY KEY,
+    ShipperName VARCHAR(100) NOT NULL,
+    Phone VARCHAR(20)
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE products (
+    ProductID INT AUTO_INCREMENT PRIMARY KEY,
+    ProductCode VARCHAR(50) NOT NULL UNIQUE,
+    ProductName VARCHAR(255) NOT NULL,
+    Description TEXT,
+    Unit VARCHAR(20),
+    Price DECIMAL(12,2) NOT NULL DEFAULT 0,
+    StockQuantity INT NOT NULL DEFAULT 0,
+    IsActive BOOLEAN NOT NULL DEFAULT TRUE,
+    SupplierID INT,
+    CategoryID INT,
+
+    CONSTRAINT chk_products_price CHECK (Price &gt;= 0),
+    CONSTRAINT chk_products_stock CHECK (StockQuantity &gt;= 0),
+    CONSTRAINT fk_products_supplier
+        FOREIGN KEY (SupplierID) REFERENCES suppliers(SupplierID),
+    CONSTRAINT fk_products_category
+        FOREIGN KEY (CategoryID) REFERENCES categories(CategoryID)
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE product_images (
+    ProductImageID INT AUTO_INCREMENT PRIMARY KEY,
+    ProductID INT NOT NULL,
+    ImageFile VARCHAR(255) NOT NULL,
+    AltText VARCHAR(255),
+    IsPrimary BOOLEAN NOT NULL DEFAULT FALSE,
+    SortOrder INT NOT NULL DEFAULT 0,
+
+    CONSTRAINT uq_product_image UNIQUE (ProductID, ImageFile),
+    CONSTRAINT chk_product_image_sort CHECK (SortOrder &gt;= 0),
+    CONSTRAINT fk_product_images_product
+        FOREIGN KEY (ProductID)
+        REFERENCES products(ProductID)
+        ON DELETE CASCADE
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE orders (
+    OrderID INT AUTO_INCREMENT PRIMARY KEY,
+    OrderDate DATE NOT NULL,
+    CustomerID INT,
+    EmployeeID INT,
+    ShipperID INT,
+
+    CONSTRAINT fk_orders_customer
+        FOREIGN KEY (CustomerID) REFERENCES customers(CustomerID),
+    CONSTRAINT fk_orders_employee
+        FOREIGN KEY (EmployeeID) REFERENCES employees(EmployeeID),
+    CONSTRAINT fk_orders_shipper
+        FOREIGN KEY (ShipperID) REFERENCES shippers(ShipperID)
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE orderdetail (
+    OrderDetailID INT AUTO_INCREMENT PRIMARY KEY,
+    Quantity INT NOT NULL,
+    UnitPrice DECIMAL(12,2) NOT NULL,
+    OrderID INT NOT NULL,
+    ProductID INT NOT NULL,
+
+    CONSTRAINT chk_orderdetail_quantity CHECK (Quantity &gt; 0),
+    CONSTRAINT chk_orderdetail_unitprice CHECK (UnitPrice &gt;= 0),
+    CONSTRAINT fk_orderdetail_order
+        FOREIGN KEY (OrderID)
+        REFERENCES orders(OrderID)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_orderdetail_product
+        FOREIGN KEY (ProductID) REFERENCES products(ProductID)
+) CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+</code></pre>
+<hr />
+<h1 id="8-giai-thich-thiet-ke-database">8. Giải thích thiết kế database</h1>
+<p>Các bảng độc lập được tạo trước (<code>categories</code>, <code>suppliers</code>, <code>customers</code>, <code>employees</code>, <code>shippers</code>), sau đó mới đến các bảng có khóa ngoại (<code>products</code>, <code>product_images</code>, <code>orders</code>, <code>orderdetail</code>).</p>
+<p><code>ProductID</code> là khóa kỹ thuật, còn <code>ProductCode</code> là mã nghiệp vụ như <code>SP001</code>. <code>Price</code> và <code>UnitPrice</code> dùng <code>DECIMAL(12,2)</code> vì dữ liệu tiền cần độ chính xác thập phân ổn định. <code>IsActive</code> cho phép ngừng kinh doanh sản phẩm mà không bắt buộc xóa lịch sử. <code>product_images</code> tạo quan hệ một-nhiều để một sản phẩm có nhiều ảnh; database chỉ lưu tên file, ví dụ <code>phone-a-1.jpg</code>, còn file thật dự kiến nằm trong <code>public/uploads/products/</code>. <code>orderdetail.UnitPrice</code> giữ giá tại thời điểm mua để đơn hàng cũ không bị ảnh hưởng khi <code>products.Price</code> thay đổi.</p>
+<p>Các <code>CHECK</code> và <code>UNIQUE</code> giúp database bảo vệ một số quy tắc dữ liệu như giá không âm, tồn kho không âm, số lượng mua lớn hơn 0 và không lặp cùng một file ảnh cho cùng sản phẩm.</p>
+<hr />
+<h1 id="9-tao-databaseseedsql">9. Tạo <code>database/seed.sql</code></h1>
+<h2 id="muc-ich_3">Mục đích</h2>
+<pre><code class="language-text">schema.sql → cấu trúc
+seed.sql   → dữ liệu mẫu
+</code></pre>
+<h2 id="lenh-thuc-thi_2">Lệnh thực thi</h2>
+<pre><code class="language-cmd">type nul &gt; database\seed.sql
+</code></pre>
+<h2 id="noi-dung-seedsql">Nội dung <code>seed.sql</code></h2>
+<blockquote>
+<p>Lưu file bằng <strong>UTF-8</strong>.</p>
+</blockquote>
+<pre><code class="language-sql">SET NAMES utf8mb4;
+
+INSERT INTO categories (CategoryName, Description)
+VALUES
+    ('Điện thoại', 'Các sản phẩm điện thoại di động'),
+    ('Máy tính', 'Máy tính xách tay và máy tính để bàn'),
+    ('Phụ kiện', 'Phụ kiện dành cho thiết bị công nghệ');
+
+INSERT INTO suppliers
+    (SupplierName, ContactName, Address, City, PostalCode, Country, Phone)
+VALUES
+    ('Công ty Công nghệ ABC', 'Nguyễn Văn An',
+     '01 Nguyễn Huệ', 'TP. Hồ Chí Minh', '700000', 'Việt Nam', '0901234567'),
+    ('Công ty Thiết bị XYZ', 'Trần Minh Bình',
+     '25 Lê Lợi', 'Đà Nẵng', '550000', 'Việt Nam', '0912345678');
+
+INSERT INTO customers
+    (CustomerName, ContactName, Address, City, PostalCode, Country)
+VALUES
+    ('Nguyễn Minh Anh', 'Nguyễn Minh Anh',
+     '12 Nguyễn Trãi', 'TP. Hồ Chí Minh', '700000', 'Việt Nam'),
+    ('Trần Thanh Hà', 'Trần Thanh Hà',
+     '35 Hùng Vương', 'Cần Thơ', '900000', 'Việt Nam'),
+    ('Lê Quốc Bảo', 'Lê Quốc Bảo',
+     '18 Lê Lợi', 'Trà Vinh', '870000', 'Việt Nam');
+
+INSERT INTO employees
+    (LastName, FirstName, BirthDate, Photo, Notes)
+VALUES
+    ('Nguyễn', 'Hoàng Nam', '1995-05-15', NULL, 'Nhân viên bán hàng'),
+    ('Trần', 'Thúy An', '1997-09-20', NULL, 'Nhân viên chăm sóc khách hàng');
+
+INSERT INTO shippers (ShipperName, Phone)
+VALUES
+    ('Giao hàng nhanh', '19001001'),
+    ('Giao hàng tiết kiệm', '19001002');
+
+INSERT INTO products
+    (ProductCode, ProductName, Description, Unit, Price,
+     StockQuantity, IsActive, SupplierID, CategoryID)
+VALUES
+    ('SP001', 'Điện thoại Smartphone A',
+     'Điện thoại thông minh màn hình lớn, phù hợp nhu cầu sử dụng hằng ngày.',
+     'Chiếc', 8500000.00, 20, TRUE, 1, 1),
+    ('SP002', 'Laptop B',
+     'Máy tính xách tay phục vụ học tập và làm việc.',
+     'Chiếc', 18500000.00, 10, TRUE, 2, 2),
+    ('SP003', 'Chuột không dây C',
+     'Chuột không dây nhỏ gọn, kết nối ổn định.',
+     'Chiếc', 450000.00, 50, TRUE, 2, 3);
+
+INSERT INTO product_images
+    (ProductID, ImageFile, AltText, IsPrimary, SortOrder)
+VALUES
+    (1, 'phone-a-1.jpg', 'Điện thoại Smartphone A - ảnh chính', TRUE, 1),
+    (1, 'phone-a-2.jpg', 'Điện thoại Smartphone A - mặt sau', FALSE, 2),
+    (2, 'laptop-b-1.jpg', 'Laptop B - ảnh chính', TRUE, 1),
+    (3, 'mouse-c-1.jpg', 'Chuột không dây C - ảnh chính', TRUE, 1);
+
+INSERT INTO orders (OrderDate, CustomerID, EmployeeID, ShipperID)
+VALUES
+    ('2026-08-10', 1, 1, 1),
+    ('2026-08-11', 2, 2, 2),
+    ('2026-08-12', 3, 1, 1);
+
+INSERT INTO orderdetail (Quantity, UnitPrice, OrderID, ProductID)
+VALUES
+    (1, 8500000.00, 1, 1),
+    (2, 450000.00, 1, 3),
+    (1, 18500000.00, 2, 2),
+    (2, 450000.00, 3, 3);
+</code></pre>
+<p>Dữ liệu bảng cha phải được thêm trước bảng con để thỏa mãn khóa ngoại.</p>
+<hr />
+<h1 id="10-tu-ong-khoi-tao-database">10. Tự động khởi tạo database</h1>
+<p>Trong <code>compose.yaml</code>, service <code>db</code> phải có:</p>
+<pre><code class="language-yaml">volumes:
+  - mysql_data:/var/lib/mysql
+  - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+  - ./database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+</code></pre>
+<p><code>01-schema.sql</code> chạy trước để tạo bảng; <code>02-seed.sql</code> chạy sau để thêm dữ liệu. <code>:ro</code> nghĩa là container chỉ được đọc file mount.</p>
+<p>Các init script chỉ chạy khi MySQL khởi tạo data directory mới. Vì vậy nếu volume cũ vẫn tồn tại, restart container sẽ không tự chạy lại hai file này.</p>
+<hr />
+<h1 id="11-khoi-tao-lai-database-tu-au">11. Khởi tạo lại database từ đầu</h1>
+<h2 id="muc-ich_4">Mục đích</h2>
+<p>Kiểm chứng database có thể được tạo hoàn toàn tự động từ các file trong project.</p>
+<h2 id="lenh-thuc-thi_3">Lệnh thực thi</h2>
+<blockquote>
+<p><strong>Cảnh báo:</strong> lệnh đầu tiên xóa toàn bộ dữ liệu trong named volume MySQL.</p>
+</blockquote>
+<pre><code class="language-cmd">docker compose down -v
+docker compose up -d
+docker compose ps
+</code></pre>
+<h2 id="ket-qua-mong-oi_1">Kết quả mong đợi</h2>
+<pre><code class="language-text">web   Up
+db    Up
+</code></pre>
+<p>Pipeline:</p>
+<pre><code class="language-text">.env
+ ↓
+compose.yaml
+ ↓
+MySQL
+ ↓
+ql_banhang
+ ↓
+01-schema.sql → 9 bảng
+ ↓
+02-seed.sql   → dữ liệu mẫu
+</code></pre>
+<p>Nếu cần kiểm tra lỗi:</p>
+<pre><code class="language-cmd">docker compose logs db
+</code></pre>
+<hr />
+<h1 id="12-kiem-tra-database-va-du-lieu">12. Kiểm tra database và dữ liệu</h1>
+<h2 id="lenh-thuc-thi-tren-windows-cmd">Lệnh thực thi trên Windows CMD</h2>
+<pre><code class="language-cmd">chcp 65001
+docker compose exec db mysql --default-character-set=utf8mb4 -u root -p
+</code></pre>
+<p>Nhập mật khẩu <code>MYSQL_ROOT_PASSWORD</code> trong <code>.env</code>.</p>
+<h2 id="lenh-kiem-tra-trong-mysql">Lệnh kiểm tra trong MySQL</h2>
+<pre><code class="language-sql">USE ql_banhang;
+SHOW TABLES;
+
+SELECT * FROM categories;
+SELECT * FROM products;
+SELECT * FROM product_images;
+SELECT * FROM orders;
+SELECT * FROM orderdetail;
+</code></pre>
+<p>Kiểm tra cấu trúc:</p>
+<pre><code class="language-sql">DESCRIBE products;
+SHOW CREATE TABLE products;
+</code></pre>
+<p>Kiểm tra số lượng:</p>
+<pre><code class="language-sql">SELECT COUNT(*) FROM categories;
+SELECT COUNT(*) FROM suppliers;
+SELECT COUNT(*) FROM products;
+SELECT COUNT(*) FROM product_images;
+</code></pre>
+<hr />
+<h1 id="13-kiem-tra-tong-tien-on-hang">13. Kiểm tra tổng tiền đơn hàng</h1>
+<pre><code class="language-sql">SELECT
+    o.OrderID,
+    o.OrderDate,
+    SUM(od.Quantity * od.UnitPrice) AS TotalAmount
+FROM orders o
+JOIN orderdetail od
+    ON o.OrderID = od.OrderID
+GROUP BY
+    o.OrderID,
+    o.OrderDate;
+</code></pre>
+<pre><code class="language-text">Thành tiền = Quantity × UnitPrice
+Tổng đơn hàng = tổng thành tiền các dòng của cùng OrderID
+</code></pre>
+<p><code>TotalAmount</code> chưa cần lưu trong <code>orders</code> vì có thể tính từ dữ liệu chi tiết.</p>
+<hr />
+<h1 id="14-xu-ly-su-co-tieng-viet">14. Xử lý sự cố tiếng Việt</h1>
+<p>Nếu MySQL CLI hiển thị ký tự như <code>?i?n tho?i</code>, chưa thể kết luận dữ liệu trong database bị hỏng.</p>
+<p>Kiểm tra dữ liệu thực:</p>
+<pre><code class="language-sql">SELECT ProductID, ProductName, HEX(ProductName)
+FROM products;
+</code></pre>
+<p>Kiểm tra charset:</p>
+<pre><code class="language-sql">SHOW VARIABLES LIKE 'character_set%';
+</code></pre>
+<p>Thoát MySQL và kết nối lại:</p>
+<pre><code class="language-sql">exit;
+</code></pre>
+<pre><code class="language-cmd">chcp 65001
+docker compose exec db mysql --default-character-set=utf8mb4 -u root -p
+</code></pre>
+<p>Sau đó:</p>
+<pre><code class="language-sql">USE ql_banhang;
+SELECT ProductID, ProductName, Description, Unit
+FROM products;
+</code></pre>
+<blockquote>
+<p><code>schema.sql</code> và <code>seed.sql</code> phải được lưu bằng UTF-8. <code>utf8mb4</code> được sử dụng để hỗ trợ đầy đủ dữ liệu tiếng Việt.</p>
+</blockquote>
+<hr />
+<h1 id="15-checkpoint-cuoi-hands-on-02">15. Checkpoint cuối Hands-on 02</h1>
+<pre><code class="language-text">[ ] web đang Up
+[ ] db đang Up
+[ ] ql_banhang được tạo tự động
+[ ] schema.sql tạo đủ 9 bảng
+[ ] seed.sql nạp dữ liệu thành công
+[ ] khóa chính/khóa ngoại hoạt động
+[ ] products có ProductCode, StockQuantity và IsActive
+[ ] product_images hỗ trợ nhiều ảnh/sản phẩm
+[ ] orderdetail có UnitPrice
+[ ] dữ liệu tiếng Việt được lưu đúng
+[ ] mysql_data hoạt động
+[ ] http://localhost:8080 vẫn hoạt động
+</code></pre>
+<hr />
+<h1 id="16-commit-va-push-checkpoint-ho02">16. Commit và push checkpoint HO02</h1>
+<h2 id="kiem-tra">Kiểm tra</h2>
+<pre><code class="language-cmd">git status
+</code></pre>
+<p>Các thay đổi chính dự kiến:</p>
+<pre><code class="language-text">modified:   .env.example
+modified:   .gitignore
+modified:   compose.yaml
+new file:   database/schema.sql
+new file:   database/seed.sql
+</code></pre>
+<p><code>.env</code> không được đưa vào commit.</p>
+<h2 id="lenh-thuc-thi_4">Lệnh thực thi</h2>
+<pre><code class="language-cmd">git add .
+git status
+git commit -m &quot;Add MySQL database schema and sample data&quot;
+git push
+git status
+git log -1 --oneline
+</code></pre>
+<h2 id="ket-qua-mong-oi_2">Kết quả mong đợi</h2>
+<pre><code class="language-text">nothing to commit, working tree clean
+</code></pre>
+<p>Checkpoint thử nghiệm khi xây dựng Hands-on 02:</p>
+<pre><code class="language-text">571115c Add MySQL database schema and sample data
+</code></pre>
+<p>Hash commit của người học sẽ khác.</p>
+<hr />
+<h1 id="17-kien-thuc-a-su-dung">17. Kiến thức đã sử dụng</h1>
+<p><strong>Docker và môi trường phát triển:</strong> Docker Compose nhiều service; environment variables; <code>.env</code>; <code>.env.example</code>; <code>.gitignore</code>; named volume; bind mount; MySQL initialization scripts.</p>
+<p><strong>Cơ sở dữ liệu:</strong> bảng; khóa chính; khóa ngoại; quan hệ một-nhiều; <code>CREATE TABLE</code>; <code>INSERT</code>; <code>SELECT</code>; <code>JOIN</code>; <code>CHECK</code>; <code>UNIQUE</code>; <code>DECIMAL</code>; <code>utf8mb4</code>.</p>
+<p><strong>Thiết kế ứng dụng:</strong> tách schema và seed; quản lý nhiều ảnh bằng bảng riêng; chỉ lưu tên file ảnh; phân biệt <code>ProductID</code> và <code>ProductCode</code>; giữ giá lịch sử bằng <code>UnitPrice</code>; sử dụng <code>IsActive</code> thay cho việc bắt buộc xóa vật lý sản phẩm.</p>
+<p><strong>Git/GitHub:</strong> kiểm tra thay đổi; ignore file; stage; commit; push; checkpoint theo hands-on.</p>
+<hr />
+<h1 id="18-tong-ket">18. Tổng kết</h1>
+<p>Sau Hands-on 02, database có thể được tái tạo từ các file của project:</p>
+<pre><code class="language-text">Project source
+     │
+     ├── .env
+     ├── compose.yaml
+     ├── schema.sql
+     └── seed.sql
+             │
+             ▼
+       Docker Compose
+             │
+             ▼
+           MySQL
+             │
+             ▼
+       ql_banhang
+             │
+        ┌────┴─────┐
+        ▼          ▼
+     9 bảng    dữ liệu mẫu
+</code></pre>
+<p>Hands-on tiếp theo sẽ bắt đầu kết nối ứng dụng PHP với database bằng <strong>MySQLi</strong> và sử dụng dữ liệu thật trong giao diện Web.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
