@@ -1,0 +1,17 @@
+site_name: Phát triển ứng dụng Web mã nguồn mở
+
+theme:
+  name: material
+  language: vi
+
+nav:
+  - Trang chủ: index.md
+
+  - Chuẩn bị:
+      - Pre-Lab 00 - Chuẩn bị môi trường: preparation/Pre-Lab-00_Environment-Setup-Windows.md
+
+  - Thực hành:
+      - Hands-on 01 - PHP và Docker: hands-on/Hands-on-01_PHP-Docker_Baseline.md
+
+  - Hướng dẫn:
+      - Git và GitHub: guides/Mini-Hands-on_Git-Push-GitHub.md
