@@ -13,6 +13,7 @@ nav:
   - Thực hành:
       - Hands-on 01 - PHP và Docker: hands-on/Hands-on-01_PHP-Docker_Baseline.md
       - Hands-on 02 - MySQL-Database-Schema-Seed: hands-on/Hands-on-02_MySQL-Database-Schema-Seed.md
+      - Hands-on 03 - PHP-MySQLi-Category-Listing: hands-on/Hands-on-03_PHP-MySQLi-Category-Listing.md
 
   - Hướng dẫn:
       - Git và GitHub: guides/Mini-Hands-on_Git-Push-GitHub.md
