@@ -16,6 +16,6 @@ nav:
       - Hands-on 03 - PHP-MySQLi-Category-Listing: hands-on/Hands-on-03_PHP-MySQLi-Category-Listing.md
       - Hands-on 04 - Xây dựng CRUD quản lý danh mục: hands-on/Hands-on-04_Category-CRUD.md
       - Hands-on 05 - Xây dựng CRUD quản lý sản phẩm: hands-on/Hands-on-05_Product-Relational-Data.md
-      - Hands-on 06 – Upload hình ảnh sản phẩm với PHP: hands-on/Hands-on-05_Product-Relational-Data.md
+      - Hands-on 06 – Upload hình ảnh sản phẩm với PHP: hands-on/Hands-on-06_Upload-Product-Images.md
   - Hướng dẫn:
       - Git và GitHub: guides/Mini-Hands-on_Git-Push-GitHub.md
