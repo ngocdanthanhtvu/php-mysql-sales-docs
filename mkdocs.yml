@@ -17,5 +17,6 @@ nav:
       - Hands-on 04 - Xây dựng CRUD quản lý danh mục: hands-on/Hands-on-04_Category-CRUD.md
       - Hands-on 05 - Xây dựng CRUD quản lý sản phẩm: hands-on/Hands-on-05_Product-Relational-Data.md
       - Hands-on 06 – Upload hình ảnh sản phẩm với PHP: hands-on/Hands-on-06_Upload-Product-Images.md
+      - Hands-on 07 – Quản lý hình ảnh sản phẩm khi cập nhật: hands-on/Hands-on-07_Manage-Product-Images.md
   - Hướng dẫn:
       - Git và GitHub: guides/Mini-Hands-on_Git-Push-GitHub.md
