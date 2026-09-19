@@ -1,0 +1,3032 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Hands-on-09_Product-Storefront-and-Detail/">
+      
+      
+        <link rel="next" href="../Hands-on-09_Product-Storefront-and-Detail/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Hands-on 10 – Tìm kiếm, lọc và phân trang sản phẩm - Phát triển ứng dụng Web mã nguồn mở</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hands-on-10-tim-kiem-loc-va-phan-trang-san-pham" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-header__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Phát triển ứng dụng Web mã nguồn mở
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hands-on 10 – Tìm kiếm, lọc và phân trang sản phẩm
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-nav__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Phát triển ứng dụng Web mã nguồn mở
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chuẩn bị
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chuẩn bị
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preparation/Pre-Lab-00_Environment-Setup-Windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-Lab 00 - Chuẩn bị môi trường
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thực hành
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thực hành
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-01_PHP-Docker_Baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 01 - PHP và Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-02_MySQL-Database-Schema-Seed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 02 - MySQL-Database-Schema-Seed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-03_PHP-MySQLi-Category-Listing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 03 - PHP-MySQLi-Category-Listing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-04_Category-CRUD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 04 - Xây dựng CRUD quản lý danh mục
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-05_Product-Relational-Data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 05 - Xây dựng CRUD quản lý sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-06_Upload-Product-Images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 06 – Upload hình ảnh sản phẩm với PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-07_Manage-Product-Images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 07 – Quản lý hình ảnh sản phẩm khi cập nhật
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-08_Admin-Frontend-Structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 08 – Tổ chức khu vực quản trị và giao diện người dùng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-09_Product-Storefront-and-Detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 10 – Tìm kiếm, lọc và phân trang sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 10 – Tìm kiếm, lọc và phân trang sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-chuan-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Chuẩn bị
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-xac-inh-chuc-nang-can-bo-sung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Xác định chức năng cần bổ sung
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-lay-danh-sach-danh-muc-cho-bo-loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Lấy danh sách danh mục cho bộ lọc
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Lấy danh sách danh mục cho bộ lọc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vi-sao-can-truy-van-nay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vì sao cần truy vấn này?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-nhan-ieu-kien-tim-kiem-tu-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Nhận điều kiện tìm kiếm từ URL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cau-hinh-phan-trang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Cấu hình phân trang
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-em-tong-so-san-pham-phu-hop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Đếm tổng số sản phẩm phù hợp
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Đếm tổng số sản phẩm phù hợp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-gan-tham-so-cho-truy-van-em" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Gắn tham số cho truy vấn đếm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-tinh-tong-so-trang-va-vi-tri-bat-au" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Tính tổng số trang và vị trí bắt đầu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Tính tổng số trang và vị trí bắt đầu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-xu-ly-so-trang-vuot-gioi-han" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. Xử lý số trang vượt giới hạn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-tinh-offset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2. Tính OFFSET
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-xay-dung-truy-van-lay-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Xây dựng truy vấn lấy sản phẩm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Xây dựng truy vấn lấy sản phẩm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-them-ieu-kien-danh-muc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1. Thêm điều kiện danh mục
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-them-ieu-kien-tu-khoa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2. Thêm điều kiện từ khóa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-them-sap-xep-va-phan-trang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3. Thêm sắp xếp và phân trang
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-gan-tham-so-cho-truy-van-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Gắn tham số cho truy vấn sản phẩm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Gắn tham số cho truy vấn sản phẩm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-oc-chuoi-kieu-du-lieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1. Đọc chuỗi kiểu dữ liệu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-tao-giao-dien-tim-kiem-va-loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Tạo giao diện tìm kiếm và lọc
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Tạo giao diện tìm kiếm và lọc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vi-sao-dung-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vì sao dùng GET?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-hien-thi-so-luong-ket-qua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Hiển thị số lượng kết quả
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-giu-nguyen-phan-hien-thi-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Giữ nguyên phần hiển thị Card
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-them-phan-trang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Thêm phân trang
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Thêm phân trang">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-tao-nut-truoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.1. Tạo nút Trước
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-tao-cac-so-trang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Tạo các số trang
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-tao-nut-sau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Tạo nút Sau
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-ong-ket-qua-truy-van-ung-vi-tri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Đóng kết quả truy vấn đúng vị trí
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-kiem-tra-cu-phap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Kiểm tra cú pháp
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-kiem-thu-tim-kiem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Kiểm thử tìm kiếm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18. Kiểm thử tìm kiếm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#181-tim-theo-ten-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.1. Tìm theo tên sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#182-tim-theo-ma-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.2. Tìm theo mã sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#183-tu-khoa-khong-co-ket-qua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.3. Từ khóa không có kết quả
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-kiem-thu-loc-theo-danh-muc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Kiểm thử lọc theo danh mục
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-kiem-thu-ket-hop-tim-kiem-va-loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. Kiểm thử kết hợp tìm kiếm và lọc
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-kiem-thu-phan-trang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. Kiểm thử phân trang
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-kiem-thu-so-trang-khong-hop-le" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. Kiểm thử số trang không hợp lệ
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22. Kiểm thử số trang không hợp lệ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-trang-nho-hon-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.1. Trang nhỏ hơn 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-trang-lon-hon-tong-so-trang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.2. Trang lớn hơn tổng số trang
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-kiem-tra-responsive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. Kiểm tra responsive
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-kiem-tra-toan-bo-hands-on-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. Kiểm tra toàn bộ Hands-on 10
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-luong-xu-ly-sau-hands-on-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. Luồng xử lý sau Hands-on 10
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-luu-phien-ban-bang-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. Lưu phiên bản bằng Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-ket-qua-at-uoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. Kết quả đạt được
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cau-hoi-cung-co" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Câu hỏi củng cố
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bai-tap-cung-co" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bài tập củng cố
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-09_Product-Storefront-and-Detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-09_Product-Storefront-and-Detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-09_Product-Storefront-and-Detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-09_Product-Storefront-and-Detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hướng dẫn
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hướng dẫn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/Mini-Hands-on_Git-Push-GitHub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git và GitHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-chuan-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Chuẩn bị
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-xac-inh-chuc-nang-can-bo-sung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Xác định chức năng cần bổ sung
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-lay-danh-sach-danh-muc-cho-bo-loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Lấy danh sách danh mục cho bộ lọc
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Lấy danh sách danh mục cho bộ lọc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vi-sao-can-truy-van-nay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vì sao cần truy vấn này?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-nhan-ieu-kien-tim-kiem-tu-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Nhận điều kiện tìm kiếm từ URL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cau-hinh-phan-trang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Cấu hình phân trang
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-em-tong-so-san-pham-phu-hop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Đếm tổng số sản phẩm phù hợp
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Đếm tổng số sản phẩm phù hợp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-gan-tham-so-cho-truy-van-em" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Gắn tham số cho truy vấn đếm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-tinh-tong-so-trang-va-vi-tri-bat-au" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Tính tổng số trang và vị trí bắt đầu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Tính tổng số trang và vị trí bắt đầu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-xu-ly-so-trang-vuot-gioi-han" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. Xử lý số trang vượt giới hạn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-tinh-offset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2. Tính OFFSET
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-xay-dung-truy-van-lay-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Xây dựng truy vấn lấy sản phẩm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Xây dựng truy vấn lấy sản phẩm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-them-ieu-kien-danh-muc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1. Thêm điều kiện danh mục
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-them-ieu-kien-tu-khoa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2. Thêm điều kiện từ khóa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-them-sap-xep-va-phan-trang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3. Thêm sắp xếp và phân trang
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-gan-tham-so-cho-truy-van-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Gắn tham số cho truy vấn sản phẩm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Gắn tham số cho truy vấn sản phẩm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-oc-chuoi-kieu-du-lieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1. Đọc chuỗi kiểu dữ liệu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-tao-giao-dien-tim-kiem-va-loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Tạo giao diện tìm kiếm và lọc
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Tạo giao diện tìm kiếm và lọc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vi-sao-dung-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vì sao dùng GET?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-hien-thi-so-luong-ket-qua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Hiển thị số lượng kết quả
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-giu-nguyen-phan-hien-thi-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Giữ nguyên phần hiển thị Card
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-them-phan-trang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Thêm phân trang
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Thêm phân trang">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-tao-nut-truoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.1. Tạo nút Trước
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-tao-cac-so-trang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Tạo các số trang
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-tao-nut-sau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Tạo nút Sau
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-ong-ket-qua-truy-van-ung-vi-tri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Đóng kết quả truy vấn đúng vị trí
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-kiem-tra-cu-phap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Kiểm tra cú pháp
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-kiem-thu-tim-kiem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Kiểm thử tìm kiếm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18. Kiểm thử tìm kiếm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#181-tim-theo-ten-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.1. Tìm theo tên sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#182-tim-theo-ma-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.2. Tìm theo mã sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#183-tu-khoa-khong-co-ket-qua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.3. Từ khóa không có kết quả
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-kiem-thu-loc-theo-danh-muc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Kiểm thử lọc theo danh mục
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-kiem-thu-ket-hop-tim-kiem-va-loc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. Kiểm thử kết hợp tìm kiếm và lọc
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-kiem-thu-phan-trang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. Kiểm thử phân trang
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-kiem-thu-so-trang-khong-hop-le" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. Kiểm thử số trang không hợp lệ
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22. Kiểm thử số trang không hợp lệ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-trang-nho-hon-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.1. Trang nhỏ hơn 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-trang-lon-hon-tong-so-trang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.2. Trang lớn hơn tổng số trang
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-kiem-tra-responsive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. Kiểm tra responsive
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-kiem-tra-toan-bo-hands-on-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. Kiểm tra toàn bộ Hands-on 10
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-luong-xu-ly-sau-hands-on-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. Luồng xử lý sau Hands-on 10
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-luu-phien-ban-bang-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. Lưu phiên bản bằng Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-ket-qua-at-uoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. Kết quả đạt được
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cau-hoi-cung-co" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Câu hỏi củng cố
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bai-tap-cung-co" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bài tập củng cố
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hands-on-10-tim-kiem-loc-va-phan-trang-san-pham">Hands-on 10 -- Tìm kiếm, lọc và phân trang sản phẩm</h1>
+<h2 id="muc-tieu">Mục tiêu</h2>
+<p>Sau khi hoàn thành Hands-on này, bạn có thể:</p>
+<ul>
+<li>Nhận dữ liệu tìm kiếm và lọc từ URL bằng phương thức <code>GET</code>.</li>
+<li>Xây dựng bộ lọc sản phẩm theo từ khóa và danh mục.</li>
+<li>Tạo câu truy vấn SQL có điều kiện tùy theo dữ liệu người dùng nhập.</li>
+<li>Sử dụng prepared statement khi truy vấn có tham số.</li>
+<li>Đếm tổng số sản phẩm phù hợp bằng <code>COUNT(*)</code>.</li>
+<li>Phân trang dữ liệu bằng <code>LIMIT</code> và <code>OFFSET</code>.</li>
+<li>Giữ nguyên điều kiện tìm kiếm và lọc khi chuyển trang.</li>
+<li>Xử lý các trường hợp số trang không hợp lệ.</li>
+<li>Kiểm thử kết hợp tìm kiếm, lọc và phân trang trên Frontend.</li>
+</ul>
+<hr />
+<h2 id="1-chuan-bi">1. Chuẩn bị</h2>
+<p>Hands-on này tiếp tục trực tiếp từ <strong>Hands-on 09</strong>.</p>
+<p>Mở <strong>Command Prompt</strong> và chuyển đến thư mục dự án:</p>
+<pre><code class="language-cmd">cd /d D:\PTUDW-ST-2026\php-mysql-sales
+</code></pre>
+<p>Kiểm tra trạng thái Git:</p>
+<pre><code class="language-cmd">git status
+</code></pre>
+<p>Nên bắt đầu khi Git hiển thị:</p>
+<pre><code class="language-text">nothing to commit, working tree clean
+</code></pre>
+<p>Kiểm tra container:</p>
+<pre><code class="language-cmd">docker compose ps
+</code></pre>
+<p>Nếu các container chưa chạy:</p>
+<pre><code class="language-cmd">docker compose up -d
+</code></pre>
+<p>Mở trang sản phẩm đã hoàn thành ở Hands-on 09:</p>
+<pre><code class="language-text">http://localhost:8080/products.php
+</code></pre>
+<p>Ở thời điểm này, trang đã có thể:</p>
+<ul>
+<li>hiển thị sản phẩm đang hoạt động;</li>
+<li>hiển thị tên danh mục;</li>
+<li>hiển thị ảnh chính;</li>
+<li>mở trang chi tiết sản phẩm.</li>
+</ul>
+<p>Trong Hands-on 10, ta <strong>mở rộng chính tập tin <code>public/products.php</code></strong>,
+không tạo một trang danh sách mới.</p>
+<hr />
+<h2 id="2-xac-inh-chuc-nang-can-bo-sung">2. Xác định chức năng cần bổ sung</h2>
+<p>Khi số lượng sản phẩm tăng, việc hiển thị toàn bộ sản phẩm trên một
+trang không còn thuận tiện.</p>
+<p>Ta bổ sung ba chức năng:</p>
+<pre><code class="language-text">Tìm kiếm
+    +
+Lọc theo danh mục
+    +
+Phân trang
+</code></pre>
+<p>Ví dụ URL sau:</p>
+<pre><code class="language-text">/products.php?keyword=phone&amp;category=2&amp;page=3
+</code></pre>
+<p>chứa ba tham số:</p>
+<p>Tham số           Ý nghĩa</p>
+<hr />
+<p><code>keyword=phone</code>   Tìm theo từ khóa <code>phone</code>
+  <code>category=2</code>      Chỉ lấy sản phẩm thuộc danh mục có <code>CategoryID = 2</code>
+  <code>page=3</code>          Hiển thị trang số 3</p>
+<p>Các tham số này được gửi bằng phương thức <code>GET</code>, vì vậy chúng xuất hiện
+trên URL và có thể được giữ lại khi người dùng chuyển trang.</p>
+<hr />
+<h2 id="3-lay-danh-sach-danh-muc-cho-bo-loc">3. Lấy danh sách danh mục cho bộ lọc</h2>
+<p>Mở:</p>
+<pre><code class="language-cmd">code public\products.php
+</code></pre>
+<p>Ở đầu tập tin hiện có:</p>
+<pre><code class="language-php">require_once '/var/www/src/config/database.php';
+</code></pre>
+<p>Ngay bên dưới dòng này, thêm:</p>
+<pre><code class="language-php">$sqlCategories = &quot;
+    SELECT
+        CategoryID,
+        CategoryName
+    FROM categories
+    ORDER BY CategoryName
+&quot;;
+
+$categoryResult = $conn-&gt;query($sqlCategories);
+
+$categories = [];
+
+while ($category = $categoryResult-&gt;fetch_assoc()) {
+    $categories[] = $category;
+}
+
+$categoryResult-&gt;free();
+</code></pre>
+<h3 id="vi-sao-can-truy-van-nay">Vì sao cần truy vấn này?</h3>
+<p>Danh sách danh mục sẽ được dùng để tạo:</p>
+<pre><code class="language-html">&lt;select&gt;
+</code></pre>
+<p>trên giao diện.</p>
+<p>Mỗi lựa chọn cần:</p>
+<pre><code class="language-text">CategoryID   → value
+CategoryName → nội dung hiển thị
+</code></pre>
+<p>Ví dụ:</p>
+<pre><code class="language-html">&lt;option value=&quot;2&quot;&gt;Điện thoại&lt;/option&gt;
+</code></pre>
+<hr />
+<h2 id="4-nhan-ieu-kien-tim-kiem-tu-url">4. Nhận điều kiện tìm kiếm từ URL</h2>
+<p>Ngay sau phần lấy danh mục, thêm:</p>
+<pre><code class="language-php">$categoryID = isset($_GET['category'])
+    ? (int) $_GET['category']
+    : 0;
+
+$keyword = isset($_GET['keyword'])
+    ? trim($_GET['keyword'])
+    : '';
+</code></pre>
+<p>Trong đó:</p>
+<pre><code class="language-php">$categoryID
+</code></pre>
+<p>nhận danh mục được chọn.</p>
+<p>Giá trị:</p>
+<pre><code class="language-text">0
+</code></pre>
+<p>được dùng để biểu diễn <strong>Tất cả danh mục</strong>.</p>
+<p>Biến:</p>
+<pre><code class="language-php">$keyword
+</code></pre>
+<p>nhận nội dung người dùng nhập vào ô tìm kiếm.</p>
+<p>Hàm:</p>
+<pre><code class="language-php">trim()
+</code></pre>
+<p>loại bỏ khoảng trắng thừa ở đầu và cuối chuỗi.</p>
+<hr />
+<h2 id="5-cau-hinh-phan-trang">5. Cấu hình phân trang</h2>
+<p>Tiếp tục thêm:</p>
+<pre><code class="language-php">$itemsPerPage = 6;
+
+$page = isset($_GET['page'])
+    ? (int) $_GET['page']
+    : 1;
+
+if ($page &lt; 1) {
+    $page = 1;
+}
+
+$searchKeyword = '%' . $keyword . '%';
+</code></pre>
+<p>Trong bài này:</p>
+<pre><code class="language-php">$itemsPerPage = 6;
+</code></pre>
+<p>nghĩa là mỗi trang hiển thị tối đa 6 sản phẩm.</p>
+<p>Biến:</p>
+<pre><code class="language-php">$searchKeyword
+</code></pre>
+<p>được chuẩn bị cho toán tử SQL:</p>
+<pre><code class="language-sql">LIKE
+</code></pre>
+<p>Ví dụ, nếu người dùng nhập:</p>
+<pre><code class="language-text">phone
+</code></pre>
+<p>thì giá trị truyền vào truy vấn là:</p>
+<pre><code class="language-text">%phone%
+</code></pre>
+<p>cho phép tìm chuỗi <code>phone</code> ở bất kỳ vị trí nào trong tên hoặc mã sản
+phẩm.</p>
+<hr />
+<h2 id="6-em-tong-so-san-pham-phu-hop">6. Đếm tổng số sản phẩm phù hợp</h2>
+<p>Phân trang cần biết tổng cộng có bao nhiêu sản phẩm thỏa điều kiện.</p>
+<p>Thay phần truy vấn danh sách sản phẩm của Hands-on 09 bằng phần xử lý
+mới bắt đầu từ truy vấn đếm sau:</p>
+<pre><code class="language-php">$sqlCount = &quot;
+    SELECT
+        COUNT(*) AS TotalProducts
+    FROM
+        products p,
+        categories c
+    WHERE
+        p.CategoryID = c.CategoryID
+        AND p.IsActive = 1
+&quot;;
+</code></pre>
+<p>Sau đó bổ sung điều kiện danh mục khi người dùng có chọn:</p>
+<pre><code class="language-php">if ($categoryID &gt; 0) {
+    $sqlCount .= &quot;
+        AND p.CategoryID = ?
+    &quot;;
+}
+</code></pre>
+<p>Bổ sung điều kiện tìm kiếm khi từ khóa không rỗng:</p>
+<pre><code class="language-php">if ($keyword !== '') {
+    $sqlCount .= &quot;
+        AND (
+            p.ProductName LIKE ?
+            OR p.ProductCode LIKE ?
+        )
+    &quot;;
+}
+</code></pre>
+<h3 id="61-gan-tham-so-cho-truy-van-em">6.1. Gắn tham số cho truy vấn đếm</h3>
+<p>Thêm:</p>
+<pre><code class="language-php">$stmtCount = $conn-&gt;prepare($sqlCount);
+</code></pre>
+<p>Tùy điều kiện người dùng nhập, số lượng và kiểu tham số sẽ khác nhau:</p>
+<pre><code class="language-php">if ($categoryID &gt; 0 &amp;&amp; $keyword !== '') {
+
+    $stmtCount-&gt;bind_param(
+        'iss',
+        $categoryID,
+        $searchKeyword,
+        $searchKeyword
+    );
+
+} elseif ($categoryID &gt; 0) {
+
+    $stmtCount-&gt;bind_param(
+        'i',
+        $categoryID
+    );
+
+} elseif ($keyword !== '') {
+
+    $stmtCount-&gt;bind_param(
+        'ss',
+        $searchKeyword,
+        $searchKeyword
+    );
+}
+</code></pre>
+<p>Thực thi:</p>
+<pre><code class="language-php">$stmtCount-&gt;execute();
+
+$countResult = $stmtCount-&gt;get_result();
+$countRow = $countResult-&gt;fetch_assoc();
+
+$totalProducts = (int) $countRow['TotalProducts'];
+
+$countResult-&gt;free();
+$stmtCount-&gt;close();
+</code></pre>
+<p>!!! note "Một kết quả -- một lần get_result()" Sau <code>execute()</code>, lấy kết
+quả của statement vào một biến:</p>
+<pre><code>```php
+$countResult = $stmtCount-&gt;get_result();
+```
+
+rồi đọc dữ liệu từ chính biến đó. Không cần gọi lại `get_result()` cho cùng một lần thực thi.
+</code></pre>
+<hr />
+<h2 id="7-tinh-tong-so-trang-va-vi-tri-bat-au">7. Tính tổng số trang và vị trí bắt đầu</h2>
+<p>Sau phần đếm, thêm:</p>
+<pre><code class="language-php">$totalPages = (int) ceil(
+    $totalProducts / $itemsPerPage
+);
+</code></pre>
+<p>Ví dụ:</p>
+<pre><code class="language-text">13 sản phẩm
+6 sản phẩm/trang
+</code></pre>
+<p>thì:</p>
+<pre><code class="language-text">ceil(13 / 6) = 3 trang
+</code></pre>
+<h3 id="71-xu-ly-so-trang-vuot-gioi-han">7.1. Xử lý số trang vượt giới hạn</h3>
+<p>Thêm:</p>
+<pre><code class="language-php">if ($totalPages &gt; 0 &amp;&amp; $page &gt; $totalPages) {
+    $page = $totalPages;
+}
+</code></pre>
+<p>Nếu URL yêu cầu một trang lớn hơn tổng số trang, ứng dụng sử dụng trang
+cuối cùng.</p>
+<h3 id="72-tinh-offset">7.2. Tính <code>OFFSET</code></h3>
+<p>Thêm:</p>
+<pre><code class="language-php">$offset = ($page - 1) * $itemsPerPage;
+</code></pre>
+<p>Ví dụ với 6 sản phẩm mỗi trang:</p>
+<pre><code>Trang   OFFSET
+</code></pre>
+<hr />
+<pre><code>    1        0
+    2        6
+    3       12
+</code></pre>
+<hr />
+<h2 id="8-xay-dung-truy-van-lay-san-pham">8. Xây dựng truy vấn lấy sản phẩm</h2>
+<p>Tiếp tục thêm truy vấn:</p>
+<pre><code class="language-php">$sql = &quot;
+    SELECT
+        p.ProductID,
+        p.ProductCode,
+        p.ProductName,
+        p.Price,
+        c.CategoryName,
+
+        (
+            SELECT pi.ImageFile
+            FROM product_images pi
+            WHERE pi.ProductID = p.ProductID
+              AND pi.IsPrimary = 1
+            LIMIT 1
+        ) AS ImageFile
+
+    FROM
+        products p,
+        categories c
+
+    WHERE
+        p.CategoryID = c.CategoryID
+        AND p.IsActive = 1
+&quot;;
+</code></pre>
+<p>Đây vẫn là truy vấn từ Hands-on 09, nhưng chưa kết thúc vì các điều kiện
+tìm kiếm sẽ được bổ sung tùy dữ liệu người dùng nhập.</p>
+<h3 id="81-them-ieu-kien-danh-muc">8.1. Thêm điều kiện danh mục</h3>
+<pre><code class="language-php">if ($categoryID &gt; 0) {
+    $sql .= &quot;
+        AND p.CategoryID = ?
+    &quot;;
+}
+</code></pre>
+<h3 id="82-them-ieu-kien-tu-khoa">8.2. Thêm điều kiện từ khóa</h3>
+<pre><code class="language-php">if ($keyword !== '') {
+    $sql .= &quot;
+        AND (
+            p.ProductName LIKE ?
+            OR p.ProductCode LIKE ?
+        )
+    &quot;;
+}
+</code></pre>
+<h3 id="83-them-sap-xep-va-phan-trang">8.3. Thêm sắp xếp và phân trang</h3>
+<pre><code class="language-php">$sql .= &quot;
+    ORDER BY
+        p.ProductID DESC
+    LIMIT ?
+    OFFSET ?
+&quot;;
+</code></pre>
+<p>Trong đó:</p>
+<pre><code class="language-sql">LIMIT ?
+</code></pre>
+<p>xác định số sản phẩm tối đa trên một trang.</p>
+<pre><code class="language-sql">OFFSET ?
+</code></pre>
+<p>xác định số mẩu tin cần bỏ qua trước khi lấy dữ liệu của trang hiện tại.</p>
+<hr />
+<h2 id="9-gan-tham-so-cho-truy-van-san-pham">9. Gắn tham số cho truy vấn sản phẩm</h2>
+<p>Chuẩn bị statement:</p>
+<pre><code class="language-php">$stmt = $conn-&gt;prepare($sql);
+</code></pre>
+<p>Tùy điều kiện, gắn tham số như sau:</p>
+<pre><code class="language-php">if ($categoryID &gt; 0 &amp;&amp; $keyword !== '') {
+
+    $stmt-&gt;bind_param(
+        'issii',
+        $categoryID,
+        $searchKeyword,
+        $searchKeyword,
+        $itemsPerPage,
+        $offset
+    );
+
+} elseif ($categoryID &gt; 0) {
+
+    $stmt-&gt;bind_param(
+        'iii',
+        $categoryID,
+        $itemsPerPage,
+        $offset
+    );
+
+} elseif ($keyword !== '') {
+
+    $stmt-&gt;bind_param(
+        'ssii',
+        $searchKeyword,
+        $searchKeyword,
+        $itemsPerPage,
+        $offset
+    );
+
+} else {
+
+    $stmt-&gt;bind_param(
+        'ii',
+        $itemsPerPage,
+        $offset
+    );
+}
+</code></pre>
+<p>Thực thi:</p>
+<pre><code class="language-php">$stmt-&gt;execute();
+
+$result = $stmt-&gt;get_result();
+</code></pre>
+<p>Sau đó giữ nguyên phần:</p>
+<pre><code class="language-php">$pageTitle = 'Sản phẩm';
+
+require_once '/var/www/src/includes/frontend/header.php';
+require_once '/var/www/src/includes/frontend/navbar.php';
+?&gt;
+</code></pre>
+<h3 id="91-oc-chuoi-kieu-du-lieu">9.1. Đọc chuỗi kiểu dữ liệu</h3>
+<p>Ví dụ:</p>
+<pre><code class="language-php">'issii'
+</code></pre>
+<p>có nghĩa là:</p>
+<pre><code class="language-text">i → categoryID
+s → keyword cho ProductName
+s → keyword cho ProductCode
+i → LIMIT
+i → OFFSET
+</code></pre>
+<p>Việc số lượng ký tự trong chuỗi kiểu dữ liệu khớp với số tham số truyền
+vào là bắt buộc.</p>
+<hr />
+<h2 id="10-tao-giao-dien-tim-kiem-va-loc">10. Tạo giao diện tìm kiếm và lọc</h2>
+<p>Trong phần HTML, tìm:</p>
+<pre><code class="language-html">&lt;div class=&quot;mb-4&quot;&gt;
+
+    &lt;h1&gt;Sản phẩm&lt;/h1&gt;
+
+    &lt;p class=&quot;text-muted&quot;&gt;
+        Khám phá các sản phẩm hiện có tại cửa hàng.
+    &lt;/p&gt;
+
+&lt;/div&gt;
+</code></pre>
+<p>Ngay sau khối này, thêm:</p>
+<pre><code class="language-php">&lt;form
+    method=&quot;get&quot;
+    action=&quot;/products.php&quot;
+    class=&quot;row g-3 mb-4&quot;
+&gt;
+
+    &lt;div class=&quot;col-md-6 col-lg-4&quot;&gt;
+
+        &lt;label
+            for=&quot;keyword&quot;
+            class=&quot;form-label&quot;
+        &gt;
+            Tìm sản phẩm
+        &lt;/label&gt;
+
+        &lt;input
+            type=&quot;text&quot;
+            name=&quot;keyword&quot;
+            id=&quot;keyword&quot;
+            class=&quot;form-control&quot;
+            value=&quot;&lt;?= htmlspecialchars($keyword) ?&gt;&quot;
+            placeholder=&quot;Nhập tên hoặc mã sản phẩm&quot;
+        &gt;
+
+    &lt;/div&gt;
+
+    &lt;div class=&quot;col-md-6 col-lg-4&quot;&gt;
+
+        &lt;label
+            for=&quot;category&quot;
+            class=&quot;form-label&quot;
+        &gt;
+            Danh mục
+        &lt;/label&gt;
+
+        &lt;select
+            name=&quot;category&quot;
+            id=&quot;category&quot;
+            class=&quot;form-select&quot;
+        &gt;
+
+            &lt;option value=&quot;0&quot;&gt;
+                Tất cả danh mục
+            &lt;/option&gt;
+
+            &lt;?php foreach ($categories as $category): ?&gt;
+
+                &lt;option
+                    value=&quot;&lt;?= (int) $category['CategoryID'] ?&gt;&quot;
+                    &lt;?=
+                        $categoryID ===
+                        (int) $category['CategoryID']
+                            ? 'selected'
+                            : ''
+                    ?&gt;
+                &gt;
+                    &lt;?=
+                        htmlspecialchars(
+                            $category['CategoryName']
+                        )
+                    ?&gt;
+                &lt;/option&gt;
+
+            &lt;?php endforeach; ?&gt;
+
+        &lt;/select&gt;
+
+    &lt;/div&gt;
+
+    &lt;div class=&quot;col-md-auto align-self-end&quot;&gt;
+
+        &lt;button
+            type=&quot;submit&quot;
+            class=&quot;btn btn-primary&quot;
+        &gt;
+            Tìm kiếm
+        &lt;/button&gt;
+
+        &lt;a
+            href=&quot;/products.php&quot;
+            class=&quot;btn btn-outline-secondary&quot;
+        &gt;
+            Xóa bộ lọc
+        &lt;/a&gt;
+
+    &lt;/div&gt;
+
+&lt;/form&gt;
+</code></pre>
+<h3 id="vi-sao-dung-get">Vì sao dùng <code>GET</code>?</h3>
+<p>Form sử dụng:</p>
+<pre><code class="language-html">method=&quot;get&quot;
+</code></pre>
+<p>nên điều kiện tìm kiếm xuất hiện trên URL.</p>
+<p>Ví dụ:</p>
+<pre><code class="language-text">/products.php?keyword=laptop&amp;category=3
+</code></pre>
+<p>Điều này phù hợp với chức năng tìm kiếm vì người dùng có thể:</p>
+<ul>
+<li>nhìn thấy điều kiện hiện tại;</li>
+<li>tải lại trang mà vẫn giữ điều kiện;</li>
+<li>sao chép URL;</li>
+<li>chuyển trang mà vẫn giữ bộ lọc.</li>
+</ul>
+<hr />
+<h2 id="11-hien-thi-so-luong-ket-qua">11. Hiển thị số lượng kết quả</h2>
+<p>Ngay sau form, thêm:</p>
+<pre><code class="language-php">&lt;p class=&quot;text-muted&quot;&gt;
+    Tìm thấy
+    &lt;strong&gt;&lt;?= $totalProducts ?&gt;&lt;/strong&gt;
+    sản phẩm.
+&lt;/p&gt;
+</code></pre>
+<p>Biến:</p>
+<pre><code class="language-php">$totalProducts
+</code></pre>
+<p>đến từ truy vấn <code>COUNT(*)</code>, vì vậy đây là tổng số sản phẩm thỏa điều
+kiện trên <strong>tất cả các trang</strong>, không chỉ số Card đang hiển thị ở trang
+hiện tại.</p>
+<hr />
+<h2 id="12-giu-nguyen-phan-hien-thi-card">12. Giữ nguyên phần hiển thị Card</h2>
+<p>Phần danh sách Card đã xây dựng ở Hands-on 09 không cần viết lại.</p>
+<p>Tiếp tục sử dụng:</p>
+<pre><code class="language-php">&lt;?php if ($result-&gt;num_rows &gt; 0): ?&gt;
+</code></pre>
+<p>và vòng lặp:</p>
+<pre><code class="language-php">&lt;?php while ($product = $result-&gt;fetch_assoc()): ?&gt;
+</code></pre>
+<p>Ảnh vẫn sử dụng:</p>
+<pre><code class="language-text">/uploads/products/
+</code></pre>
+<p>!!! note "Không thay đổi đường dẫn ảnh" Tìm kiếm và phân trang chỉ thay
+đổi cách truy vấn dữ liệu. Cấu trúc lưu hình ảnh không thay đổi.</p>
+<hr />
+<h2 id="13-them-phan-trang">13. Thêm phân trang</h2>
+<p>Tìm vị trí ngay sau phần kết thúc danh sách sản phẩm và trước:</p>
+<pre><code class="language-html">&lt;/main&gt;
+</code></pre>
+<p>Thêm:</p>
+<pre><code class="language-php">&lt;?php if ($totalPages &gt; 1): ?&gt;
+
+    &lt;nav
+        class=&quot;mt-5&quot;
+        aria-label=&quot;Phân trang sản phẩm&quot;
+    &gt;
+
+        &lt;ul
+            class=&quot;pagination
+                   justify-content-center
+                   flex-wrap&quot;
+        &gt;
+</code></pre>
+<h3 id="131-tao-nut-truoc">13.1. Tạo nút Trước</h3>
+<p>Tiếp tục:</p>
+<pre><code class="language-php">&lt;?php
+$previousQuery = http_build_query([
+    'keyword' =&gt; $keyword,
+    'category' =&gt; $categoryID,
+    'page' =&gt; max(1, $page - 1)
+]);
+?&gt;
+
+&lt;li
+    class=&quot;page-item &lt;?=
+        $page &lt;= 1
+            ? 'disabled'
+            : ''
+    ?&gt;&quot;
+&gt;
+    &lt;a
+        class=&quot;page-link&quot;
+        href=&quot;/products.php?&lt;?= $previousQuery ?&gt;&quot;
+    &gt;
+        &amp;laquo; Trước
+    &lt;/a&gt;
+&lt;/li&gt;
+</code></pre>
+<p>Hàm:</p>
+<pre><code class="language-php">http_build_query()
+</code></pre>
+<p>tạo query string từ các giá trị hiện tại.</p>
+<p>Ví dụ:</p>
+<pre><code class="language-text">keyword=laptop&amp;category=2&amp;page=1
+</code></pre>
+<p>Nhờ đó, khi nhấn <strong>Trước</strong>, điều kiện tìm kiếm và danh mục không bị mất.</p>
+<hr />
+<h2 id="14-tao-cac-so-trang">14. Tạo các số trang</h2>
+<p>Ngay sau nút Trước, thêm:</p>
+<pre><code class="language-php">&lt;?php for (
+    $pageNumber = 1;
+    $pageNumber &lt;= $totalPages;
+    $pageNumber++
+): ?&gt;
+
+    &lt;?php
+    $query = http_build_query([
+        'keyword' =&gt; $keyword,
+        'category' =&gt; $categoryID,
+        'page' =&gt; $pageNumber
+    ]);
+    ?&gt;
+
+    &lt;li
+        class=&quot;page-item &lt;?=
+            $pageNumber === $page
+                ? 'active'
+                : ''
+        ?&gt;&quot;
+    &gt;
+        &lt;a
+            class=&quot;page-link&quot;
+            href=&quot;/products.php?&lt;?= $query ?&gt;&quot;
+        &gt;
+            &lt;?= $pageNumber ?&gt;
+        &lt;/a&gt;
+    &lt;/li&gt;
+
+&lt;?php endfor; ?&gt;
+</code></pre>
+<p>Trang hiện tại nhận lớp Bootstrap:</p>
+<pre><code class="language-text">active
+</code></pre>
+<p>để người dùng nhận biết đang ở trang nào.</p>
+<hr />
+<h2 id="15-tao-nut-sau">15. Tạo nút Sau</h2>
+<p>Tiếp tục:</p>
+<pre><code class="language-php">&lt;?php
+$nextQuery = http_build_query([
+    'keyword' =&gt; $keyword,
+    'category' =&gt; $categoryID,
+    'page' =&gt; min(
+        $totalPages,
+        $page + 1
+    )
+]);
+?&gt;
+
+&lt;li
+    class=&quot;page-item &lt;?=
+        $page &gt;= $totalPages
+            ? 'disabled'
+            : ''
+    ?&gt;&quot;
+&gt;
+    &lt;a
+        class=&quot;page-link&quot;
+        href=&quot;/products.php?&lt;?= $nextQuery ?&gt;&quot;
+    &gt;
+        Sau &amp;raquo;
+    &lt;/a&gt;
+&lt;/li&gt;
+</code></pre>
+<p>Đóng các thẻ phân trang:</p>
+<pre><code class="language-php">        &lt;/ul&gt;
+
+    &lt;/nav&gt;
+
+&lt;?php endif; ?&gt;
+</code></pre>
+<p>Như vậy phân trang chỉ xuất hiện khi:</p>
+<pre><code class="language-php">$totalPages &gt; 1
+</code></pre>
+<hr />
+<h2 id="16-ong-ket-qua-truy-van-ung-vi-tri">16. Đóng kết quả truy vấn đúng vị trí</h2>
+<p>Ở cuối <code>products.php</code>, phần sau phải được thực hiện <strong>sau khi HTML đã sử
+dụng xong <code>$result</code></strong>:</p>
+<pre><code class="language-php">&lt;?php
+
+$result-&gt;free();
+$stmt-&gt;close();
+
+require_once '/var/www/src/includes/frontend/footer.php';
+</code></pre>
+<p><code>$result</code> chứa các sản phẩm của trang hiện tại, còn <code>$stmt</code> là prepared
+statement đã dùng để lấy danh sách.</p>
+<hr />
+<h2 id="17-kiem-tra-cu-phap">17. Kiểm tra cú pháp</h2>
+<p>Lưu tập tin bằng:</p>
+<pre><code class="language-text">Ctrl + S
+</code></pre>
+<p>Sau đó chạy:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/html/products.php
+</code></pre>
+<p>Kết quả đúng:</p>
+<pre><code class="language-text">No syntax errors detected in /var/www/html/products.php
+</code></pre>
+<p>!!! success "Checkpoint" Chỉ chuyển sang kiểm thử chức năng khi kiểm tra
+cú pháp đã đạt.</p>
+<hr />
+<h2 id="18-kiem-thu-tim-kiem">18. Kiểm thử tìm kiếm</h2>
+<p>Mở:</p>
+<pre><code class="language-text">http://localhost:8080/products.php
+</code></pre>
+<h3 id="181-tim-theo-ten-san-pham">18.1. Tìm theo tên sản phẩm</h3>
+<p>Nhập một phần tên sản phẩm, ví dụ:</p>
+<pre><code class="language-text">phone
+</code></pre>
+<p>Nhấn <strong>Tìm kiếm</strong>.</p>
+<p>Kiểm tra:</p>
+<ul>
+<li>URL có <code>keyword=...</code>;</li>
+<li>chỉ các sản phẩm phù hợp xuất hiện;</li>
+<li>ô tìm kiếm vẫn giữ từ khóa sau khi trang tải lại;</li>
+<li>dòng <code>Tìm thấy ... sản phẩm</code> đúng với kết quả.</li>
+</ul>
+<h3 id="182-tim-theo-ma-san-pham">18.2. Tìm theo mã sản phẩm</h3>
+<p>Nhập một phần mã sản phẩm đã có trong dữ liệu.</p>
+<p>Kiểm tra sản phẩm phù hợp vẫn được tìm thấy.</p>
+<h3 id="183-tu-khoa-khong-co-ket-qua">18.3. Từ khóa không có kết quả</h3>
+<p>Nhập một chuỗi không tồn tại.</p>
+<p>Kết quả phải hiển thị:</p>
+<pre><code class="language-text">Tìm thấy 0 sản phẩm.
+</code></pre>
+<p>và thông báo:</p>
+<pre><code class="language-text">Hiện chưa có sản phẩm nào để hiển thị.
+</code></pre>
+<hr />
+<h2 id="19-kiem-thu-loc-theo-danh-muc">19. Kiểm thử lọc theo danh mục</h2>
+<p>Xóa bộ lọc bằng nút:</p>
+<pre><code class="language-text">Xóa bộ lọc
+</code></pre>
+<p>Chọn một danh mục và nhấn <strong>Tìm kiếm</strong>.</p>
+<p>Kiểm tra:</p>
+<ul>
+<li>URL có <code>category=...</code>;</li>
+<li>danh mục vừa chọn vẫn được giữ trong <code>&lt;select&gt;</code>;</li>
+<li>tất cả sản phẩm hiển thị thuộc danh mục đó;</li>
+<li>số lượng kết quả được cập nhật.</li>
+</ul>
+<p>Chọn:</p>
+<pre><code class="language-text">Tất cả danh mục
+</code></pre>
+<p>để quay lại toàn bộ sản phẩm đang hoạt động.</p>
+<hr />
+<h2 id="20-kiem-thu-ket-hop-tim-kiem-va-loc">20. Kiểm thử kết hợp tìm kiếm và lọc</h2>
+<p>Chọn một danh mục và đồng thời nhập từ khóa.</p>
+<p>Ví dụ URL có thể có dạng:</p>
+<pre><code class="language-text">/products.php?keyword=phone&amp;category=2
+</code></pre>
+<p>Kết quả phải thỏa <strong>đồng thời</strong>:</p>
+<pre><code class="language-text">đúng danh mục
+AND
+tên hoặc mã chứa từ khóa
+</code></pre>
+<p>Điều này tương ứng với điều kiện SQL:</p>
+<pre><code class="language-sql">AND p.CategoryID = ?
+AND (
+    p.ProductName LIKE ?
+    OR p.ProductCode LIKE ?
+)
+</code></pre>
+<hr />
+<h2 id="21-kiem-thu-phan-trang">21. Kiểm thử phân trang</h2>
+<p>Phân trang chỉ xuất hiện khi số kết quả lớn hơn:</p>
+<pre><code class="language-php">$itemsPerPage
+</code></pre>
+<p>Nếu dữ liệu hiện tại chưa đủ để tạo nhiều trang, <strong>chỉ trong lúc kiểm
+thử</strong>, đổi:</p>
+<pre><code class="language-php">$itemsPerPage = 6;
+</code></pre>
+<p>thành:</p>
+<pre><code class="language-php">$itemsPerPage = 3;
+</code></pre>
+<p>Lưu và tải lại trang.</p>
+<p>Kiểm tra:</p>
+<ul>
+<li>xuất hiện nhiều số trang;</li>
+<li>trang hiện tại được đánh dấu;</li>
+<li>nhấn số trang chuyển đúng dữ liệu;</li>
+<li>nút <strong>Trước</strong> bị vô hiệu hóa ở trang đầu;</li>
+<li>nút <strong>Sau</strong> bị vô hiệu hóa ở trang cuối;</li>
+<li>tìm kiếm và danh mục vẫn được giữ khi chuyển trang.</li>
+</ul>
+<p>Sau khi kiểm thử xong, đổi lại:</p>
+<pre><code class="language-php">$itemsPerPage = 6;
+</code></pre>
+<p>!!! warning "Không commit cấu hình kiểm thử" Nếu bạn tạm đổi số sản phẩm
+mỗi trang để kiểm thử, hãy trả về giá trị chính thức trước khi commit.</p>
+<hr />
+<h2 id="22-kiem-thu-so-trang-khong-hop-le">22. Kiểm thử số trang không hợp lệ</h2>
+<h3 id="221-trang-nho-hon-1">22.1. Trang nhỏ hơn 1</h3>
+<p>Thử:</p>
+<pre><code class="language-text">/products.php?page=0
+</code></pre>
+<p>hoặc:</p>
+<pre><code class="language-text">/products.php?page=-5
+</code></pre>
+<p>Ứng dụng phải xử lý như trang 1.</p>
+<h3 id="222-trang-lon-hon-tong-so-trang">22.2. Trang lớn hơn tổng số trang</h3>
+<p>Thử một giá trị lớn:</p>
+<pre><code class="language-text">/products.php?page=999
+</code></pre>
+<p>Nếu có sản phẩm, ứng dụng phải sử dụng trang cuối cùng thay vì tạo
+<code>OFFSET</code> vượt khỏi dữ liệu.</p>
+<hr />
+<h2 id="23-kiem-tra-responsive">23. Kiểm tra responsive</h2>
+<p>Nhấn:</p>
+<pre><code class="language-text">F12
+</code></pre>
+<p>sau đó:</p>
+<pre><code class="language-text">Ctrl + Shift + M
+</code></pre>
+<p>Thử trên màn hình nhỏ.</p>
+<p>Kiểm tra:</p>
+<ul>
+<li>ô tìm kiếm và danh mục tự xếp phù hợp;</li>
+<li>các nút không làm vỡ bố cục;</li>
+<li>Card sản phẩm vẫn responsive;</li>
+<li>phân trang có thể xuống dòng nhờ <code>flex-wrap</code>;</li>
+<li>ảnh sản phẩm vẫn giữ tỷ lệ và chiều cao cân đối.</li>
+</ul>
+<hr />
+<h2 id="24-kiem-tra-toan-bo-hands-on-10">24. Kiểm tra toàn bộ Hands-on 10</h2>
+<p>Đánh dấu sau khi hoàn thành:</p>
+<p>Nội dung             Kết quả mong đợi</p>
+<hr />
+<p>Danh sách danh mục   Được lấy từ bảng <code>categories</code>
+  Tìm theo tên         Hoạt động
+  Tìm theo mã          Hoạt động
+  Lọc danh mục         Hoạt động
+  Tìm + lọc            Hoạt động đồng thời
+  <code>COUNT(*)</code>           Đếm đúng tổng số kết quả
+  <code>LIMIT</code>              Giới hạn đúng số sản phẩm mỗi trang
+  <code>OFFSET</code>             Lấy đúng dữ liệu theo trang
+  Số trang             Hiển thị đúng
+  Trước/Sau            Hoạt động đúng ở trang đầu/cuối
+  Query string         Giữ keyword và category khi chuyển trang
+  <code>page &lt; 1</code>           Xử lý như trang 1
+  <code>page</code> quá lớn       Chuyển về giới hạn trang cuối
+  Không có kết quả     Hiển thị thông báo phù hợp
+  Responsive           Form, Card và pagination hiển thị tốt</p>
+<hr />
+<h2 id="25-luong-xu-ly-sau-hands-on-10">25. Luồng xử lý sau Hands-on 10</h2>
+<p>Trang sản phẩm hiện xử lý theo luồng:</p>
+<pre><code class="language-text">Người dùng nhập điều kiện
+        ↓
+GET: keyword, category, page
+        ↓
+Đọc danh sách Category
+        ↓
+COUNT(*) theo điều kiện
+        ↓
+Tính totalPages và OFFSET
+        ↓
+SELECT sản phẩm
+        ↓
+LIMIT + OFFSET
+        ↓
+Hiển thị Card
+        ↓
+Tạo liên kết phân trang
+        ↓
+Giữ lại keyword + category
+</code></pre>
+<p>Điểm quan trọng là <strong>truy vấn đếm và truy vấn lấy dữ liệu phải sử dụng
+cùng điều kiện tìm kiếm</strong>. Nếu hai truy vấn dùng điều kiện khác nhau, số
+trang sẽ không khớp với dữ liệu thực tế.</p>
+<hr />
+<h2 id="26-luu-phien-ban-bang-git">26. Lưu phiên bản bằng Git</h2>
+<p>Trước tiên kiểm tra:</p>
+<pre><code class="language-cmd">git status
+</code></pre>
+<p>Kiểm tra lỗi khoảng trắng:</p>
+<pre><code class="language-cmd">git diff --check
+</code></pre>
+<p>Nếu mọi thứ đúng, thêm thay đổi:</p>
+<pre><code class="language-cmd">git add public\products.php
+</code></pre>
+<p>Nếu trong quá trình thực hành bạn chỉ thay <code>products.php</code>, không cần
+<code>git add .</code>.</p>
+<p>Kiểm tra:</p>
+<pre><code class="language-cmd">git diff --cached --check
+</code></pre>
+<p>Xem tóm tắt:</p>
+<pre><code class="language-cmd">git diff --cached --stat
+</code></pre>
+<p>Commit:</p>
+<pre><code class="language-cmd">git commit -m &quot;feat: add product search filtering and pagination&quot;
+</code></pre>
+<p>Đẩy lên GitHub:</p>
+<pre><code class="language-cmd">git push
+</code></pre>
+<hr />
+<h2 id="27-ket-qua-at-uoc">27. Kết quả đạt được</h2>
+<p>Sau Hands-on 10, Frontend sản phẩm đã phát triển từ danh sách cơ bản
+thành trang có khả năng khai thác dữ liệu thực tế hơn:</p>
+<pre><code class="language-text">Sản phẩm
+├── Tìm theo tên hoặc mã
+├── Lọc theo danh mục
+├── Kết hợp tìm kiếm + lọc
+├── Hiển thị tổng số kết quả
+└── Phân trang
+    ├── Trước
+    ├── Số trang
+    └── Sau
+</code></pre>
+<p>Các chức năng này vẫn sử dụng trang chi tiết sản phẩm đã xây dựng ở
+Hands-on 09.</p>
+<p>Ứng dụng hiện đã có một Frontend đủ nền tảng để tiếp tục phát triển
+luồng mua hàng.</p>
+<hr />
+<h2 id="cau-hoi-cung-co">Câu hỏi củng cố</h2>
+<ol>
+<li>Vì sao form tìm kiếm sử dụng phương thức <code>GET</code> thay vì <code>POST</code>?</li>
+<li>Hai ký tự <code>%</code> trong giá trị <code>%phone%</code> có ý nghĩa gì khi dùng với
+    <code>LIKE</code>?</li>
+<li>Vì sao cần truy vấn <code>COUNT(*)</code> trước khi phân trang?</li>
+<li><code>LIMIT</code> và <code>OFFSET</code> có vai trò gì?</li>
+<li>Với 6 sản phẩm mỗi trang, <code>OFFSET</code> của trang 4 bằng bao nhiêu?</li>
+<li>Vì sao truy vấn đếm và truy vấn lấy danh sách phải sử dụng cùng điều
+    kiện?</li>
+<li>Vì sao cần giữ <code>keyword</code> và <code>category</code> khi tạo liên kết sang trang
+    khác?</li>
+<li><code>http_build_query()</code> giúp ích gì khi xây dựng URL phân trang?</li>
+<li>Vì sao cần kiểm tra <code>$page &lt; 1</code> và <code>$page &gt; $totalPages</code>?</li>
+<li>Vì sao số lượng tham số trong <code>bind_param()</code> phải khớp với các
+    placeholder <code>?</code> trong câu SQL?</li>
+</ol>
+<h2 id="bai-tap-cung-co">Bài tập củng cố</h2>
+<p>Thực hiện các trường hợp kiểm thử sau trên dữ liệu của bạn:</p>
+<ol>
+<li>Tìm một sản phẩm bằng một phần tên.</li>
+<li>Tìm sản phẩm bằng một phần mã.</li>
+<li>Lọc một danh mục có nhiều sản phẩm.</li>
+<li>Kết hợp từ khóa với danh mục.</li>
+<li>Tìm một từ khóa không có kết quả.</li>
+<li>Chuyển qua nhiều trang và kiểm tra bộ lọc có được giữ lại hay không.</li>
+<li>Thử <code>page=0</code>, <code>page=-1</code> và một số trang lớn hơn tổng số trang.</li>
+<li>Kiểm tra giao diện trên màn hình desktop và thiết bị di động.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

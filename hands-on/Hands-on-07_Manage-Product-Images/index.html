@@ -1,0 +1,3060 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Hands-on-06_Upload-Product-Images/">
+      
+      
+        <link rel="next" href="../Hands-on-08_Admin-Frontend-Structure/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Hands-on 07 – Quản lý hình ảnh sản phẩm khi cập nhật - Phát triển ứng dụng Web mã nguồn mở</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hands-on-07-quan-ly-hinh-anh-san-pham-khi-cap-nhat" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-header__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Phát triển ứng dụng Web mã nguồn mở
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hands-on 07 – Quản lý hình ảnh sản phẩm khi cập nhật
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-nav__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Phát triển ứng dụng Web mã nguồn mở
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chuẩn bị
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chuẩn bị
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preparation/Pre-Lab-00_Environment-Setup-Windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-Lab 00 - Chuẩn bị môi trường
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thực hành
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thực hành
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-01_PHP-Docker_Baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 01 - PHP và Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-02_MySQL-Database-Schema-Seed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 02 - MySQL-Database-Schema-Seed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-03_PHP-MySQLi-Category-Listing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 03 - PHP-MySQLi-Category-Listing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-04_Category-CRUD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 04 - Xây dựng CRUD quản lý danh mục
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-05_Product-Relational-Data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 05 - Xây dựng CRUD quản lý sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-06_Upload-Product-Images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 06 – Upload hình ảnh sản phẩm với PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 07 – Quản lý hình ảnh sản phẩm khi cập nhật
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 07 – Quản lý hình ảnh sản phẩm khi cập nhật
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-chuan-bi-du-lieu-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Chuẩn bị dữ liệu thực hành
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-oc-danh-sach-anh-cua-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Đọc danh sách ảnh của sản phẩm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Đọc danh sách ảnh của sản phẩm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kien-thuc-can-hieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiến thức cần hiểu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-hien-thi-tat-ca-anh-tren-trang-sua-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Hiển thị tất cả ảnh trên trang sửa sản phẩm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Hiển thị tất cả ảnh trên trang sửa sản phẩm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kiem-tra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiểm tra
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kien-thuc-moi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiến thức mới
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-at-mot-anh-khac-lam-anh-chinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Đặt một ảnh khác làm ảnh chính
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Đặt một ảnh khác làm ảnh chính">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-them-nut-tren-anh-phu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Thêm nút trên ảnh phụ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-xu-ly-post" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2. Xử lý POST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-sao-can-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vì sao cần transaction?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-feedback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3. Feedback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kiem-tra_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiểm tra
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-them-anh-cho-san-pham-a-ton-tai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Thêm ảnh cho sản phẩm đã tồn tại
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Thêm ảnh cho sản phẩm đã tồn tại">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-bo-sung-input-nhieu-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Bổ sung input nhiều ảnh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-tao-nhanh-xu-ly-add_images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Tạo nhánh xử lý add_images
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kien-thuc-can-hieu_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiến thức cần hiểu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-xac-inh-sortorder-va-trang-thai-anh-chinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Xác định SortOrder và trạng thái ảnh chính
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-luu-anh-bang-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4. Lưu ảnh bằng transaction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-sao-phai-don-tap-tin-khi-rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vì sao phải dọn tập tin khi rollback?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-them-feedback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5. Thêm feedback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-kiem-tra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6. Kiểm tra
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-xoa-mot-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Xóa một ảnh
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Xóa một ảnh">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-them-nut-xoa-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. Thêm nút Xóa ảnh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-nhung-du-lieu-can-biet-truoc-khi-xoa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2. Những dữ liệu cần biết trước khi xóa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-xu-ly-khi-xoa-anh-chinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Xử lý khi xóa ảnh chính
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Xử lý khi xóa ảnh chính">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kien-thuc-can-hieu_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiến thức cần hiểu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-chuan-hoa-sortorder-sau-khi-xoa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Chuẩn hóa SortOrder sau khi xóa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-ghep-hoan-chinh-nhanh-xu-ly-xoa-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Ghép hoàn chỉnh nhánh xử lý xóa ảnh
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Ghép hoàn chỉnh nhánh xử lý xóa ảnh">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-vi-sao-commit-truoc-unlink" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1. Vì sao commit() trước unlink()?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-them-feedback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2. Thêm feedback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-thu-tu-cac-nhanh-post" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3. Thứ tự các nhánh POST
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-kiem-thu-xoa-anh-phu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Kiểm thử xóa ảnh phụ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-kiem-thu-xoa-anh-chinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Kiểm thử xóa ảnh chính
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-truong-hop-bien-tu-1-anh-ve-0-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Trường hợp biên: từ 1 ảnh về 0 ảnh
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Trường hợp biên: từ 1 ảnh về 0 ảnh">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#y-nghia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ý nghĩa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-ra-soat-giao-dien-quan-ly-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Rà soát giao diện quản lý ảnh
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-kiem-tra-cu-phap-va-du-lieu-cuoi-bai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Kiểm tra cú pháp và dữ liệu cuối bài
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-don-tap-tin-thu-nghiem-va-kiem-tra-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Dọn tập tin thử nghiệm và kiểm tra Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-checklist-cuoi-hands-on-07" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Checklist cuối Hands-on 07
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-kien-thuc-phpmysqli-a-su-dung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Kiến thức PHP/MySQLi đã sử dụng
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-tong-ket-hands-on-07" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Tổng kết Hands-on 07
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-08_Admin-Frontend-Structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 08 – Tổ chức khu vực quản trị và giao diện người dùng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-09_Product-Storefront-and-Detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-10_Product-Search-Filter-and-Pagination/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 10 – Tìm kiếm, lọc và phân trang sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-09_Product-Storefront-and-Detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-09_Product-Storefront-and-Detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-09_Product-Storefront-and-Detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-09_Product-Storefront-and-Detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hướng dẫn
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hướng dẫn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/Mini-Hands-on_Git-Push-GitHub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git và GitHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-chuan-bi-du-lieu-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Chuẩn bị dữ liệu thực hành
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-oc-danh-sach-anh-cua-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Đọc danh sách ảnh của sản phẩm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Đọc danh sách ảnh của sản phẩm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kien-thuc-can-hieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiến thức cần hiểu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-hien-thi-tat-ca-anh-tren-trang-sua-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Hiển thị tất cả ảnh trên trang sửa sản phẩm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Hiển thị tất cả ảnh trên trang sửa sản phẩm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kiem-tra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiểm tra
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kien-thuc-moi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiến thức mới
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-at-mot-anh-khac-lam-anh-chinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Đặt một ảnh khác làm ảnh chính
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Đặt một ảnh khác làm ảnh chính">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-them-nut-tren-anh-phu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Thêm nút trên ảnh phụ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-xu-ly-post" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2. Xử lý POST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-sao-can-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vì sao cần transaction?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-feedback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3. Feedback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kiem-tra_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiểm tra
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-them-anh-cho-san-pham-a-ton-tai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Thêm ảnh cho sản phẩm đã tồn tại
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Thêm ảnh cho sản phẩm đã tồn tại">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-bo-sung-input-nhieu-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Bổ sung input nhiều ảnh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-tao-nhanh-xu-ly-add_images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Tạo nhánh xử lý add_images
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kien-thuc-can-hieu_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiến thức cần hiểu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-xac-inh-sortorder-va-trang-thai-anh-chinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Xác định SortOrder và trạng thái ảnh chính
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-luu-anh-bang-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4. Lưu ảnh bằng transaction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-sao-phai-don-tap-tin-khi-rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vì sao phải dọn tập tin khi rollback?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-them-feedback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5. Thêm feedback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-kiem-tra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6. Kiểm tra
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-xoa-mot-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Xóa một ảnh
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Xóa một ảnh">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-them-nut-xoa-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. Thêm nút Xóa ảnh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-nhung-du-lieu-can-biet-truoc-khi-xoa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2. Những dữ liệu cần biết trước khi xóa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-xu-ly-khi-xoa-anh-chinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Xử lý khi xóa ảnh chính
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Xử lý khi xóa ảnh chính">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kien-thuc-can-hieu_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiến thức cần hiểu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-chuan-hoa-sortorder-sau-khi-xoa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Chuẩn hóa SortOrder sau khi xóa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-ghep-hoan-chinh-nhanh-xu-ly-xoa-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Ghép hoàn chỉnh nhánh xử lý xóa ảnh
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Ghép hoàn chỉnh nhánh xử lý xóa ảnh">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-vi-sao-commit-truoc-unlink" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1. Vì sao commit() trước unlink()?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-them-feedback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2. Thêm feedback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-thu-tu-cac-nhanh-post" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3. Thứ tự các nhánh POST
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-kiem-thu-xoa-anh-phu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Kiểm thử xóa ảnh phụ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-kiem-thu-xoa-anh-chinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Kiểm thử xóa ảnh chính
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-truong-hop-bien-tu-1-anh-ve-0-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Trường hợp biên: từ 1 ảnh về 0 ảnh
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Trường hợp biên: từ 1 ảnh về 0 ảnh">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#y-nghia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ý nghĩa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-ra-soat-giao-dien-quan-ly-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Rà soát giao diện quản lý ảnh
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-kiem-tra-cu-phap-va-du-lieu-cuoi-bai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Kiểm tra cú pháp và dữ liệu cuối bài
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-don-tap-tin-thu-nghiem-va-kiem-tra-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Dọn tập tin thử nghiệm và kiểm tra Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-checklist-cuoi-hands-on-07" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Checklist cuối Hands-on 07
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-kien-thuc-phpmysqli-a-su-dung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Kiến thức PHP/MySQLi đã sử dụng
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-tong-ket-hands-on-07" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Tổng kết Hands-on 07
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hands-on-07-quan-ly-hinh-anh-san-pham-khi-cap-nhat">Hands-on 07 -- Quản lý hình ảnh sản phẩm khi cập nhật</h1>
+<h2 id="1-muc-tieu">1. Mục tiêu</h2>
+<p>Trong Hands-on 06, chúng ta đã xây dựng chức năng thêm sản phẩm và upload từ 1 đến 4 ảnh. Thông tin ảnh được lưu trong bảng <code>product_images</code>; một ảnh được đánh dấu là ảnh chính bằng <code>IsPrimary</code>, còn <code>SortOrder</code> lưu thứ tự hiển thị.</p>
+<p>Hands-on 07 tiếp tục hoàn thiện trang <code>edit.php</code>. Mục tiêu không chỉ là làm cho chức năng hoạt động, mà còn giúp người học hiểu cách quản lý <strong>vòng đời của tập tin ảnh</strong> và giữ dữ liệu MySQL đồng bộ với tập tin vật lý.</p>
+<p>Sau Hands-on 07, người học có thể:</p>
+<ul>
+<li>đọc và hiển thị nhiều ảnh của một sản phẩm;</li>
+<li>phân biệt ảnh chính và ảnh phụ;</li>
+<li>thay đổi ảnh chính;</li>
+<li>thêm nhiều ảnh cho sản phẩm đã tồn tại;</li>
+<li>xóa ảnh và đồng bộ dữ liệu với tập tin vật lý;</li>
+<li>tự chọn ảnh chính mới khi ảnh chính bị xóa;</li>
+<li>chuẩn hóa lại <code>SortOrder</code> sau khi xóa;</li>
+<li>sử dụng transaction cho các thao tác thay đổi nhiều mẩu tin;</li>
+<li>xử lý trường hợp sản phẩm không còn ảnh.</li>
+</ul>
+<p>Kết quả cuối bài:</p>
+<pre><code class="language-text">Sửa sản phẩm
+│
+├── Cập nhật thông tin sản phẩm
+└── Quản lý hình ảnh
+    ├── Hiển thị tất cả ảnh
+    ├── Đặt ảnh chính
+    ├── Thêm ảnh
+    └── Xóa ảnh
+         ├── cập nhật product_images
+         ├── chọn ảnh chính mới nếu cần
+         ├── chuẩn hóa SortOrder
+         └── xóa tập tin vật lý
+</code></pre>
+<hr />
+<h2 id="2-chuan-bi-du-lieu-thuc-hanh">2. Chuẩn bị dữ liệu thực hành</h2>
+<p>Hands-on này tiếp tục trực tiếp từ kết quả của Hands-on 06. Sản phẩm <code>SP006</code> đã có 4 ảnh và được dùng làm dữ liệu thực hành.</p>
+<p>Khởi động:</p>
+<pre><code class="language-cmd">docker compose up -d
+docker compose ps
+</code></pre>
+<p>Mở <code>http://localhost:8080/products/</code>.</p>
+<p>Vào MySQL:</p>
+<pre><code class="language-cmd">docker compose exec db mysql -u root -p
+</code></pre>
+<pre><code class="language-sql">USE ql_banhang;
+
+SELECT
+    p.ProductID, p.ProductCode, p.ProductName,
+    pi.ProductImageID, pi.ImageFile, pi.IsPrimary, pi.SortOrder
+FROM products AS p, product_images AS pi
+WHERE p.ProductID = pi.ProductID
+  AND p.ProductCode = 'SP006'
+ORDER BY pi.SortOrder;
+</code></pre>
+<p>Cần có 4 ảnh, <code>SortOrder</code> lần lượt 1–4 và chỉ một ảnh có <code>IsPrimary = 1</code>.</p>
+<blockquote>
+<p>Tên tập tin có thể khác vì Hands-on 06 tạo tên bằng <code>random_bytes()</code>. Không sửa tên trong cơ sở dữ liệu chỉ để giống ví dụ.</p>
+</blockquote>
+<hr />
+<h2 id="3-oc-danh-sach-anh-cua-san-pham">3. Đọc danh sách ảnh của sản phẩm</h2>
+<p>Mở <code>public/products/edit.php</code>. Sau khi đã xác định <code>$productID</code>, bổ sung:</p>
+<pre><code class="language-php">$sqlImages = &quot;
+    SELECT
+        ProductImageID,
+        ImageFile,
+        AltText,
+        IsPrimary,
+        SortOrder
+    FROM product_images
+    WHERE ProductID = ?
+    ORDER BY SortOrder, ProductImageID
+&quot;;
+
+$stmtImages = $conn-&gt;prepare($sqlImages);
+$stmtImages-&gt;bind_param('i', $productID);
+$stmtImages-&gt;execute();
+$productImages = $stmtImages-&gt;get_result();
+</code></pre>
+<h3 id="kien-thuc-can-hieu">Kiến thức cần hiểu</h3>
+<p>Quan hệ là <code>Product 1 -- N ProductImage</code>. Vì vậy kết quả <code>$productImages</code> chứa nhiều mẩu tin và phải được duyệt bằng vòng lặp. Prepared Statement tiếp tục được sử dụng vì <code>ProductID</code> là tham số đưa vào SQL.</p>
+<hr />
+<h2 id="4-hien-thi-tat-ca-anh-tren-trang-sua-san-pham">4. Hiển thị tất cả ảnh trên trang sửa sản phẩm</h2>
+<p>Trong form <code>edit.php</code>, thêm khu vực hình ảnh:</p>
+<pre><code class="language-php">&lt;hr class=&quot;my-4&quot;&gt;
+&lt;h4 class=&quot;mb-3&quot;&gt;Hình ảnh sản phẩm&lt;/h4&gt;
+
+&lt;div class=&quot;row&quot;&gt;
+    &lt;?php while ($image = $productImages-&gt;fetch_assoc()): ?&gt;
+        &lt;div class=&quot;col-md-3 mb-3&quot;&gt;
+            &lt;div class=&quot;card h-100&quot;&gt;
+                &lt;img
+                    src=&quot;/uploads/products/&lt;?= htmlspecialchars($image['ImageFile']) ?&gt;&quot;
+                    class=&quot;card-img-top&quot;
+                    alt=&quot;&lt;?= htmlspecialchars($image['AltText'] ?? '') ?&gt;&quot;
+                &gt;
+
+                &lt;div class=&quot;card-body&quot;&gt;
+                    &lt;small class=&quot;text-muted&quot;&gt;
+                        Thứ tự: &lt;?= $image['SortOrder'] ?&gt;
+                    &lt;/small&gt;
+
+                    &lt;?php if ((int) $image['IsPrimary'] === 1): ?&gt;
+                        &lt;div class=&quot;mt-2&quot;&gt;
+                            &lt;span class=&quot;badge bg-success&quot;&gt;Ảnh chính&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;?php endif; ?&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;?php endwhile; ?&gt;
+&lt;/div&gt;
+</code></pre>
+<h3 id="kiem-tra">Kiểm tra</h3>
+<p>Mở trang sửa <code>SP006</code>. Cần thấy đủ 4 ảnh, đúng thứ tự và một ảnh có nhãn <strong>Ảnh chính</strong>.</p>
+<h3 id="kien-thuc-moi">Kiến thức mới</h3>
+<p>Cần phân biệt:</p>
+<pre><code class="language-text">CSDL:       product-xxxxxxxx.webp
+URL:        /uploads/products/product-xxxxxxxx.webp
+Server:     /var/www/html/uploads/products/product-xxxxxxxx.webp
+</code></pre>
+<p>Tên tập tin, URL và đường dẫn vật lý phục vụ ba mục đích khác nhau.</p>
+<hr />
+<h2 id="5-at-mot-anh-khac-lam-anh-chinh">5. Đặt một ảnh khác làm ảnh chính</h2>
+<p>Mỗi sản phẩm chỉ nên có <strong>một ảnh chính</strong>:</p>
+<pre><code class="language-text">ảnh được chọn   → IsPrimary = 1
+ảnh còn lại     → IsPrimary = 0
+</code></pre>
+<h3 id="51-them-nut-tren-anh-phu">5.1. Thêm nút trên ảnh phụ</h3>
+<p>Trong card của ảnh không phải ảnh chính, thêm:</p>
+<pre><code class="language-php">&lt;button
+    type=&quot;submit&quot;
+    class=&quot;btn btn-outline-primary btn-sm&quot;
+    name=&quot;set_primary_image&quot;
+    value=&quot;&lt;?= $image['ProductImageID'] ?&gt;&quot;
+    formaction=&quot;/products/edit.php?id=&lt;?= $productID ?&gt;&quot;
+    formmethod=&quot;post&quot;
+&gt;
+    Đặt làm ảnh chính
+&lt;/button&gt;
+</code></pre>
+<h3 id="52-xu-ly-post">5.2. Xử lý POST</h3>
+<p>Nhánh xử lý đổi ảnh chính phải được đặt trước nhánh cập nhật thông tin sản phẩm thông thường:</p>
+<pre><code class="language-php">if (isset($_POST['set_primary_image'])) {
+
+    $imageID = (int) $_POST['set_primary_image'];
+
+    try {
+        $conn-&gt;begin_transaction();
+
+        $sqlResetPrimary = &quot;
+            UPDATE product_images
+            SET IsPrimary = 0
+            WHERE ProductID = ?
+        &quot;;
+
+        $stmtResetPrimary = $conn-&gt;prepare($sqlResetPrimary);
+        $stmtResetPrimary-&gt;bind_param('i', $productID);
+        $stmtResetPrimary-&gt;execute();
+        $stmtResetPrimary-&gt;close();
+
+        $sqlSetPrimary = &quot;
+            UPDATE product_images
+            SET IsPrimary = 1
+            WHERE ProductImageID = ?
+              AND ProductID = ?
+        &quot;;
+
+        $stmtSetPrimary = $conn-&gt;prepare($sqlSetPrimary);
+        $stmtSetPrimary-&gt;bind_param('ii', $imageID, $productID);
+        $stmtSetPrimary-&gt;execute();
+
+        if ($stmtSetPrimary-&gt;affected_rows !== 1) {
+            throw new Exception('Không thể đặt ảnh chính.');
+        }
+
+        $stmtSetPrimary-&gt;close();
+        $conn-&gt;commit();
+
+        header(
+            'Location: /products/edit.php?id='
+            . $productID
+            . '&amp;primary_updated=1'
+        );
+        exit;
+
+    } catch (Throwable $e) {
+        $conn-&gt;rollback();
+        $error = $e-&gt;getMessage();
+    }
+}
+</code></pre>
+<h3 id="vi-sao-can-transaction">Vì sao cần transaction?</h3>
+<p>Thao tác gồm hai <code>UPDATE</code>. Nếu chỉ câu đầu thành công, sản phẩm có thể không còn ảnh chính. Transaction giúp hai thay đổi được xem như một đơn vị công việc.</p>
+<h3 id="53-feedback">5.3. Feedback</h3>
+<pre><code class="language-php">&lt;?php if (
+    isset($_GET['primary_updated'])
+    &amp;&amp; $_GET['primary_updated'] === '1'
+): ?&gt;
+    &lt;div class=&quot;alert alert-success&quot;&gt;
+        Đã cập nhật ảnh chính.
+    &lt;/div&gt;
+&lt;?php endif; ?&gt;
+</code></pre>
+<h3 id="kiem-tra_1">Kiểm tra</h3>
+<p>Đổi một ảnh của <code>SP006</code> thành ảnh chính rồi kiểm tra:</p>
+<pre><code class="language-sql">SELECT ProductImageID, IsPrimary, SortOrder
+FROM product_images
+WHERE ProductID = &lt;ProductID-cua-SP006&gt;
+ORDER BY SortOrder;
+
+SELECT COUNT(*) AS PrimaryImageCount
+FROM product_images
+WHERE ProductID = &lt;ProductID-cua-SP006&gt;
+  AND IsPrimary = 1;
+</code></pre>
+<p><code>PrimaryImageCount</code> phải bằng <code>1</code>.</p>
+<hr />
+<h2 id="6-them-anh-cho-san-pham-a-ton-tai">6. Thêm ảnh cho sản phẩm đã tồn tại</h2>
+<p>Khác với <code>create.php</code>, ở trang sửa sản phẩm chúng ta đã có <code>$productID</code>.
+Nhiệm vụ của bước này là nhận các ảnh mới, kiểm tra chúng, lưu tập tin và
+thêm các mẩu tin tương ứng vào <code>product_images</code>.</p>
+<h3 id="61-bo-sung-input-nhieu-anh">6.1. Bổ sung input nhiều ảnh</h3>
+<p>Trước hết, kiểm tra thẻ <code>&lt;form&gt;</code> bao ngoài. Form phải có:</p>
+<pre><code class="language-html">enctype=&quot;multipart/form-data&quot;
+</code></pre>
+<p>Nếu chưa có, bổ sung thuộc tính này. Sau khu vực hiển thị các ảnh hiện có,
+thêm:</p>
+<pre><code class="language-html">&lt;div class=&quot;mb-3&quot;&gt;
+    &lt;label for=&quot;productImages&quot; class=&quot;form-label&quot;&gt;
+        Thêm hình ảnh
+    &lt;/label&gt;
+
+    &lt;input
+        type=&quot;file&quot;
+        class=&quot;form-control&quot;
+        id=&quot;productImages&quot;
+        name=&quot;product_images[]&quot;
+        accept=&quot;image/jpeg,image/png,image/webp&quot;
+        multiple
+    &gt;
+
+    &lt;div class=&quot;form-text&quot;&gt;
+        Chấp nhận JPG, PNG hoặc WebP.
+        Mỗi ảnh tối đa 2 MB.
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;button
+    type=&quot;submit&quot;
+    class=&quot;btn btn-outline-success&quot;
+    name=&quot;add_images&quot;
+    value=&quot;1&quot;
+&gt;
+    Thêm ảnh
+&lt;/button&gt;
+</code></pre>
+<p>Ở đây <code>product_images[]</code> cho phép PHP nhận nhiều tập tin trong cùng một lần
+gửi form.</p>
+<h3 id="62-tao-nhanh-xu-ly-add_images">6.2. Tạo nhánh xử lý <code>add_images</code></h3>
+<p>Trong phần xử lý <code>POST</code>, đặt nhánh này <strong>trước nhánh cập nhật thông tin sản
+phẩm thông thường</strong>:</p>
+<pre><code class="language-php">if (isset($_POST['add_images'])) {
+    $files = $_FILES['product_images'] ?? null;
+
+    if (
+        !$files
+        || !isset($files['name'])
+        || !is_array($files['name'])
+    ) {
+        $error = 'Vui lòng chọn ít nhất một ảnh.';
+    } else {
+        $maxSize = 2 * 1024 * 1024;
+
+        $extensionMap = [
+            'image/jpeg' =&gt; 'jpg',
+            'image/png'  =&gt; 'png',
+            'image/webp' =&gt; 'webp'
+        ];
+
+        $validImages = [];
+        $fileCount = count($files['name']);
+
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+
+        for ($i = 0; $i &lt; $fileCount; $i++) {
+            if ($files['error'][$i] === UPLOAD_ERR_NO_FILE) {
+                continue;
+            }
+
+            if ($files['error'][$i] !== UPLOAD_ERR_OK) {
+                $error = 'Có lỗi xảy ra khi upload ảnh.';
+                break;
+            }
+
+            if ($files['size'][$i] &gt; $maxSize) {
+                $error = 'Mỗi ảnh chỉ được có kích thước tối đa 2 MB.';
+                break;
+            }
+
+            $mimeType = $finfo-&gt;file($files['tmp_name'][$i]);
+
+            if (!isset($extensionMap[$mimeType])) {
+                $error = 'Chỉ chấp nhận ảnh JPG, PNG hoặc WebP.';
+                break;
+            }
+
+            $extension = $extensionMap[$mimeType];
+
+            $fileName =
+                'product-'
+                . bin2hex(random_bytes(8))
+                . '.'
+                . $extension;
+
+            $validImages[] = [
+                'tmp_name'  =&gt; $files['tmp_name'][$i],
+                'file_name' =&gt; $fileName
+            ];
+        }
+
+        if (!$error &amp;&amp; count($validImages) === 0) {
+            $error = 'Vui lòng chọn ít nhất một ảnh.';
+        }
+    }
+}
+</code></pre>
+<h3 id="kien-thuc-can-hieu_1">Kiến thức cần hiểu</h3>
+<p>Không nên tin hoàn toàn vào phần mở rộng của tên tập tin do người dùng gửi
+lên. <code>finfo</code> đọc MIME từ nội dung thực tế của tập tin. Tên mới được tạo bằng
+<code>random_bytes()</code> để tránh phụ thuộc vào tên gốc và giảm khả năng trùng tên.</p>
+<h3 id="63-xac-inh-sortorder-va-trang-thai-anh-chinh">6.3. Xác định <code>SortOrder</code> và trạng thái ảnh chính</h3>
+<p>Nếu tất cả ảnh hợp lệ, tiếp tục <strong>bên trong nhánh <code>add_images</code></strong>, sau phần
+kiểm tra ở trên:</p>
+<pre><code class="language-php">if (!$error) {
+    $sqlImageState = &quot;
+        SELECT
+            COUNT(*) AS ImageCount,
+            COALESCE(MAX(SortOrder), 0) AS MaxSortOrder
+        FROM product_images
+        WHERE ProductID = ?
+    &quot;;
+
+    $stmtImageState = $conn-&gt;prepare($sqlImageState);
+    $stmtImageState-&gt;bind_param('i', $productID);
+    $stmtImageState-&gt;execute();
+
+    $imageState =
+        $stmtImageState-&gt;get_result()-&gt;fetch_assoc();
+
+    $stmtImageState-&gt;close();
+
+    $imageCount = (int) $imageState['ImageCount'];
+    $nextSortOrder =
+        (int) $imageState['MaxSortOrder'] + 1;
+}
+</code></pre>
+<p>Quy tắc:</p>
+<pre><code class="language-text">Sản phẩm đã có ảnh  → ảnh mới IsPrimary = 0
+Sản phẩm chưa có ảnh → ảnh mới đầu tiên IsPrimary = 1
+</code></pre>
+<p>Điều này đặc biệt quan trọng với sản phẩm đã bị xóa hết ảnh ở một lần chỉnh
+sửa trước đó.</p>
+<h3 id="64-luu-anh-bang-transaction">6.4. Lưu ảnh bằng transaction</h3>
+<p>Tiếp tục trong <code>if (!$error)</code>:</p>
+<pre><code class="language-php">if (!$error) {
+    $movedFiles = [];
+
+    try {
+        $conn-&gt;begin_transaction();
+
+        $sqlInsertImage = &quot;
+            INSERT INTO product_images
+            (
+                ProductID,
+                ImageFile,
+                AltText,
+                IsPrimary,
+                SortOrder
+            )
+            VALUES (?, ?, ?, ?, ?)
+        &quot;;
+
+        $stmtInsertImage =
+            $conn-&gt;prepare($sqlInsertImage);
+
+        foreach ($validImages as $index =&gt; $image) {
+            $destination =
+                '/var/www/html/uploads/products/'
+                . $image['file_name'];
+
+            if (!move_uploaded_file(
+                $image['tmp_name'],
+                $destination
+            )) {
+                throw new Exception(
+                    'Không thể lưu một trong các ảnh.'
+                );
+            }
+
+            $movedFiles[] = $destination;
+
+            $isPrimary =
+                ($imageCount === 0 &amp;&amp; $index === 0)
+                ? 1
+                : 0;
+
+            $sortOrder = $nextSortOrder + $index;
+
+            $altText =
+                $product['ProductName']
+                . (
+                    $isPrimary === 1
+                    ? ' - ảnh chính'
+                    : ' - ảnh ' . $sortOrder
+                );
+
+            $stmtInsertImage-&gt;bind_param(
+                'issii',
+                $productID,
+                $image['file_name'],
+                $altText,
+                $isPrimary,
+                $sortOrder
+            );
+
+            if (!$stmtInsertImage-&gt;execute()) {
+                throw new Exception(
+                    'Không thể lưu thông tin ảnh.'
+                );
+            }
+        }
+
+        $stmtInsertImage-&gt;close();
+        $conn-&gt;commit();
+
+        header(
+            'Location: /products/edit.php?id='
+            . $productID
+            . '&amp;images_added=1'
+        );
+        exit;
+
+    } catch (Throwable $e) {
+        $conn-&gt;rollback();
+
+        foreach ($movedFiles as $movedFile) {
+            if (file_exists($movedFile)) {
+                unlink($movedFile);
+            }
+        }
+
+        $error = $e-&gt;getMessage();
+    }
+}
+</code></pre>
+<blockquote>
+<p>Nếu trong <code>edit.php</code> của bạn biến chứa thông tin sản phẩm có tên khác
+<code>$product</code>, hãy dùng đúng biến hiện có khi tạo <code>$altText</code>.</p>
+</blockquote>
+<h3 id="vi-sao-phai-don-tap-tin-khi-rollback">Vì sao phải dọn tập tin khi rollback?</h3>
+<p>Transaction chỉ quản lý dữ liệu MySQL:</p>
+<pre><code class="language-text">rollback() → hoàn tác INSERT trong product_images
+unlink()   → xóa các tập tin đã move trước khi lỗi xảy ra
+</code></pre>
+<p>Nếu chỉ <code>rollback()</code> mà không <code>unlink()</code>, thư mục upload có thể còn các tập
+tin không còn mẩu tin tương ứng trong cơ sở dữ liệu.</p>
+<h3 id="65-them-feedback">6.5. Thêm feedback</h3>
+<p>Cùng khu vực đang hiển thị các thông báo thành công, bổ sung:</p>
+<pre><code class="language-php">&lt;?php if (
+    isset($_GET['images_added'])
+    &amp;&amp; $_GET['images_added'] === '1'
+): ?&gt;
+    &lt;div class=&quot;alert alert-success&quot;&gt;
+        Đã thêm hình ảnh sản phẩm.
+    &lt;/div&gt;
+&lt;?php endif; ?&gt;
+</code></pre>
+<h3 id="66-kiem-tra">6.6. Kiểm tra</h3>
+<p>Thêm 2 ảnh vào <code>SP006</code>, sau đó kiểm tra:</p>
+<pre><code class="language-sql">SELECT
+    ProductImageID,
+    ProductID,
+    ImageFile,
+    IsPrimary,
+    SortOrder
+FROM product_images
+WHERE ProductID = &lt;ProductID-cua-SP006&gt;
+ORDER BY SortOrder;
+</code></pre>
+<p>Cần thỏa:</p>
+<pre><code class="language-text">hai ảnh mới đã được thêm
+SortOrder nối tiếp các ảnh cũ
+chỉ có một ảnh có IsPrimary = 1
+</code></pre>
+<p>Kiểm tra số ảnh chính:</p>
+<pre><code class="language-sql">SELECT COUNT(*) AS PrimaryImageCount
+FROM product_images
+WHERE ProductID = &lt;ProductID-cua-SP006&gt;
+  AND IsPrimary = 1;
+</code></pre>
+<p><code>PrimaryImageCount</code> phải bằng <code>1</code>.</p>
+<hr />
+<h2 id="7-xoa-mot-anh">7. Xóa một ảnh</h2>
+<p>Một ảnh của sản phẩm tồn tại đồng thời ở hai nơi:</p>
+<pre><code class="language-text">MySQL                     File system
+product_images            uploads/products/
+     │                           │
+     └──── ImageFile ────────────┘
+</code></pre>
+<p>Vì vậy, xóa ảnh phải xử lý cả mẩu tin trong <code>product_images</code> và tập tin vật
+lý.</p>
+<h3 id="71-them-nut-xoa-anh">7.1. Thêm nút Xóa ảnh</h3>
+<p>Nút xóa phải xuất hiện ở cả ảnh chính và ảnh phụ:</p>
+<pre><code class="language-php">&lt;button
+    type=&quot;submit&quot;
+    class=&quot;btn btn-outline-danger btn-sm ms-2&quot;
+    name=&quot;delete_image&quot;
+    value=&quot;&lt;?= $image['ProductImageID'] ?&gt;&quot;
+    formaction=&quot;/products/edit.php?id=&lt;?= $productID ?&gt;&quot;
+    formmethod=&quot;post&quot;
+    onclick=&quot;return confirm('Bạn có chắc muốn xóa ảnh này?');&quot;
+&gt;
+    Xóa ảnh
+&lt;/button&gt;
+</code></pre>
+<p>Ảnh chính vẫn giữ badge <strong>Ảnh chính</strong>, nhưng bên dưới vẫn có nút <strong>Xóa ảnh</strong>.</p>
+<h3 id="72-nhung-du-lieu-can-biet-truoc-khi-xoa">7.2. Những dữ liệu cần biết trước khi xóa</h3>
+<p>Trước khi <code>DELETE</code>, chương trình cần đọc:</p>
+<pre><code class="language-text">ImageFile   → biết tập tin vật lý cần xóa
+IsPrimary   → biết có phải chọn ảnh chính mới hay không
+SortOrder   → biết vị trí cần chuẩn hóa lại
+</code></pre>
+<p>Ba giá trị này phải được lấy <strong>trước khi xóa mẩu tin</strong>.</p>
+<hr />
+<h2 id="8-xu-ly-khi-xoa-anh-chinh">8. Xử lý khi xóa ảnh chính</h2>
+<p>Nếu ảnh bị xóa là ảnh chính, ảnh còn lại có thứ tự nhỏ nhất sẽ trở thành ảnh
+chính mới:</p>
+<pre><code class="language-text">xóa ảnh chính
+      ↓
+còn ảnh?
+ ┌────┴────┐
+có        không
+│           │
+↓           ↓
+ảnh đầu    sản phẩm
+tiên mới   không còn ảnh
+→ primary
+</code></pre>
+<p>Câu SQL dùng để chọn ảnh còn lại đầu tiên:</p>
+<pre><code class="language-sql">UPDATE product_images
+SET IsPrimary = 1
+WHERE ProductImageID = (
+    SELECT ProductImageID
+    FROM (
+        SELECT ProductImageID
+        FROM product_images
+        WHERE ProductID = ?
+        ORDER BY SortOrder, ProductImageID
+        LIMIT 1
+    ) AS remaining_images
+);
+</code></pre>
+<p>Nếu không còn ảnh, câu <code>UPDATE</code> không tác động mẩu tin nào. Đây là trạng thái
+hợp lệ.</p>
+<h3 id="kien-thuc-can-hieu_2">Kiến thức cần hiểu</h3>
+<p>Lớp truy vấn:</p>
+<pre><code class="language-sql">FROM (
+    SELECT ...
+) AS remaining_images
+</code></pre>
+<p>tạo một tập kết quả trung gian trước khi cập nhật chính bảng
+<code>product_images</code>.</p>
+<hr />
+<h2 id="9-chuan-hoa-sortorder-sau-khi-xoa">9. Chuẩn hóa <code>SortOrder</code> sau khi xóa</h2>
+<p>Giả sử thứ tự hiện tại là:</p>
+<pre><code class="language-text">1  2  3  4  5  6
+</code></pre>
+<p>Nếu xóa ảnh thứ 4, dữ liệu tạm thời thành:</p>
+<pre><code class="language-text">1  2  3  5  6
+</code></pre>
+<p>Ta muốn đưa về:</p>
+<pre><code class="language-text">1  2  3  4  5
+</code></pre>
+<p>Do đó các ảnh đứng sau ảnh vừa xóa cần giảm <code>SortOrder</code> đi 1:</p>
+<pre><code class="language-sql">UPDATE product_images
+SET SortOrder = SortOrder - 1
+WHERE ProductID = ?
+  AND SortOrder &gt; ?;
+</code></pre>
+<p>Cần phân biệt:</p>
+<pre><code class="language-text">ProductImageID → khóa chính, không cần liên tục
+SortOrder      → vị trí hiển thị, nên được giữ liên tục
+</code></pre>
+<p>Ví dụ <code>ProductImageID</code> là <code>7, 8, 11, 13</code> vẫn hoàn toàn hợp lệ.</p>
+<hr />
+<h2 id="10-ghep-hoan-chinh-nhanh-xu-ly-xoa-anh">10. Ghép hoàn chỉnh nhánh xử lý xóa ảnh</h2>
+<p>Sau khi đã hiểu ba vấn đề ở trên, ta ghép chúng thành một nhánh xử lý hoàn
+chỉnh. Trong phần xử lý <code>POST</code>, đặt nhánh <code>delete_image</code> <strong>trước nhánh cập
+nhật thông tin sản phẩm thông thường</strong>:</p>
+<pre><code class="language-php">if (isset($_POST['delete_image'])) {
+    $imageID = (int) $_POST['delete_image'];
+
+    try {
+        $conn-&gt;begin_transaction();
+
+        $sqlImage = &quot;
+            SELECT
+                ProductImageID,
+                ImageFile,
+                IsPrimary,
+                SortOrder
+            FROM product_images
+            WHERE ProductImageID = ?
+              AND ProductID = ?
+        &quot;;
+
+        $stmtImage = $conn-&gt;prepare($sqlImage);
+        $stmtImage-&gt;bind_param(
+            'ii',
+            $imageID,
+            $productID
+        );
+        $stmtImage-&gt;execute();
+
+        $imageToDelete =
+            $stmtImage-&gt;get_result()-&gt;fetch_assoc();
+
+        $stmtImage-&gt;close();
+
+        if (!$imageToDelete) {
+            throw new Exception(
+                'Không tìm thấy ảnh cần xóa.'
+            );
+        }
+
+        $sqlDelete = &quot;
+            DELETE FROM product_images
+            WHERE ProductImageID = ?
+              AND ProductID = ?
+        &quot;;
+
+        $stmtDelete = $conn-&gt;prepare($sqlDelete);
+        $stmtDelete-&gt;bind_param(
+            'ii',
+            $imageID,
+            $productID
+        );
+        $stmtDelete-&gt;execute();
+
+        if ($stmtDelete-&gt;affected_rows !== 1) {
+            throw new Exception(
+                'Không thể xóa ảnh.'
+            );
+        }
+
+        $stmtDelete-&gt;close();
+
+        if ((int) $imageToDelete['IsPrimary'] === 1) {
+            $sqlNewPrimary = &quot;
+                UPDATE product_images
+                SET IsPrimary = 1
+                WHERE ProductImageID = (
+                    SELECT ProductImageID
+                    FROM (
+                        SELECT ProductImageID
+                        FROM product_images
+                        WHERE ProductID = ?
+                        ORDER BY
+                            SortOrder,
+                            ProductImageID
+                        LIMIT 1
+                    ) AS remaining_images
+                )
+            &quot;;
+
+            $stmtNewPrimary =
+                $conn-&gt;prepare($sqlNewPrimary);
+
+            $stmtNewPrimary-&gt;bind_param(
+                'i',
+                $productID
+            );
+
+            $stmtNewPrimary-&gt;execute();
+            $stmtNewPrimary-&gt;close();
+        }
+
+        $deletedSortOrder =
+            (int) $imageToDelete['SortOrder'];
+
+        $sqlReorder = &quot;
+            UPDATE product_images
+            SET SortOrder = SortOrder - 1
+            WHERE ProductID = ?
+              AND SortOrder &gt; ?
+        &quot;;
+
+        $stmtReorder = $conn-&gt;prepare($sqlReorder);
+        $stmtReorder-&gt;bind_param(
+            'ii',
+            $productID,
+            $deletedSortOrder
+        );
+        $stmtReorder-&gt;execute();
+        $stmtReorder-&gt;close();
+
+        $conn-&gt;commit();
+
+        $filePath =
+            '/var/www/html/uploads/products/'
+            . $imageToDelete['ImageFile'];
+
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+
+        header(
+            'Location: /products/edit.php?id='
+            . $productID
+            . '&amp;image_deleted=1'
+        );
+        exit;
+
+    } catch (Throwable $e) {
+        $conn-&gt;rollback();
+        $error = $e-&gt;getMessage();
+    }
+}
+</code></pre>
+<h3 id="101-vi-sao-commit-truoc-unlink">10.1. Vì sao <code>commit()</code> trước <code>unlink()</code>?</h3>
+<p>Nếu xóa tập tin trước nhưng transaction MySQL thất bại:</p>
+<pre><code class="language-text">tập tin đã mất
+database vẫn còn ImageFile
+</code></pre>
+<p>Trong phạm vi Hands-on này, ta dùng:</p>
+<pre><code class="language-text">thay đổi database
+      ↓
+commit thành công
+      ↓
+xóa tập tin vật lý
+</code></pre>
+<p><code>unlink()</code> không thuộc transaction của MySQL. Trong hệ thống thực tế có yêu
+cầu cao hơn, cần thêm cơ chế xử lý khi việc xóa tập tin vật lý thất bại sau
+khi database đã commit.</p>
+<h3 id="102-them-feedback">10.2. Thêm feedback</h3>
+<p>Bổ sung:</p>
+<pre><code class="language-php">&lt;?php if (
+    isset($_GET['image_deleted'])
+    &amp;&amp; $_GET['image_deleted'] === '1'
+): ?&gt;
+    &lt;div class=&quot;alert alert-success&quot;&gt;
+        Đã xóa hình ảnh sản phẩm.
+    &lt;/div&gt;
+&lt;?php endif; ?&gt;
+</code></pre>
+<hr />
+<h3 id="103-thu-tu-cac-nhanh-post">10.3. Thứ tự các nhánh <code>POST</code></h3>
+<p>Đến đây, phần xử lý <code>POST</code> của <code>edit.php</code> đã có nhiều chức năng. Cần bảo đảm
+các nút chuyên biệt được nhận diện trước nhánh cập nhật sản phẩm:</p>
+<pre><code class="language-text">POST
+├── delete_image
+├── add_images
+├── set_primary_image
+└── cập nhật thông tin sản phẩm
+</code></pre>
+<p>Mỗi nhánh chuyên biệt phải redirect hoặc kết thúc xử lý sau khi hoàn thành để
+không rơi tiếp xuống nhánh cập nhật sản phẩm.</p>
+<hr />
+<h2 id="11-kiem-thu-xoa-anh-phu">11. Kiểm thử xóa ảnh phụ</h2>
+<p>Trước khi xóa, ghi lại <code>ImageFile</code>. Chọn một ảnh phụ và xóa.</p>
+<p>Kiểm tra CSDL:</p>
+<pre><code class="language-sql">SELECT
+    ProductImageID,
+    ImageFile,
+    IsPrimary,
+    SortOrder
+FROM product_images
+WHERE ProductID = &lt;ProductID-cua-SP006&gt;
+ORDER BY SortOrder;
+</code></pre>
+<p>Cần thỏa:</p>
+<pre><code class="language-text">ảnh đã xóa không còn trong product_images
+SortOrder liên tục từ 1
+vẫn chỉ có 1 ảnh chính
+</code></pre>
+<p>Kiểm tra tập tin:</p>
+<pre><code class="language-cmd">dir public\uploads\products\&lt;ten-file-vua-xoa&gt;
+</code></pre>
+<p>Mong đợi:</p>
+<pre><code class="language-text">File Not Found
+</code></pre>
+<hr />
+<h2 id="12-kiem-thu-xoa-anh-chinh">12. Kiểm thử xóa ảnh chính</h2>
+<p>Xóa ảnh đang có <code>IsPrimary = 1</code>.</p>
+<p>Sau đó:</p>
+<pre><code class="language-sql">SELECT
+    ProductImageID,
+    ImageFile,
+    IsPrimary,
+    SortOrder
+FROM product_images
+WHERE ProductID = &lt;ProductID-cua-SP006&gt;
+ORDER BY SortOrder;
+
+SELECT COUNT(*) AS PrimaryImageCount
+FROM product_images
+WHERE ProductID = &lt;ProductID-cua-SP006&gt;
+  AND IsPrimary = 1;
+</code></pre>
+<p>Nếu vẫn còn ảnh:</p>
+<pre><code class="language-text">PrimaryImageCount = 1
+</code></pre>
+<p>Ảnh còn lại có thứ tự nhỏ nhất trở thành ảnh chính. Trên giao diện, badge <strong>Ảnh chính</strong> phải chuyển sang ảnh mới.</p>
+<hr />
+<h2 id="13-truong-hop-bien-tu-1-anh-ve-0-anh">13. Trường hợp biên: từ 1 ảnh về 0 ảnh</h2>
+<p>Tạo một sản phẩm thử chỉ có một ảnh, ví dụ <code>SP007</code>.</p>
+<p>Trước khi xóa:</p>
+<pre><code class="language-sql">SELECT
+    p.ProductID,
+    p.ProductCode,
+    p.ProductName,
+    pi.ProductImageID,
+    pi.ImageFile,
+    pi.IsPrimary,
+    pi.SortOrder
+FROM products AS p
+LEFT JOIN product_images AS pi
+    ON pi.ProductID = p.ProductID
+WHERE p.ProductCode = 'SP007';
+</code></pre>
+<p>Ghi lại <code>ProductID</code> và <code>ImageFile</code>, sau đó xóa ảnh duy nhất trên trang sửa.</p>
+<p>Kiểm tra:</p>
+<pre><code class="language-sql">SELECT
+    ProductImageID,
+    ProductID,
+    ImageFile,
+    IsPrimary,
+    SortOrder
+FROM product_images
+WHERE ProductID = &lt;ProductID-cua-SP007&gt;;
+</code></pre>
+<p>Mong đợi:</p>
+<pre><code class="language-text">Empty set
+</code></pre>
+<p>Nhưng sản phẩm vẫn tồn tại:</p>
+<pre><code class="language-sql">SELECT ProductID, ProductCode, ProductName
+FROM products
+WHERE ProductID = &lt;ProductID-cua-SP007&gt;;
+</code></pre>
+<p>Kiểm tra tập tin:</p>
+<pre><code class="language-cmd">dir public\uploads\products\&lt;ImageFile-cua-SP007&gt;
+</code></pre>
+<p>Mong đợi:</p>
+<pre><code class="language-text">File Not Found
+</code></pre>
+<h3 id="y-nghia">Ý nghĩa</h3>
+<p>Quan hệ thực tế là:</p>
+<pre><code class="language-text">Product 1 ─── 0..N ProductImage
+</code></pre>
+<p>Sản phẩm có thể tạm thời không có ảnh và sau đó được bổ sung ảnh trở lại.</p>
+<hr />
+<h2 id="14-ra-soat-giao-dien-quan-ly-anh">14. Rà soát giao diện quản lý ảnh</h2>
+<p>Card của mỗi ảnh cần thể hiện:</p>
+<pre><code class="language-text">Ảnh chính
+├── badge &quot;Ảnh chính&quot;
+└── nút &quot;Xóa ảnh&quot;
+
+Ảnh phụ
+├── nút &quot;Đặt làm ảnh chính&quot;
+└── nút &quot;Xóa ảnh&quot;
+</code></pre>
+<p>Không đặt nút <strong>Đặt làm ảnh chính</strong> trên ảnh vốn đã là ảnh chính.</p>
+<p>Sau danh sách ảnh là khu vực:</p>
+<pre><code class="language-text">Thêm hình ảnh
+[ Chọn file... ]
+[ Thêm ảnh ]
+</code></pre>
+<p>Như vậy một trang <code>edit.php</code> thực hiện hai nhóm nghiệp vụ:</p>
+<pre><code class="language-text">Thông tin sản phẩm
++
+Quản lý hình ảnh sản phẩm
+</code></pre>
+<hr />
+<h2 id="15-kiem-tra-cu-phap-va-du-lieu-cuoi-bai">15. Kiểm tra cú pháp và dữ liệu cuối bài</h2>
+<p>Kiểm tra PHP:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/html/products/edit.php
+</code></pre>
+<p>Cần có:</p>
+<pre><code class="language-text">No syntax errors detected in /var/www/html/products/edit.php
+</code></pre>
+<p>Kiểm tra ảnh của <code>SP006</code>:</p>
+<pre><code class="language-sql">SELECT
+    p.ProductCode,
+    pi.ProductImageID,
+    pi.ImageFile,
+    pi.IsPrimary,
+    pi.SortOrder
+FROM products AS p
+LEFT JOIN product_images AS pi
+    ON pi.ProductID = p.ProductID
+WHERE p.ProductCode = 'SP006'
+ORDER BY pi.SortOrder;
+</code></pre>
+<p>Kiểm tra số ảnh chính:</p>
+<pre><code class="language-sql">SELECT COUNT(*) AS PrimaryImageCount
+FROM product_images AS pi
+JOIN products AS p
+    ON p.ProductID = pi.ProductID
+WHERE p.ProductCode = 'SP006'
+  AND pi.IsPrimary = 1;
+</code></pre>
+<p>Nếu <code>SP006</code> còn ít nhất một ảnh, <code>PrimaryImageCount</code> phải bằng <code>1</code>.</p>
+<hr />
+<h2 id="16-don-tap-tin-thu-nghiem-va-kiem-tra-git">16. Dọn tập tin thử nghiệm và kiểm tra Git</h2>
+<p><code>upload-test.php</code> của Hands-on 06 chỉ dùng để quan sát cơ chế upload. Khi đã tích hợp thành công, không cần giữ trong mã nguồn chính.</p>
+<p>Ảnh upload khi ứng dụng chạy có tên dạng:</p>
+<pre><code class="language-text">product-xxxxxxxxxxxxxxxx.jpg
+product-xxxxxxxxxxxxxxxx.png
+product-xxxxxxxxxxxxxxxx.webp
+</code></pre>
+<p>Đây là dữ liệu runtime, không nên đưa vào Git. Trong <code>.gitignore</code>:</p>
+<pre><code class="language-gitignore"># Runtime product uploads
+public/uploads/products/product-*
+</code></pre>
+<p>Các ảnh mẫu được seed sử dụng, ví dụ:</p>
+<pre><code class="language-text">phone-a-1.webp
+phone-a-2.webp
+laptop-b-1.webp
+mouse-c-1.webp
+</code></pre>
+<p>vẫn được Git quản lý vì không bắt đầu bằng <code>product-</code>.</p>
+<p>Kiểm tra:</p>
+<pre><code class="language-cmd">git status
+git diff --check
+</code></pre>
+<hr />
+<h2 id="17-checklist-cuoi-hands-on-07">17. Checklist cuối Hands-on 07</h2>
+<pre><code class="language-text">[ ] SP006 có dữ liệu ảnh từ HO06
+[ ] edit.php đọc được tất cả ảnh theo ProductID
+[ ] ảnh được hiển thị theo SortOrder
+[ ] nhận biết được ảnh chính bằng IsPrimary
+[ ] đổi được ảnh chính
+[ ] sau khi đổi vẫn chỉ có một IsPrimary = 1
+[ ] form edit.php có multipart/form-data
+[ ] thêm được nhiều ảnh
+[ ] kiểm tra MIME và kích thước trước khi lưu
+[ ] ảnh mới có SortOrder tiếp theo
+[ ] xóa được ảnh phụ
+[ ] xóa được ảnh chính
+[ ] khi xóa ảnh chính, ảnh còn lại đầu tiên trở thành ảnh chính
+[ ] SortOrder được chuẩn hóa sau khi xóa
+[ ] tập tin vật lý được xóa bằng unlink()
+[ ] database và uploads/products đồng bộ
+[ ] sản phẩm vẫn tồn tại khi xóa ảnh cuối cùng
+[ ] sản phẩm 0 ảnh có thể thêm ảnh trở lại
+[ ] php -l không báo lỗi
+[ ] git diff --check không báo lỗi
+</code></pre>
+<hr />
+<h2 id="18-kien-thuc-phpmysqli-a-su-dung">18. Kiến thức PHP/MySQLi đã sử dụng</h2>
+<table>
+<thead>
+<tr>
+<th>Thành phần</th>
+<th>Vai trò</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$_FILES</code></td>
+<td>nhận các tập tin upload</td>
+</tr>
+<tr>
+<td><code>multipart/form-data</code></td>
+<td>cho phép form gửi tập tin</td>
+</tr>
+<tr>
+<td><code>finfo</code></td>
+<td>kiểm tra MIME thực tế</td>
+</tr>
+<tr>
+<td><code>random_bytes()</code></td>
+<td>tạo dữ liệu ngẫu nhiên cho tên tập tin</td>
+</tr>
+<tr>
+<td><code>move_uploaded_file()</code></td>
+<td>lưu tập tin upload</td>
+</tr>
+<tr>
+<td><code>file_exists()</code></td>
+<td>kiểm tra tập tin vật lý</td>
+</tr>
+<tr>
+<td><code>unlink()</code></td>
+<td>xóa tập tin vật lý</td>
+</tr>
+<tr>
+<td>Prepared Statement</td>
+<td>thực thi SQL có tham số</td>
+</tr>
+<tr>
+<td><code>begin_transaction()</code></td>
+<td>bắt đầu transaction</td>
+</tr>
+<tr>
+<td><code>commit()</code></td>
+<td>xác nhận thay đổi CSDL</td>
+</tr>
+<tr>
+<td><code>rollback()</code></td>
+<td>hủy thay đổi khi có lỗi</td>
+</tr>
+<tr>
+<td><code>affected_rows</code></td>
+<td>kiểm tra số mẩu tin bị tác động</td>
+</tr>
+<tr>
+<td><code>LEFT JOIN</code></td>
+<td>vẫn lấy sản phẩm khi không còn ảnh</td>
+</tr>
+<tr>
+<td><code>COALESCE()</code></td>
+<td>xử lý <code>NULL</code> khi tìm <code>MAX(SortOrder)</code></td>
+</tr>
+<tr>
+<td><code>ORDER BY</code></td>
+<td>xác định thứ tự ảnh</td>
+</tr>
+<tr>
+<td><code>LIMIT 1</code></td>
+<td>chọn ảnh đầu tiên còn lại</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="19-tong-ket-hands-on-07">19. Tổng kết Hands-on 07</h2>
+<p>Qua Hands-on 06 và Hands-on 07, hình ảnh sản phẩm không còn được xem đơn giản là một chuỗi tên tập tin.</p>
+<p>Người học đã xây dựng một vòng đời:</p>
+<pre><code class="language-text">Upload
+   ↓
+Kiểm tra
+   ↓
+Đặt tên
+   ↓
+Lưu tập tin
+   ↓
+Lưu product_images
+   ↓
+Hiển thị
+   ↓
+Đổi ảnh chính
+   ↓
+Thêm ảnh
+   ↓
+Xóa ảnh
+   ↓
+Chuẩn hóa dữ liệu
+</code></pre>
+<p>Điểm quan trọng nhất là duy trì sự nhất quán giữa:</p>
+<pre><code class="language-text">products
+     ↕
+product_images
+     ↕
+uploads/products/
+</code></pre>
+<p>Đây là bước chuyển từ CRUD trên một bảng đơn lẻ sang xử lý một chức năng web có <strong>dữ liệu quan hệ, upload tập tin, transaction và quản lý trạng thái</strong>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
