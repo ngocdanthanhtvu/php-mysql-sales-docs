@@ -21,9 +21,9 @@ nav:
       - Hands-on 08 – Tổ chức khu vực quản trị và giao diện người dùng: hands-on/Hands-on-08_Admin-Frontend-Structure.md
       - Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm: hands-on/Hands-on-09_Product-Storefront-and-Detail.md
       - Hands-on 10 – Tìm kiếm, lọc và phân trang sản phẩm: hands-on/Hands-on-10_Product-Search-Filter-and-Pagination.md
-      - Hands-on 09 – Tổ chức khu vực quản trị và giao diện người dùng: hands-on/Hands-on-09_Product-Storefront-and-Detail.md
-      - Hands-on 09 – Tổ chức khu vực quản trị và giao diện người dùng: hands-on/Hands-on-09_Product-Storefront-and-Detail.md
-      - Hands-on 09 – Tổ chức khu vực quản trị và giao diện người dùng: hands-on/Hands-on-09_Product-Storefront-and-Detail.md
-      - Hands-on 09 – Tổ chức khu vực quản trị và giao diện người dùng: hands-on/Hands-on-09_Product-Storefront-and-Detail.md
+      - Hands-on 11 – Xây dựng giỏ hàng với PHP Session: hands-on/Hands-on-11_Shopping-Cart-with-PHP-Session.md
+      - Hands-on 12 – Xử lý đặt hàng và lưu đơn hàng vào MySQL: hands-on/Hands-on-12_Checkout-and-Order-Processing.md
+      - Hands-on 13 – Quản lý đơn hàng trong khu vực Admin: hands-on/Hands-on-13_Admin-Order-Management.md
+      - Hands-on 14 – Đăng ký, đăng nhập và tài khoản khách hàng: hands-on/Hands-on-14_Customer-Authentication-and-Accounts.md
   - Hướng dẫn:
       - Git và GitHub: guides/Mini-Hands-on_Git-Push-GitHub.md
