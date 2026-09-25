@@ -15,6 +15,6 @@ Tài liệu hướng dẫn người học từng bước xây dựng một ứng
 
 ## Lộ trình thực hành
 
-Dự án được phát triển từng bước qua **8 hands-on**.
+Dự án được phát triển từng bước qua **15 hands-on**.
 
 Mỗi hands-on kế thừa kết quả của hands-on trước, giúp người học từng bước hoàn thiện một ứng dụng Web hoàn chỉnh.
