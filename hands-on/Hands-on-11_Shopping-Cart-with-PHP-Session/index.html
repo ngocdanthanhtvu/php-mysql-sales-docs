@@ -1,0 +1,2901 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Hands-on-10_Product-Search-Filter-and-Pagination/">
+      
+      
+        <link rel="next" href="../Hands-on-12_Checkout-and-Order-Processing/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Hands-on 11 – Xây dựng giỏ hàng với PHP Session - Phát triển ứng dụng Web mã nguồn mở</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hands-on-11-xay-dung-gio-hang-voi-php-session" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-header__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Phát triển ứng dụng Web mã nguồn mở
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hands-on 11 – Xây dựng giỏ hàng với PHP Session
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-nav__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Phát triển ứng dụng Web mã nguồn mở
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chuẩn bị
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chuẩn bị
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preparation/Pre-Lab-00_Environment-Setup-Windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-Lab 00 - Chuẩn bị môi trường
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thực hành
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thực hành
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-01_PHP-Docker_Baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 01 - PHP và Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-02_MySQL-Database-Schema-Seed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 02 - MySQL-Database-Schema-Seed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-03_PHP-MySQLi-Category-Listing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 03 - PHP-MySQLi-Category-Listing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-04_Category-CRUD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 04 - Xây dựng CRUD quản lý danh mục
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-05_Product-Relational-Data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 05 - Xây dựng CRUD quản lý sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-06_Upload-Product-Images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 06 – Upload hình ảnh sản phẩm với PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-07_Manage-Product-Images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 07 – Quản lý hình ảnh sản phẩm khi cập nhật
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-08_Admin-Frontend-Structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 08 – Tổ chức khu vực quản trị và giao diện người dùng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-09_Product-Storefront-and-Detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-10_Product-Search-Filter-and-Pagination/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 10 – Tìm kiếm, lọc và phân trang sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 11 – Xây dựng giỏ hàng với PHP Session
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 11 – Xây dựng giỏ hàng với PHP Session
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-chuan-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Chuẩn bị
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-thiet-ke-gio-hang-bang-php-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Thiết kế giỏ hàng bằng PHP Session
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tao-tap-tin-khoi-tao-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Tạo tập tin khởi tạo Session
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Tạo tập tin khởi tạo Session">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#giai-thich" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Giải thích
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-khoi-tao-session-tren-trang-chi-tiet-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Khởi tạo Session trên trang chi tiết sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-xu-ly-them-san-pham-vao-gio-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Xử lý thêm sản phẩm vào giỏ hàng
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Xử lý thêm sản phẩm vào giỏ hàng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phan-tich-xu-ly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phân tích xử lý
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tao-giao-dien-them-vao-gio-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Tạo giao diện thêm vào giỏ hàng
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Tạo giao diện thêm vào giỏ hàng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kiem-tra-buoc-them-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiểm tra bước thêm sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-tao-trang-gio-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Tạo trang giỏ hàng
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-hieu-cach-trang-gio-hang-lay-du-lieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Hiểu cách trang giỏ hàng lấy dữ liệu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Hiểu cách trang giỏ hàng lấy dữ liệu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mot-ket-qua-mot-lan-get_result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Một kết quả -- một lần get_result()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-cap-nhat-so-luong-trong-gio-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Cập nhật số lượng trong giỏ hàng
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Cập nhật số lượng trong giỏ hàng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kiem-thu-cap-nhat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiểm thử cập nhật
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-xoa-san-pham-khoi-gio-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Xóa sản phẩm khỏi giỏ hàng
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-hien-thi-so-luong-gio-hang-tren-navbar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Hiển thị số lượng giỏ hàng trên Navbar
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Hiển thị số lượng giỏ hàng trên Navbar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-khoi-tao-session-o-trang-chu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1. Khởi tạo Session ở trang chủ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-khoi-tao-session-o-trang-danh-sach-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2. Khởi tạo Session ở trang danh sách sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-bo-sung-lien-ket-gio-hang-vao-navbar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Bổ sung liên kết giỏ hàng vào Navbar
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-kiem-tra-cu-phap-toan-bo-phan-thay-oi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Kiểm tra cú pháp toàn bộ phần thay đổi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-kiem-thu-toan-bo-luong-gio-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Kiểm thử toàn bộ luồng giỏ hàng
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Kiểm thử toàn bộ luồng giỏ hàng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-1-gio-hang-ban-au" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 1 -- Giỏ hàng ban đầu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-2-them-mot-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 2 -- Thêm một sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-3-them-lai-cung-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 3 -- Thêm lại cùng sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-4-them-san-pham-khac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 4 -- Thêm sản phẩm khác
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-5-kiem-tra-thanh-tien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 5 -- Kiểm tra thành tiền
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-6-cap-nhat-so-luong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 6 -- Cập nhật số lượng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-7-xoa-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 7 -- Xóa sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-8-xoa-san-pham-cuoi-cung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 8 -- Xóa sản phẩm cuối cùng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-9-chuyen-giua-cac-trang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 9 -- Chuyển giữa các trang
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-cau-truc-du-an-sau-hands-on-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Cấu trúc dự án sau Hands-on 11
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-luu-checkpoint-bang-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Lưu checkpoint bằng Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-ket-qua-at-uoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Kết quả đạt được
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-12_Checkout-and-Order-Processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 12 – Xử lý đặt hàng và lưu đơn hàng vào MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-13_Admin-Order-Management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 13 – Quản lý đơn hàng trong khu vực Admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-14_Customer-Authentication-and-Accounts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 14 – Đăng ký, đăng nhập và tài khoản khách hàng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-15_REST-API-and-Fetch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 15 – REST API và Fetch API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hướng dẫn
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hướng dẫn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/Mini-Hands-on_Git-Push-GitHub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git và GitHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-chuan-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Chuẩn bị
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-thiet-ke-gio-hang-bang-php-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Thiết kế giỏ hàng bằng PHP Session
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tao-tap-tin-khoi-tao-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Tạo tập tin khởi tạo Session
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Tạo tập tin khởi tạo Session">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#giai-thich" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Giải thích
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-khoi-tao-session-tren-trang-chi-tiet-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Khởi tạo Session trên trang chi tiết sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-xu-ly-them-san-pham-vao-gio-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Xử lý thêm sản phẩm vào giỏ hàng
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Xử lý thêm sản phẩm vào giỏ hàng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phan-tich-xu-ly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phân tích xử lý
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tao-giao-dien-them-vao-gio-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Tạo giao diện thêm vào giỏ hàng
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Tạo giao diện thêm vào giỏ hàng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kiem-tra-buoc-them-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiểm tra bước thêm sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-tao-trang-gio-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Tạo trang giỏ hàng
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-hieu-cach-trang-gio-hang-lay-du-lieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Hiểu cách trang giỏ hàng lấy dữ liệu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Hiểu cách trang giỏ hàng lấy dữ liệu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mot-ket-qua-mot-lan-get_result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Một kết quả -- một lần get_result()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-cap-nhat-so-luong-trong-gio-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Cập nhật số lượng trong giỏ hàng
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Cập nhật số lượng trong giỏ hàng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kiem-thu-cap-nhat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiểm thử cập nhật
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-xoa-san-pham-khoi-gio-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Xóa sản phẩm khỏi giỏ hàng
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-hien-thi-so-luong-gio-hang-tren-navbar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Hiển thị số lượng giỏ hàng trên Navbar
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Hiển thị số lượng giỏ hàng trên Navbar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-khoi-tao-session-o-trang-chu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1. Khởi tạo Session ở trang chủ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-khoi-tao-session-o-trang-danh-sach-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2. Khởi tạo Session ở trang danh sách sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-bo-sung-lien-ket-gio-hang-vao-navbar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Bổ sung liên kết giỏ hàng vào Navbar
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-kiem-tra-cu-phap-toan-bo-phan-thay-oi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Kiểm tra cú pháp toàn bộ phần thay đổi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-kiem-thu-toan-bo-luong-gio-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Kiểm thử toàn bộ luồng giỏ hàng
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Kiểm thử toàn bộ luồng giỏ hàng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-1-gio-hang-ban-au" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 1 -- Giỏ hàng ban đầu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-2-them-mot-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 2 -- Thêm một sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-3-them-lai-cung-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 3 -- Thêm lại cùng sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-4-them-san-pham-khac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 4 -- Thêm sản phẩm khác
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-5-kiem-tra-thanh-tien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 5 -- Kiểm tra thành tiền
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-6-cap-nhat-so-luong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 6 -- Cập nhật số lượng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-7-xoa-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 7 -- Xóa sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-8-xoa-san-pham-cuoi-cung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 8 -- Xóa sản phẩm cuối cùng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truong-hop-9-chuyen-giua-cac-trang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trường hợp 9 -- Chuyển giữa các trang
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-cau-truc-du-an-sau-hands-on-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Cấu trúc dự án sau Hands-on 11
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-luu-checkpoint-bang-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Lưu checkpoint bằng Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-ket-qua-at-uoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Kết quả đạt được
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hands-on-11-xay-dung-gio-hang-voi-php-session">Hands-on 11 -- Xây dựng giỏ hàng với PHP Session</h1>
+<h2 id="muc-tieu">Mục tiêu</h2>
+<p>Sau khi hoàn thành Hands-on này, bạn có thể:</p>
+<ul>
+<li>giải thích vai trò của PHP Session trong việc lưu trạng thái giữa nhiều request;</li>
+<li>khởi tạo Session tập trung trong một tập tin cấu hình dùng chung;</li>
+<li>lưu giỏ hàng theo cấu trúc <code>ProductID =&gt; Quantity</code>;</li>
+<li>thêm sản phẩm từ trang chi tiết vào giỏ hàng;</li>
+<li>cộng dồn số lượng khi cùng một sản phẩm được thêm nhiều lần;</li>
+<li>giới hạn số lượng mua theo tồn kho hiện tại;</li>
+<li>xây dựng trang giỏ hàng và lấy thông tin sản phẩm hiện thời từ MySQL;</li>
+<li>tính thành tiền cho từng sản phẩm và tổng giá trị giỏ hàng;</li>
+<li>cập nhật số lượng và xóa sản phẩm khỏi giỏ hàng;</li>
+<li>hiển thị tổng số lượng sản phẩm trong giỏ trên thanh điều hướng Frontend;</li>
+<li>kiểm thử toàn bộ luồng giỏ hàng và lưu checkpoint bằng Git.</li>
+</ul>
+<blockquote>
+<p><strong>Phạm vi Hands-on 11:</strong> giỏ hàng được lưu bằng PHP Session. Chưa tạo đơn hàng, chưa lưu giỏ hàng vào cơ sở dữ liệu và chưa thực hiện thanh toán.</p>
+</blockquote>
+<hr />
+<h2 id="1-chuan-bi">1. Chuẩn bị</h2>
+<p>Hands-on này tiếp tục trực tiếp từ <strong>Hands-on 10</strong>. Ở thời điểm bắt đầu, Frontend đã có:</p>
+<ul>
+<li>trang danh sách sản phẩm <code>/products.php</code>;</li>
+<li>tìm kiếm, lọc và phân trang sản phẩm;</li>
+<li>trang chi tiết <code>/product-detail.php?id=...</code>;</li>
+<li>thanh điều hướng dùng chung trong <code>src/includes/frontend/navbar.php</code>.</li>
+</ul>
+<p>Mở <strong>Command Prompt</strong> và chuyển đến thư mục dự án:</p>
+<pre><code class="language-cmd">cd /d D:\PTUDW-ST-2026\php-mysql-sales
+</code></pre>
+<p>Kiểm tra trạng thái Git:</p>
+<pre><code class="language-cmd">git status
+</code></pre>
+<p>Nên bắt đầu khi Git hiển thị:</p>
+<pre><code class="language-text">nothing to commit, working tree clean
+</code></pre>
+<p>Kiểm tra container:</p>
+<pre><code class="language-cmd">docker compose ps
+</code></pre>
+<p>Nếu các container chưa chạy:</p>
+<pre><code class="language-cmd">docker compose up -d
+</code></pre>
+<p>Mở ứng dụng:</p>
+<pre><code class="language-text">http://localhost:8080/
+</code></pre>
+<hr />
+<h2 id="2-thiet-ke-gio-hang-bang-php-session">2. Thiết kế giỏ hàng bằng PHP Session</h2>
+<p>HTTP không tự ghi nhớ sản phẩm mà người dùng đã chọn giữa các request. Trong bài này, ta sử dụng <strong>PHP Session</strong> để lưu trạng thái giỏ hàng trong phiên làm việc của người dùng.</p>
+<p>Giỏ hàng được tổ chức theo dạng:</p>
+<pre><code class="language-php">$_SESSION['cart'] = [
+    ProductID =&gt; Quantity
+];
+</code></pre>
+<p>Ví dụ:</p>
+<pre><code class="language-php">$_SESSION['cart'] = [
+    3 =&gt; 2,
+    7 =&gt; 1
+];
+</code></pre>
+<p>Ý nghĩa:</p>
+<pre><code class="language-text">ProductID = 3  → số lượng 2
+ProductID = 7  → số lượng 1
+</code></pre>
+<p>Ta <strong>không lưu tên, giá hoặc hình ảnh sản phẩm vào Session</strong>. Khi hiển thị giỏ hàng, ứng dụng dùng <code>ProductID</code> để lấy lại thông tin hiện thời từ MySQL.</p>
+<p>Cách tổ chức này giúp Session gọn và tránh giữ các thông tin sản phẩm có thể đã thay đổi trong cơ sở dữ liệu.</p>
+<p>Luồng xử lý chính:</p>
+<pre><code class="language-text">Chi tiết sản phẩm
+        │
+        │ POST: ProductID + Quantity
+        ▼
+PHP Session
+$_SESSION['cart']
+        │
+        ▼
+cart.php
+        │
+        ├── lấy thông tin sản phẩm từ MySQL
+        ├── tính thành tiền
+        ├── cập nhật số lượng
+        └── xóa sản phẩm
+</code></pre>
+<hr />
+<h2 id="3-tao-tap-tin-khoi-tao-session">3. Tạo tập tin khởi tạo Session</h2>
+<p>Tạo tập tin mới:</p>
+<pre><code class="language-text">src/config/session.php
+</code></pre>
+<p>Mở bằng VS Code:</p>
+<pre><code class="language-cmd">code src\config\session.php
+</code></pre>
+<p>Nhập:</p>
+<pre><code class="language-php">&lt;?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+</code></pre>
+<h3 id="giai-thich">Giải thích</h3>
+<p><code>session_status()</code> cho biết trạng thái hiện tại của Session.</p>
+<p>Điều kiện:</p>
+<pre><code class="language-php">session_status() === PHP_SESSION_NONE
+</code></pre>
+<p>đảm bảo <code>session_start()</code> chỉ được gọi khi Session chưa được khởi tạo.</p>
+<p>Ta đặt xử lý này trong <code>src/config/session.php</code> thay vì <code>header.php</code> hoặc <code>navbar.php</code> vì:</p>
+<ul>
+<li><code>session.php</code> chịu trách nhiệm khởi tạo trạng thái phiên;</li>
+<li><code>header.php</code> và <code>navbar.php</code> tập trung vào giao diện;</li>
+<li>Session có thể được khởi tạo <strong>trước khi HTML được gửi về trình duyệt</strong>.</li>
+</ul>
+<p>Kiểm tra cú pháp:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/src/config/session.php
+</code></pre>
+<p>Kết quả mong đợi:</p>
+<pre><code class="language-text">No syntax errors detected
+</code></pre>
+<hr />
+<h2 id="4-khoi-tao-session-tren-trang-chi-tiet-san-pham">4. Khởi tạo Session trên trang chi tiết sản phẩm</h2>
+<p>Mở:</p>
+<pre><code class="language-cmd">code public\product-detail.php
+</code></pre>
+<p>Ở đầu tập tin, trước kết nối cơ sở dữ liệu, thêm:</p>
+<pre><code class="language-php">require_once '/var/www/src/config/session.php';
+</code></pre>
+<p>Phần đầu tập tin trở thành:</p>
+<pre><code class="language-php">&lt;?php
+
+require_once '/var/www/src/config/session.php';
+require_once '/var/www/src/config/database.php';
+</code></pre>
+<p>Session phải được khởi tạo trước phần HTML để ứng dụng có thể đọc và thay đổi <code>$_SESSION</code> an toàn.</p>
+<hr />
+<h2 id="5-xu-ly-them-san-pham-vao-gio-hang">5. Xử lý thêm sản phẩm vào giỏ hàng</h2>
+<p>Trong <code>public/product-detail.php</code>, sau khi đã lấy được <code>$product</code> và kiểm tra sản phẩm tồn tại, nhưng <strong>trước phần truy vấn hình ảnh</strong>, thêm:</p>
+<pre><code class="language-php">$cartMessage = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST'
+    &amp;&amp; isset($_POST['add_to_cart'])) {
+
+    $quantity = isset($_POST['quantity'])
+        ? (int) $_POST['quantity']
+        : 1;
+
+    if ($quantity &lt; 1) {
+        $quantity = 1;
+    }
+
+    $stockQuantity = (int) $product['StockQuantity'];
+
+    if ($stockQuantity &lt;= 0) {
+
+        $cartMessage = 'Sản phẩm hiện đã hết hàng.';
+
+    } else {
+
+        $currentQuantity =
+            $_SESSION['cart'][$productID] ?? 0;
+
+        $newQuantity =
+            $currentQuantity + $quantity;
+
+        if ($newQuantity &gt; $stockQuantity) {
+            $newQuantity = $stockQuantity;
+        }
+
+        $_SESSION['cart'][$productID] =
+            $newQuantity;
+
+        $cartMessage =
+            'Đã thêm sản phẩm vào giỏ hàng.';
+    }
+}
+</code></pre>
+<h3 id="phan-tich-xu-ly">Phân tích xử lý</h3>
+<p>Khi người dùng gửi biểu mẫu bằng <code>POST</code>, chương trình lấy số lượng:</p>
+<pre><code class="language-php">$quantity = isset($_POST['quantity'])
+    ? (int) $_POST['quantity']
+    : 1;
+</code></pre>
+<p>Nếu dữ liệu nhỏ hơn <code>1</code>, chương trình đưa về giá trị tối thiểu:</p>
+<pre><code class="language-php">if ($quantity &lt; 1) {
+    $quantity = 1;
+}
+</code></pre>
+<p>Số lượng hiện có của cùng sản phẩm được lấy bằng:</p>
+<pre><code class="language-php">$currentQuantity =
+    $_SESSION['cart'][$productID] ?? 0;
+</code></pre>
+<p>Sau đó cộng số lượng mới:</p>
+<pre><code class="language-php">$newQuantity =
+    $currentQuantity + $quantity;
+</code></pre>
+<p>Nếu tổng vượt tồn kho, chỉ giữ tối đa bằng <code>StockQuantity</code>:</p>
+<pre><code class="language-php">if ($newQuantity &gt; $stockQuantity) {
+    $newQuantity = $stockQuantity;
+}
+</code></pre>
+<p>Cuối cùng cập nhật Session:</p>
+<pre><code class="language-php">$_SESSION['cart'][$productID] =
+    $newQuantity;
+</code></pre>
+<p>Như vậy, thêm lại cùng một sản phẩm <strong>không tạo một dòng giỏ hàng mới</strong> mà làm tăng số lượng của sản phẩm đó.</p>
+<hr />
+<h2 id="6-tao-giao-dien-them-vao-gio-hang">6. Tạo giao diện thêm vào giỏ hàng</h2>
+<p>Trong phần thông tin sản phẩm của <code>public/product-detail.php</code>, sau danh sách thông tin (<code>&lt;/dl&gt;</code>) và trước phần mô tả sản phẩm, thêm:</p>
+<pre><code class="language-php">&lt;?php if ($cartMessage !== ''): ?&gt;
+
+    &lt;div class=&quot;alert alert-info&quot;&gt;
+        &lt;?= htmlspecialchars($cartMessage) ?&gt;
+    &lt;/div&gt;
+
+&lt;?php endif; ?&gt;
+
+&lt;?php if ((int) $product['StockQuantity'] &gt; 0): ?&gt;
+
+    &lt;form method=&quot;post&quot; class=&quot;mb-4&quot;&gt;
+
+        &lt;div class=&quot;row g-3 align-items-end&quot;&gt;
+
+            &lt;div class=&quot;col-auto&quot;&gt;
+
+                &lt;label
+                    for=&quot;quantity&quot;
+                    class=&quot;form-label&quot;
+                &gt;
+                    Số lượng
+                &lt;/label&gt;
+
+                &lt;input
+                    type=&quot;number&quot;
+                    name=&quot;quantity&quot;
+                    id=&quot;quantity&quot;
+                    class=&quot;form-control&quot;
+                    value=&quot;1&quot;
+                    min=&quot;1&quot;
+                    max=&quot;&lt;?= (int) $product['StockQuantity'] ?&gt;&quot;
+                    style=&quot;width: 100px;&quot;
+                &gt;
+
+            &lt;/div&gt;
+
+            &lt;div class=&quot;col-auto&quot;&gt;
+
+                &lt;button
+                    type=&quot;submit&quot;
+                    name=&quot;add_to_cart&quot;
+                    class=&quot;btn btn-primary&quot;
+                &gt;
+                    Thêm vào giỏ hàng
+                &lt;/button&gt;
+
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+
+    &lt;/form&gt;
+
+&lt;?php else: ?&gt;
+
+    &lt;div class=&quot;alert alert-warning&quot;&gt;
+        Sản phẩm hiện đã hết hàng.
+    &lt;/div&gt;
+
+&lt;?php endif; ?&gt;
+</code></pre>
+<p>Ở đây:</p>
+<ul>
+<li><code>min="1"</code> không cho nhập số lượng nhỏ hơn 1 trên giao diện;</li>
+<li><code>max</code> lấy từ <code>StockQuantity</code> của sản phẩm;</li>
+<li><code>name="add_to_cart"</code> giúp PHP nhận biết thao tác thêm vào giỏ;</li>
+<li><code>htmlspecialchars()</code> được dùng khi hiển thị thông báo.</li>
+</ul>
+<h3 id="kiem-tra-buoc-them-san-pham">Kiểm tra bước thêm sản phẩm</h3>
+<p>Kiểm tra cú pháp:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/html/product-detail.php
+</code></pre>
+<p>Mở một sản phẩm, ví dụ:</p>
+<pre><code class="language-text">http://localhost:8080/product-detail.php?id=3
+</code></pre>
+<p>Kiểm thử:</p>
+<ol>
+<li>Chọn số lượng <code>1</code> và nhấn <strong>Thêm vào giỏ hàng</strong>.</li>
+<li>Thêm lại chính sản phẩm đó với số lượng khác.</li>
+<li>Thử nhập số lượng bằng tồn kho tối đa.</li>
+</ol>
+<p>Kết quả cần đạt:</p>
+<ul>
+<li>xuất hiện thông báo đã thêm sản phẩm;</li>
+<li>thêm lại cùng sản phẩm làm tăng số lượng;</li>
+<li>số lượng lưu trong giỏ không vượt quá tồn kho.</li>
+</ul>
+<hr />
+<h2 id="7-tao-trang-gio-hang">7. Tạo trang giỏ hàng</h2>
+<p>Tạo tập tin mới:</p>
+<pre><code class="language-text">public/cart.php
+</code></pre>
+<p>Mở:</p>
+<pre><code class="language-cmd">code public\cart.php
+</code></pre>
+<p>Vì đây là <strong>tập tin mới</strong>, nhập toàn bộ nội dung sau:</p>
+<pre><code class="language-php">&lt;?php
+
+require_once '/var/www/src/config/session.php';
+require_once '/var/www/src/config/database.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (isset($_POST['update_cart'])) {
+
+        $quantities = $_POST['quantities'] ?? [];
+
+        foreach ($quantities as $productID =&gt; $quantity) {
+
+            $productID = (int) $productID;
+            $quantity = (int) $quantity;
+
+            if ($productID &lt;= 0) {
+                continue;
+            }
+
+            if ($quantity &lt;= 0) {
+                unset($_SESSION['cart'][$productID]);
+                continue;
+            }
+
+            $sqlStock = &quot;
+                SELECT StockQuantity
+                FROM products
+                WHERE ProductID = ?
+                  AND IsActive = 1
+            &quot;;
+
+            $stmtStock = $conn-&gt;prepare($sqlStock);
+            $stmtStock-&gt;bind_param('i', $productID);
+            $stmtStock-&gt;execute();
+
+            $stockResult = $stmtStock-&gt;get_result();
+            $stockRow = $stockResult-&gt;fetch_assoc();
+
+            $stockResult-&gt;free();
+            $stmtStock-&gt;close();
+
+            if (!$stockRow) {
+                unset($_SESSION['cart'][$productID]);
+                continue;
+            }
+
+            $stockQuantity =
+                (int) $stockRow['StockQuantity'];
+
+            if ($stockQuantity &lt;= 0) {
+                unset($_SESSION['cart'][$productID]);
+                continue;
+            }
+
+            $_SESSION['cart'][$productID] =
+                min($quantity, $stockQuantity);
+        }
+
+        header('Location: /cart.php');
+        exit;
+    }
+
+    if (isset($_POST['remove_product'])) {
+
+        $productID =
+            (int) $_POST['remove_product'];
+
+        if ($productID &gt; 0) {
+            unset($_SESSION['cart'][$productID]);
+        }
+
+        header('Location: /cart.php');
+        exit;
+    }
+}
+
+$cart = $_SESSION['cart'] ?? [];
+
+$cartItems = [];
+$totalAmount = 0;
+
+if (!empty($cart)) {
+
+    foreach ($cart as $productID =&gt; $quantity) {
+
+        $sql = &quot;
+            SELECT
+                p.ProductID,
+                p.ProductCode,
+                p.ProductName,
+                p.Price,
+                p.StockQuantity,
+
+                (
+                    SELECT pi.ImageFile
+                    FROM product_images pi
+                    WHERE pi.ProductID = p.ProductID
+                      AND pi.IsPrimary = 1
+                    LIMIT 1
+                ) AS ImageFile
+
+            FROM products p
+
+            WHERE
+                p.ProductID = ?
+                AND p.IsActive = 1
+        &quot;;
+
+        $stmt = $conn-&gt;prepare($sql);
+        $stmt-&gt;bind_param('i', $productID);
+        $stmt-&gt;execute();
+
+        $result = $stmt-&gt;get_result();
+        $product = $result-&gt;fetch_assoc();
+
+        $result-&gt;free();
+        $stmt-&gt;close();
+
+        if ($product) {
+
+            $quantity = (int) $quantity;
+
+            $subtotal =
+                (float) $product['Price'] * $quantity;
+
+            $product['Quantity'] = $quantity;
+            $product['Subtotal'] = $subtotal;
+
+            $cartItems[] = $product;
+            $totalAmount += $subtotal;
+        }
+    }
+}
+
+$pageTitle = 'Giỏ hàng';
+
+require_once '/var/www/src/includes/frontend/header.php';
+require_once '/var/www/src/includes/frontend/navbar.php';
+
+?&gt;
+
+&lt;main class=&quot;container py-5&quot;&gt;
+
+    &lt;div class=&quot;mb-4&quot;&gt;
+
+        &lt;h1&gt;Giỏ hàng&lt;/h1&gt;
+
+        &lt;p class=&quot;text-muted&quot;&gt;
+            Các sản phẩm bạn đã chọn.
+        &lt;/p&gt;
+
+    &lt;/div&gt;
+
+    &lt;?php if (empty($cartItems)): ?&gt;
+
+        &lt;div class=&quot;alert alert-info&quot;&gt;
+            Giỏ hàng của bạn đang trống.
+        &lt;/div&gt;
+
+        &lt;a
+            href=&quot;/products.php&quot;
+            class=&quot;btn btn-primary&quot;
+        &gt;
+            Tiếp tục mua hàng
+        &lt;/a&gt;
+
+    &lt;?php else: ?&gt;
+
+        &lt;form method=&quot;post&quot; action=&quot;/cart.php&quot;&gt;
+
+            &lt;div class=&quot;table-responsive&quot;&gt;
+
+                &lt;table class=&quot;table align-middle&quot;&gt;
+
+                    &lt;thead&gt;
+
+                        &lt;tr&gt;
+                            &lt;th&gt;Sản phẩm&lt;/th&gt;
+                            &lt;th class=&quot;text-end&quot;&gt;Đơn giá&lt;/th&gt;
+                            &lt;th class=&quot;text-center&quot;&gt;Số lượng&lt;/th&gt;
+                            &lt;th class=&quot;text-end&quot;&gt;Thành tiền&lt;/th&gt;
+                            &lt;th class=&quot;text-center&quot;&gt;Thao tác&lt;/th&gt;
+                        &lt;/tr&gt;
+
+                    &lt;/thead&gt;
+
+                    &lt;tbody&gt;
+
+                        &lt;?php foreach ($cartItems as $item): ?&gt;
+
+                            &lt;tr&gt;
+
+                                &lt;td&gt;
+
+                                    &lt;div
+                                        class=&quot;d-flex
+                                               align-items-center
+                                               gap-3&quot;
+                                    &gt;
+
+                                        &lt;?php if (!empty($item['ImageFile'])): ?&gt;
+
+                                            &lt;img
+                                                src=&quot;/uploads/products/&lt;?=
+                                                    htmlspecialchars(
+                                                        $item['ImageFile']
+                                                    )
+                                                ?&gt;&quot;
+                                                alt=&quot;&lt;?=
+                                                    htmlspecialchars(
+                                                        $item['ProductName']
+                                                    )
+                                                ?&gt;&quot;
+                                                style=&quot;
+                                                    width: 80px;
+                                                    height: 80px;
+                                                    object-fit: contain;
+                                                &quot;
+                                            &gt;
+
+                                        &lt;?php endif; ?&gt;
+
+                                        &lt;div&gt;
+
+                                            &lt;strong&gt;
+                                                &lt;?=
+                                                    htmlspecialchars(
+                                                        $item['ProductName']
+                                                    )
+                                                ?&gt;
+                                            &lt;/strong&gt;
+
+                                            &lt;div class=&quot;text-muted small&quot;&gt;
+                                                &lt;?=
+                                                    htmlspecialchars(
+                                                        $item['ProductCode']
+                                                    )
+                                                ?&gt;
+                                            &lt;/div&gt;
+
+                                        &lt;/div&gt;
+
+                                    &lt;/div&gt;
+
+                                &lt;/td&gt;
+
+                                &lt;td class=&quot;text-end&quot;&gt;
+
+                                    &lt;?=
+                                        number_format(
+                                            (float) $item['Price'],
+                                            0,
+                                            ',',
+                                            '.'
+                                        )
+                                    ?&gt; đ
+
+                                &lt;/td&gt;
+
+                                &lt;td class=&quot;text-center&quot;&gt;
+
+                                    &lt;input
+                                        type=&quot;number&quot;
+                                        name=&quot;quantities[&lt;?=
+                                            (int) $item['ProductID']
+                                        ?&gt;]&quot;
+                                        value=&quot;&lt;?=
+                                            (int) $item['Quantity']
+                                        ?&gt;&quot;
+                                        min=&quot;1&quot;
+                                        max=&quot;&lt;?=
+                                            (int) $item['StockQuantity']
+                                        ?&gt;&quot;
+                                        class=&quot;form-control mx-auto&quot;
+                                        style=&quot;width: 90px;&quot;
+                                    &gt;
+
+                                &lt;/td&gt;
+
+                                &lt;td class=&quot;text-end fw-bold&quot;&gt;
+
+                                    &lt;?=
+                                        number_format(
+                                            (float) $item['Subtotal'],
+                                            0,
+                                            ',',
+                                            '.'
+                                        )
+                                    ?&gt; đ
+
+                                &lt;/td&gt;
+
+                                &lt;td class=&quot;text-center&quot;&gt;
+
+                                    &lt;button
+                                        type=&quot;submit&quot;
+                                        name=&quot;remove_product&quot;
+                                        value=&quot;&lt;?=
+                                            (int) $item['ProductID']
+                                        ?&gt;&quot;
+                                        class=&quot;btn btn-sm btn-outline-danger&quot;
+                                        formnovalidate
+                                    &gt;
+                                        Xóa
+                                    &lt;/button&gt;
+
+                                &lt;/td&gt;
+
+                            &lt;/tr&gt;
+
+                        &lt;?php endforeach; ?&gt;
+
+                    &lt;/tbody&gt;
+
+                    &lt;tfoot&gt;
+
+                        &lt;tr&gt;
+
+                            &lt;th
+                                colspan=&quot;3&quot;
+                                class=&quot;text-end&quot;
+                            &gt;
+                                Tổng cộng
+                            &lt;/th&gt;
+
+                            &lt;th class=&quot;text-end fs-5&quot;&gt;
+
+                                &lt;?=
+                                    number_format(
+                                        $totalAmount,
+                                        0,
+                                        ',',
+                                        '.'
+                                    )
+                                ?&gt; đ
+
+                            &lt;/th&gt;
+
+                            &lt;th&gt;&lt;/th&gt;
+
+                        &lt;/tr&gt;
+
+                    &lt;/tfoot&gt;
+
+                &lt;/table&gt;
+
+            &lt;/div&gt;
+
+            &lt;div class=&quot;d-flex justify-content-end mt-3&quot;&gt;
+
+                &lt;button
+                    type=&quot;submit&quot;
+                    name=&quot;update_cart&quot;
+                    class=&quot;btn btn-primary&quot;
+                &gt;
+                    Cập nhật giỏ hàng
+                &lt;/button&gt;
+
+            &lt;/div&gt;
+
+        &lt;/form&gt;
+
+        &lt;div class=&quot;mt-4&quot;&gt;
+
+            &lt;a
+                href=&quot;/products.php&quot;
+                class=&quot;btn btn-outline-secondary&quot;
+            &gt;
+                Tiếp tục mua hàng
+            &lt;/a&gt;
+
+        &lt;/div&gt;
+
+    &lt;?php endif; ?&gt;
+
+&lt;/main&gt;
+
+&lt;?php
+
+require_once '/var/www/src/includes/frontend/footer.php';
+</code></pre>
+<p>Kiểm tra cú pháp:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/html/cart.php
+</code></pre>
+<hr />
+<h2 id="8-hieu-cach-trang-gio-hang-lay-du-lieu">8. Hiểu cách trang giỏ hàng lấy dữ liệu</h2>
+<p>Dữ liệu trong Session chỉ có:</p>
+<pre><code class="language-text">ProductID → Quantity
+</code></pre>
+<p>Vì vậy, với từng sản phẩm trong giỏ:</p>
+<pre><code class="language-php">foreach ($cart as $productID =&gt; $quantity)
+</code></pre>
+<p>ứng dụng truy vấn lại bảng <code>products</code> bằng <code>ProductID</code>.</p>
+<p>Điều kiện:</p>
+<pre><code class="language-sql">WHERE
+    p.ProductID = ?
+    AND p.IsActive = 1
+</code></pre>
+<p>đảm bảo chỉ lấy sản phẩm đang hoạt động.</p>
+<p>Ảnh chính được lấy bằng truy vấn con:</p>
+<pre><code class="language-sql">(
+    SELECT pi.ImageFile
+    FROM product_images pi
+    WHERE pi.ProductID = p.ProductID
+      AND pi.IsPrimary = 1
+    LIMIT 1
+) AS ImageFile
+</code></pre>
+<p>Thành tiền của một sản phẩm:</p>
+<pre><code class="language-php">$subtotal =
+    (float) $product['Price'] * $quantity;
+</code></pre>
+<p>Tổng giỏ hàng được cộng dồn:</p>
+<pre><code class="language-php">$totalAmount += $subtotal;
+</code></pre>
+<h3 id="mot-ket-qua-mot-lan-get_result">Một kết quả -- một lần <code>get_result()</code></h3>
+<p>Sau mỗi <code>execute()</code>, kết quả được lấy và giải phóng trước khi statement đóng:</p>
+<pre><code class="language-php">$result = $stmt-&gt;get_result();
+$product = $result-&gt;fetch_assoc();
+
+$result-&gt;free();
+$stmt-&gt;close();
+</code></pre>
+<p>Khi kiểm tra tồn kho lúc cập nhật giỏ hàng, ta cũng thực hiện cùng nguyên tắc:</p>
+<pre><code class="language-php">$stockResult = $stmtStock-&gt;get_result();
+$stockRow = $stockResult-&gt;fetch_assoc();
+
+$stockResult-&gt;free();
+$stmtStock-&gt;close();
+</code></pre>
+<hr />
+<h2 id="9-cap-nhat-so-luong-trong-gio-hang">9. Cập nhật số lượng trong giỏ hàng</h2>
+<p>Mỗi ô số lượng có tên theo <code>ProductID</code>:</p>
+<pre><code class="language-php">name=&quot;quantities[&lt;?= (int) $item['ProductID'] ?&gt;]&quot;
+</code></pre>
+<p>Ví dụ trình duyệt có thể gửi:</p>
+<pre><code class="language-text">quantities[3] = 2
+quantities[7] = 4
+</code></pre>
+<p>PHP nhận toàn bộ bằng:</p>
+<pre><code class="language-php">$quantities = $_POST['quantities'] ?? [];
+</code></pre>
+<p>và duyệt:</p>
+<pre><code class="language-php">foreach ($quantities as $productID =&gt; $quantity)
+</code></pre>
+<p>Trước khi cập nhật Session, chương trình truy vấn lại <code>StockQuantity</code>. Nếu số lượng người dùng nhập lớn hơn tồn kho:</p>
+<pre><code class="language-php">$_SESSION['cart'][$productID] =
+    min($quantity, $stockQuantity);
+</code></pre>
+<p>Nhờ đó, không thể cập nhật giỏ vượt quá số lượng hiện có trong cơ sở dữ liệu.</p>
+<p>Sau khi xử lý, trang chuyển hướng về chính nó:</p>
+<pre><code class="language-php">header('Location: /cart.php');
+exit;
+</code></pre>
+<p>Cách này giúp request hiển thị sau cập nhật trở lại phương thức <code>GET</code>.</p>
+<h3 id="kiem-thu-cap-nhat">Kiểm thử cập nhật</h3>
+<ol>
+<li>Thêm ít nhất hai sản phẩm vào giỏ.</li>
+<li>Mở:</li>
+</ol>
+<pre><code class="language-text">http://localhost:8080/cart.php
+</code></pre>
+<ol>
+<li>Thay đổi số lượng một sản phẩm.</li>
+<li>Nhấn <strong>Cập nhật giỏ hàng</strong>.</li>
+<li>Kiểm tra lại thành tiền và tổng cộng.</li>
+<li>Nhấn <code>F5</code>.</li>
+</ol>
+<p>Kết quả cần đạt: số lượng sau cập nhật vẫn được giữ trong Session và tổng tiền vẫn đúng.</p>
+<hr />
+<h2 id="10-xoa-san-pham-khoi-gio-hang">10. Xóa sản phẩm khỏi giỏ hàng</h2>
+<p>Mỗi dòng có nút:</p>
+<pre><code class="language-php">&lt;button
+    type=&quot;submit&quot;
+    name=&quot;remove_product&quot;
+    value=&quot;&lt;?= (int) $item['ProductID'] ?&gt;&quot;
+    class=&quot;btn btn-sm btn-outline-danger&quot;
+    formnovalidate
+&gt;
+    Xóa
+&lt;/button&gt;
+</code></pre>
+<p>Khi nhấn nút, <code>ProductID</code> được gửi qua <code>remove_product</code>.</p>
+<p>Phía PHP xử lý:</p>
+<pre><code class="language-php">if (isset($_POST['remove_product'])) {
+
+    $productID =
+        (int) $_POST['remove_product'];
+
+    if ($productID &gt; 0) {
+        unset($_SESSION['cart'][$productID]);
+    }
+
+    header('Location: /cart.php');
+    exit;
+}
+</code></pre>
+<p><code>unset()</code> xóa phần tử tương ứng khỏi mảng Session.</p>
+<p>Kiểm thử hai trường hợp:</p>
+<ul>
+<li>xóa một sản phẩm khi giỏ còn nhiều sản phẩm;</li>
+<li>xóa sản phẩm cuối cùng.</li>
+</ul>
+<p>Khi giỏ không còn sản phẩm, trang phải hiển thị:</p>
+<pre><code class="language-text">Giỏ hàng của bạn đang trống.
+</code></pre>
+<hr />
+<h2 id="11-hien-thi-so-luong-gio-hang-tren-navbar">11. Hiển thị số lượng giỏ hàng trên Navbar</h2>
+<p>Ta muốn người dùng nhìn thấy trạng thái giỏ hàng khi chuyển giữa các trang Frontend.</p>
+<p>Ví dụ:</p>
+<pre><code class="language-text">Sales Store    Trang chủ    Sản phẩm       Giỏ hàng (3)    Quản trị
+</code></pre>
+<p>Trong bài này, số <code>3</code> là <strong>tổng số lượng sản phẩm</strong>, không phải số dòng sản phẩm khác nhau.</p>
+<p>Ví dụ:</p>
+<pre><code class="language-text">Sản phẩm A × 1
+Sản phẩm B × 2
+----------------
+Giỏ hàng (3)
+</code></pre>
+<h3 id="111-khoi-tao-session-o-trang-chu">11.1. Khởi tạo Session ở trang chủ</h3>
+<p>Mở:</p>
+<pre><code class="language-cmd">code public\index.php
+</code></pre>
+<p>Ở đầu tập tin, trước <code>$pageTitle</code>, thêm:</p>
+<pre><code class="language-php">require_once '/var/www/src/config/session.php';
+</code></pre>
+<p>Phần đầu trở thành:</p>
+<pre><code class="language-php">&lt;?php
+
+require_once '/var/www/src/config/session.php';
+
+$pageTitle = 'Trang chủ';
+</code></pre>
+<h3 id="112-khoi-tao-session-o-trang-danh-sach-san-pham">11.2. Khởi tạo Session ở trang danh sách sản phẩm</h3>
+<p>Mở:</p>
+<pre><code class="language-cmd">code public\products.php
+</code></pre>
+<p>Đầu tập tin hiện có:</p>
+<pre><code class="language-php">require_once '/var/www/src/config/database.php';
+</code></pre>
+<p>Thêm Session trước kết nối cơ sở dữ liệu:</p>
+<pre><code class="language-php">require_once '/var/www/src/config/session.php';
+require_once '/var/www/src/config/database.php';
+</code></pre>
+<p>Không thay đổi các phần tìm kiếm, lọc và phân trang đã hoàn thành ở Hands-on 10.</p>
+<p><code>product-detail.php</code> và <code>cart.php</code> đã nạp <code>session.php</code> ở các bước trước nên không cần thêm lần nữa.</p>
+<hr />
+<h2 id="12-bo-sung-lien-ket-gio-hang-vao-navbar">12. Bổ sung liên kết giỏ hàng vào Navbar</h2>
+<p>Mở:</p>
+<pre><code class="language-cmd">code src\includes\frontend\navbar.php
+</code></pre>
+<p>Ở đầu tập tin, trước HTML, thêm:</p>
+<pre><code class="language-php">&lt;?php
+
+$cartCount = array_sum(
+    $_SESSION['cart'] ?? []
+);
+
+?&gt;
+</code></pre>
+<p><code>array_sum()</code> cộng toàn bộ <code>Quantity</code> đang lưu trong giỏ.</p>
+<p>Ở phần bên phải Navbar, thay nút <strong>Quản trị</strong> hiện tại bằng nhóm hai nút:</p>
+<pre><code class="language-php">&lt;div class=&quot;d-flex gap-2&quot;&gt;
+
+    &lt;a
+        class=&quot;btn btn-outline-light btn-sm&quot;
+        href=&quot;/cart.php&quot;
+    &gt;
+        Giỏ hàng (&lt;?= (int) $cartCount ?&gt;)
+    &lt;/a&gt;
+
+    &lt;a
+        class=&quot;btn btn-outline-light btn-sm&quot;
+        href=&quot;/admin/&quot;
+    &gt;
+        Quản trị
+    &lt;/a&gt;
+
+&lt;/div&gt;
+</code></pre>
+<p>Navbar lúc này có hai nhóm chức năng:</p>
+<pre><code class="language-text">Điều hướng chính                   Tiện ích
+Trang chủ | Sản phẩm               Giỏ hàng (n) | Quản trị
+</code></pre>
+<p><code>navbar.php</code> chỉ <strong>đọc</strong> <code>$_SESSION</code>; việc khởi tạo Session vẫn thuộc trách nhiệm của các trang Frontend trước khi nạp Navbar.</p>
+<hr />
+<h2 id="13-kiem-tra-cu-phap-toan-bo-phan-thay-oi">13. Kiểm tra cú pháp toàn bộ phần thay đổi</h2>
+<p>Chạy lần lượt:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/html/index.php
+docker compose exec web php -l /var/www/html/products.php
+docker compose exec web php -l /var/www/html/product-detail.php
+docker compose exec web php -l /var/www/html/cart.php
+docker compose exec web php -l /var/www/src/config/session.php
+docker compose exec web php -l /var/www/src/includes/frontend/navbar.php
+</code></pre>
+<p>Cả sáu tập tin phải trả về:</p>
+<pre><code class="language-text">No syntax errors detected
+</code></pre>
+<hr />
+<h2 id="14-kiem-thu-toan-bo-luong-gio-hang">14. Kiểm thử toàn bộ luồng giỏ hàng</h2>
+<p>Thực hiện theo đúng thứ tự sau.</p>
+<h3 id="truong-hop-1-gio-hang-ban-au">Trường hợp 1 -- Giỏ hàng ban đầu</h3>
+<p>Mở trang chủ và trang sản phẩm.</p>
+<p>Khi chưa có sản phẩm trong Session, Navbar hiển thị:</p>
+<pre><code class="language-text">Giỏ hàng (0)
+</code></pre>
+<h3 id="truong-hop-2-them-mot-san-pham">Trường hợp 2 -- Thêm một sản phẩm</h3>
+<p>Mở trang chi tiết sản phẩm, chọn số lượng <code>1</code>, nhấn <strong>Thêm vào giỏ hàng</strong>.</p>
+<p>Kết quả:</p>
+<pre><code class="language-text">Giỏ hàng (1)
+</code></pre>
+<h3 id="truong-hop-3-them-lai-cung-san-pham">Trường hợp 3 -- Thêm lại cùng sản phẩm</h3>
+<p>Thêm tiếp cùng sản phẩm.</p>
+<p>Kết quả cần đạt:</p>
+<ul>
+<li>sản phẩm không xuất hiện thành hai dòng riêng;</li>
+<li>số lượng của sản phẩm được cộng dồn;</li>
+<li>số lượng không vượt tồn kho.</li>
+</ul>
+<h3 id="truong-hop-4-them-san-pham-khac">Trường hợp 4 -- Thêm sản phẩm khác</h3>
+<p>Ví dụ:</p>
+<pre><code class="language-text">Sản phẩm A × 1
+Sản phẩm B × 2
+</code></pre>
+<p>Navbar phải hiển thị:</p>
+<pre><code class="language-text">Giỏ hàng (3)
+</code></pre>
+<h3 id="truong-hop-5-kiem-tra-thanh-tien">Trường hợp 5 -- Kiểm tra thành tiền</h3>
+<p>Mở:</p>
+<pre><code class="language-text">http://localhost:8080/cart.php
+</code></pre>
+<p>Kiểm tra:</p>
+<pre><code class="language-text">Thành tiền = Đơn giá × Số lượng
+Tổng cộng  = Tổng các thành tiền
+</code></pre>
+<h3 id="truong-hop-6-cap-nhat-so-luong">Trường hợp 6 -- Cập nhật số lượng</h3>
+<p>Thay đổi số lượng rồi nhấn:</p>
+<pre><code class="language-text">Cập nhật giỏ hàng
+</code></pre>
+<p>Kiểm tra:</p>
+<ul>
+<li>số lượng mới được giữ lại;</li>
+<li>thành tiền thay đổi đúng;</li>
+<li>tổng cộng thay đổi đúng;</li>
+<li>số trên Navbar thay đổi tương ứng;</li>
+<li>nhấn <code>F5</code> vẫn giữ kết quả.</li>
+</ul>
+<h3 id="truong-hop-7-xoa-san-pham">Trường hợp 7 -- Xóa sản phẩm</h3>
+<p>Nhấn <strong>Xóa</strong> ở một sản phẩm.</p>
+<p>Kiểm tra:</p>
+<ul>
+<li>đúng sản phẩm bị xóa;</li>
+<li>tổng cộng được tính lại;</li>
+<li>số trên Navbar giảm tương ứng.</li>
+</ul>
+<h3 id="truong-hop-8-xoa-san-pham-cuoi-cung">Trường hợp 8 -- Xóa sản phẩm cuối cùng</h3>
+<p>Sau khi xóa hết sản phẩm:</p>
+<pre><code class="language-text">Giỏ hàng của bạn đang trống.
+</code></pre>
+<p>Navbar trở về:</p>
+<pre><code class="language-text">Giỏ hàng (0)
+</code></pre>
+<h3 id="truong-hop-9-chuyen-giua-cac-trang">Trường hợp 9 -- Chuyển giữa các trang</h3>
+<p>Chuyển lần lượt:</p>
+<pre><code class="language-text">Trang chủ
+    ↓
+Sản phẩm
+    ↓
+Chi tiết sản phẩm
+    ↓
+Giỏ hàng
+</code></pre>
+<p>Số lượng trên Navbar phải nhất quán giữa các trang trong cùng Session.</p>
+<hr />
+<h2 id="15-cau-truc-du-an-sau-hands-on-11">15. Cấu trúc dự án sau Hands-on 11</h2>
+<p>Các tập tin liên quan trực tiếp đến chức năng mới:</p>
+<pre><code class="language-text">php-mysql-sales/
+│
+├── public/
+│   ├── index.php                 ← khởi tạo Session cho Frontend
+│   ├── products.php              ← khởi tạo Session cho Frontend
+│   ├── product-detail.php        ← thêm sản phẩm vào giỏ
+│   └── cart.php                  ← xem/cập nhật/xóa giỏ hàng
+│
+└── src/
+    ├── config/
+    │   ├── database.php
+    │   └── session.php           ← khởi tạo PHP Session
+    │
+    └── includes/
+        └── frontend/
+            ├── header.php
+            ├── navbar.php        ← hiển thị Giỏ hàng (n)
+            └── footer.php
+</code></pre>
+<hr />
+<h2 id="16-luu-checkpoint-bang-git">16. Lưu checkpoint bằng Git</h2>
+<p>Kiểm tra thay đổi:</p>
+<pre><code class="language-cmd">git status
+</code></pre>
+<p>Các tập tin liên quan đến Hands-on này gồm:</p>
+<pre><code class="language-text">public/cart.php
+public/index.php
+public/product-detail.php
+public/products.php
+src/config/session.php
+src/includes/frontend/navbar.php
+</code></pre>
+<p>Xem nội dung thay đổi:</p>
+<pre><code class="language-cmd">git diff
+</code></pre>
+<p>Đưa các tập tin vào staging area:</p>
+<pre><code class="language-cmd">git add public/index.php public/product-detail.php public/products.php public/cart.php src/config/session.php src/includes/frontend/navbar.php
+</code></pre>
+<p>Kiểm tra lại:</p>
+<pre><code class="language-cmd">git status
+</code></pre>
+<p>Commit:</p>
+<pre><code class="language-cmd">git commit -m &quot;Add session-based shopping cart&quot;
+</code></pre>
+<p>Push lên GitHub:</p>
+<pre><code class="language-cmd">git push
+</code></pre>
+<p>Kiểm tra lần cuối:</p>
+<pre><code class="language-cmd">git status
+</code></pre>
+<p>Kết quả mong đợi:</p>
+<pre><code class="language-text">On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+</code></pre>
+<hr />
+<h2 id="17-ket-qua-at-uoc">17. Kết quả đạt được</h2>
+<p>Sau Hands-on 11, Frontend đã có một luồng giỏ hàng hoàn chỉnh ở mức Session:</p>
+<pre><code class="language-text">Danh sách sản phẩm
+        ↓
+Chi tiết sản phẩm
+        ↓
+Chọn số lượng
+        ↓
+Thêm vào giỏ hàng
+        ↓
+PHP Session
+        ↓
+Xem giỏ hàng
+        ├── cập nhật số lượng
+        ├── tính lại thành tiền
+        ├── xóa sản phẩm
+        └── hiển thị tổng số lượng trên Navbar
+</code></pre>
+<p>Điểm quan trọng cần ghi nhớ:</p>
+<ul>
+<li>Session lưu <strong>trạng thái giỏ hàng của phiên làm việc</strong>, không thay thế cơ sở dữ liệu.</li>
+<li>Giỏ hàng chỉ lưu <code>ProductID =&gt; Quantity</code>; thông tin sản phẩm được lấy lại từ MySQL khi cần hiển thị.</li>
+<li>Dữ liệu từ trình duyệt vẫn phải được kiểm tra lại ở phía server.</li>
+<li>Số lượng mua được giới hạn theo <code>StockQuantity</code> hiện tại.</li>
+<li><code>header('Location: ...')</code> được thực hiện trước khi xuất HTML.</li>
+<li>Các kết quả MySQLi được đọc, giải phóng và statement được đóng trước khi tiếp tục các truy vấn liên quan.</li>
+<li><code>navbar.php</code> chỉ đọc trạng thái Session; việc khởi tạo Session được thực hiện trước khi nạp giao diện.</li>
+</ul>
+<blockquote>
+<p>Đến đây, ứng dụng đã cho phép người dùng chọn và quản lý sản phẩm trong giỏ hàng. Dữ liệu vẫn chỉ tồn tại trong Session; việc tạo đơn hàng và lưu dữ liệu mua hàng vào MySQL sẽ được phát triển ở bước tiếp theo.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

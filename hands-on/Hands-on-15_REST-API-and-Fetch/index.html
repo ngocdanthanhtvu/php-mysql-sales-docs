@@ -1,0 +1,2035 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Hands-on-14_Customer-Authentication-and-Accounts/">
+      
+      
+        <link rel="next" href="../../guides/Mini-Hands-on_Git-Push-GitHub/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Hands-on 15 – REST API và Fetch API - Phát triển ứng dụng Web mã nguồn mở</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hands-on-15-rest-api-va-fetch-api" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-header__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Phát triển ứng dụng Web mã nguồn mở
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hands-on 15 – REST API và Fetch API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-nav__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Phát triển ứng dụng Web mã nguồn mở
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chuẩn bị
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chuẩn bị
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preparation/Pre-Lab-00_Environment-Setup-Windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-Lab 00 - Chuẩn bị môi trường
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thực hành
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thực hành
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-01_PHP-Docker_Baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 01 - PHP và Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-02_MySQL-Database-Schema-Seed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 02 - MySQL-Database-Schema-Seed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-03_PHP-MySQLi-Category-Listing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 03 - PHP-MySQLi-Category-Listing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-04_Category-CRUD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 04 - Xây dựng CRUD quản lý danh mục
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-05_Product-Relational-Data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 05 - Xây dựng CRUD quản lý sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-06_Upload-Product-Images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 06 – Upload hình ảnh sản phẩm với PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-07_Manage-Product-Images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 07 – Quản lý hình ảnh sản phẩm khi cập nhật
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-08_Admin-Frontend-Structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 08 – Tổ chức khu vực quản trị và giao diện người dùng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-09_Product-Storefront-and-Detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-10_Product-Search-Filter-and-Pagination/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 10 – Tìm kiếm, lọc và phân trang sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-11_Shopping-Cart-with-PHP-Session/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 11 – Xây dựng giỏ hàng với PHP Session
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-12_Checkout-and-Order-Processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 12 – Xử lý đặt hàng và lưu đơn hàng vào MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-13_Admin-Order-Management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 13 – Quản lý đơn hàng trong khu vực Admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-14_Customer-Authentication-and-Accounts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 14 – Đăng ký, đăng nhập và tài khoản khách hàng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 15 – REST API và Fetch API
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 15 – REST API và Fetch API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-boi-canh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Bối cảnh
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ket-qua-can-at" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Kết quả cần đạt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-khoi-ong-moi-truong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Khởi động môi trường
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-xay-dung-api-danh-muc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Xây dựng API danh mục
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-xay-dung-api-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Xây dựng API sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-xay-dung-frontend-su-dung-fetch-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Xây dựng frontend sử dụng Fetch API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-phan-tich-hoat-ong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Phân tích hoạt động
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-kiem-thu-giao-dien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Kiểm thử giao diện
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-quan-sat-request-bang-developer-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Quan sát request bằng Developer Tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-so-sanh-voi-cach-truyen-thong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. So sánh với cách truyền thống
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-khai-niem-can-ghi-nho" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Khái niệm cần ghi nhớ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-kiem-tra-va-luu-phien-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Kiểm tra và lưu phiên bản
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-tong-ket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Tổng kết
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hướng dẫn
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hướng dẫn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/Mini-Hands-on_Git-Push-GitHub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git và GitHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-boi-canh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Bối cảnh
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ket-qua-can-at" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Kết quả cần đạt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-khoi-ong-moi-truong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Khởi động môi trường
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-xay-dung-api-danh-muc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Xây dựng API danh mục
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-xay-dung-api-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Xây dựng API sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-xay-dung-frontend-su-dung-fetch-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Xây dựng frontend sử dụng Fetch API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-phan-tich-hoat-ong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Phân tích hoạt động
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-kiem-thu-giao-dien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Kiểm thử giao diện
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-quan-sat-request-bang-developer-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Quan sát request bằng Developer Tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-so-sanh-voi-cach-truyen-thong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. So sánh với cách truyền thống
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-khai-niem-can-ghi-nho" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Khái niệm cần ghi nhớ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-kiem-tra-va-luu-phien-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Kiểm tra và lưu phiên bản
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-tong-ket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Tổng kết
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hands-on-15-rest-api-va-fetch-api">Hands-on 15 -- REST API và Fetch API</h1>
+<h2 id="1-muc-tieu">1. Mục tiêu</h2>
+<p>Sau khi hoàn thành bài thực hành, sinh viên có thể:</p>
+<ul>
+<li>Giải thích vai trò cơ bản của REST API trong ứng dụng web.</li>
+<li>Phân biệt PHP tạo trực tiếp HTML với frontend lấy dữ liệu từ API.</li>
+<li>Xây dựng điểm truy cập API (endpoint) bằng PHP và MySQLi.</li>
+<li>Trả dữ liệu JSON từ server.</li>
+<li>Sử dụng <code>GET</code> và tham số truy vấn để tìm kiếm, lọc dữ liệu.</li>
+<li>Sử dụng <code>fetch()</code> để gọi API và cập nhật giao diện mà không tải lại
+    toàn bộ trang.</li>
+<li>Quan sát request/response bằng Developer Tools.</li>
+</ul>
+<h2 id="2-boi-canh">2. Bối cảnh</h2>
+<p>Ở các Hands-on trước, luồng xử lý là:</p>
+<pre><code class="language-text">Trình duyệt → PHP → MySQL → PHP tạo HTML → Trình duyệt
+</code></pre>
+<p>Trong bài này:</p>
+<pre><code class="language-text">Frontend → fetch() → REST API → PHP + MySQLi → MySQL
+                         ↓
+                        JSON
+                         ↓
+              JavaScript cập nhật giao diện
+</code></pre>
+<p><strong>REST API</strong> là cách tổ chức giao tiếp giữa các ứng dụng qua HTTP, trong
+đó dữ liệu thường được biểu diễn bằng JSON. <strong>Điểm truy cập API
+(endpoint)</strong> là địa chỉ cụ thể mà client gửi yêu cầu đến.</p>
+<p>Bài này xây dựng:</p>
+<pre><code class="language-text">/api/categories.php
+/api/products.php
+</code></pre>
+<h2 id="3-ket-qua-can-at">3. Kết quả cần đạt</h2>
+<p>Dự án có thêm:</p>
+<pre><code class="language-text">public/
+├── api/
+│   ├── categories.php
+│   └── products.php
+└── products-api.php
+</code></pre>
+<p><code>categories.php</code> cung cấp danh mục; <code>products.php</code> cung cấp sản phẩm và
+hỗ trợ tìm kiếm/lọc; <code>products-api.php</code> dùng JavaScript và <code>fetch()</code> để
+lấy dữ liệu. Các trang sản phẩm đã xây dựng trước đó vẫn được giữ
+nguyên.</p>
+<h2 id="4-khoi-ong-moi-truong">4. Khởi động môi trường</h2>
+<pre><code class="language-cmd">cd /d D:\PTUDW-ST-2026\php-mysql-sales
+docker compose up -d
+docker compose ps
+</code></pre>
+<p>Mở <code>http://localhost:8080/</code> và xác nhận ứng dụng hoạt động.</p>
+<h2 id="5-xay-dung-api-danh-muc">5. Xây dựng API danh mục</h2>
+<p>Tạo thư mục <code>public/api</code>, sau đó tạo tập tin mới:</p>
+<pre><code class="language-text">public/api/categories.php
+</code></pre>
+<p>Vì đây là tập tin mới, nhập toàn bộ mã nguồn:</p>
+<pre><code class="language-php">&lt;?php
+
+require_once '/var/www/src/config/database.php';
+
+header('Content-Type: application/json; charset=utf-8');
+
+$sql = &quot;
+    SELECT
+        CategoryID,
+        CategoryName
+    FROM categories
+    ORDER BY CategoryName
+&quot;;
+
+$result = $conn-&gt;query($sql);
+
+$categories = [];
+
+while ($row = $result-&gt;fetch_assoc()) {
+
+    $categories[] = [
+        'id' =&gt; (int) $row['CategoryID'],
+        'name' =&gt; $row['CategoryName']
+    ];
+}
+
+$result-&gt;free();
+$conn-&gt;close();
+
+echo json_encode(
+    [
+        'success' =&gt; true,
+        'data' =&gt; $categories
+    ],
+    JSON_UNESCAPED_UNICODE
+);
+</code></pre>
+<p><code>Content-Type: application/json</code> cho client biết response là JSON.
+<code>json_encode()</code> chuyển mảng PHP thành JSON; <code>JSON_UNESCAPED_UNICODE</code> giữ
+tiếng Việt ở dạng dễ đọc.</p>
+<p>Kiểm tra:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/html/api/categories.php
+</code></pre>
+<p>Sau đó mở:</p>
+<pre><code class="language-text">http://localhost:8080/api/categories.php
+</code></pre>
+<p>Kết quả có dạng:</p>
+<pre><code class="language-json">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: [
+        {&quot;id&quot;: 1, &quot;name&quot;: &quot;Điện thoại&quot;},
+        {&quot;id&quot;: 2, &quot;name&quot;: &quot;Máy tính&quot;},
+        {&quot;id&quot;: 3, &quot;name&quot;: &quot;Phụ kiện&quot;}
+    ]
+}
+</code></pre>
+<h2 id="6-xay-dung-api-san-pham">6. Xây dựng API sản phẩm</h2>
+<p>Tạo tập tin mới:</p>
+<pre><code class="language-text">public/api/products.php
+</code></pre>
+<p>API hỗ trợ:</p>
+<pre><code class="language-text">/api/products.php
+/api/products.php?keyword=Laptop
+/api/products.php?category=1
+/api/products.php?keyword=Bluetooth&amp;category=3
+</code></pre>
+<p>Nhập mã nguồn:</p>
+<pre><code class="language-php">&lt;?php
+
+require_once '/var/www/src/config/database.php';
+
+header('Content-Type: application/json; charset=utf-8');
+
+$keyword =
+    trim($_GET['keyword'] ?? '');
+
+$categoryID =
+    (int) ($_GET['category'] ?? 0);
+
+$sql = &quot;
+    SELECT
+        p.ProductID,
+        p.ProductCode,
+        p.ProductName,
+        p.Price,
+        p.StockQuantity,
+        c.CategoryName,
+        (
+            SELECT pi.ImageFile
+            FROM product_images pi
+            WHERE pi.ProductID = p.ProductID
+              AND pi.IsPrimary = 1
+            LIMIT 1
+        ) AS ImageFile
+    FROM products p, categories c
+    WHERE p.CategoryID = c.CategoryID
+      AND p.IsActive = 1
+&quot;;
+
+if ($keyword !== '') {
+    $sql .= &quot;
+        AND (
+            p.ProductName LIKE ?
+            OR p.ProductCode LIKE ?
+        )
+    &quot;;
+}
+
+if ($categoryID &gt; 0) {
+    $sql .= &quot;
+        AND p.CategoryID = ?
+    &quot;;
+}
+
+$sql .= &quot;
+    ORDER BY p.ProductID DESC
+&quot;;
+
+$stmt = $conn-&gt;prepare($sql);
+
+if ($keyword !== '' &amp;&amp; $categoryID &gt; 0) {
+
+    $searchKeyword =
+        '%' . $keyword . '%';
+
+    $stmt-&gt;bind_param(
+        'ssi',
+        $searchKeyword,
+        $searchKeyword,
+        $categoryID
+    );
+
+} elseif ($keyword !== '') {
+
+    $searchKeyword =
+        '%' . $keyword . '%';
+
+    $stmt-&gt;bind_param(
+        'ss',
+        $searchKeyword,
+        $searchKeyword
+    );
+
+} elseif ($categoryID &gt; 0) {
+
+    $stmt-&gt;bind_param(
+        'i',
+        $categoryID
+    );
+}
+
+$stmt-&gt;execute();
+
+$result =
+    $stmt-&gt;get_result();
+
+$products = [];
+
+while ($row = $result-&gt;fetch_assoc()) {
+
+    $products[] = [
+        'id' =&gt; (int) $row['ProductID'],
+        'code' =&gt; $row['ProductCode'],
+        'name' =&gt; $row['ProductName'],
+        'price' =&gt; (float) $row['Price'],
+        'stock' =&gt; (int) $row['StockQuantity'],
+        'category' =&gt; $row['CategoryName'],
+        'image' =&gt; $row['ImageFile']
+    ];
+}
+
+$result-&gt;free();
+$stmt-&gt;close();
+$conn-&gt;close();
+
+echo json_encode(
+    [
+        'success' =&gt; true,
+        'data' =&gt; $products
+    ],
+    JSON_UNESCAPED_UNICODE
+);
+</code></pre>
+<p>API vẫn dùng Prepared Statement khi nhận dữ liệu từ URL. Quan hệ giữa
+<code>products</code> và <code>categories</code> tiếp tục dùng điều kiện khóa:</p>
+<pre><code class="language-sql">FROM products p, categories c
+WHERE p.CategoryID = c.CategoryID
+</code></pre>
+<p>Kiểm tra:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/html/api/products.php
+</code></pre>
+<p>Lần lượt mở bốn URL kiểm thử ở đầu mục này và xác nhận trường <code>data</code>
+thay đổi đúng theo tham số.</p>
+<h2 id="7-xay-dung-frontend-su-dung-fetch-api">7. Xây dựng frontend sử dụng Fetch API</h2>
+<p>Tạo tập tin mới:</p>
+<pre><code class="language-text">public/products-api.php
+</code></pre>
+<p>Trang này không trực tiếp truy vấn bảng <code>products</code> hoặc <code>categories</code>. Dữ
+liệu được lấy qua API.</p>
+<p>Nhập mã nguồn:</p>
+<pre><code class="language-php">&lt;?php
+
+require_once '/var/www/src/config/session.php';
+
+$pageTitle = 'Sản phẩm từ REST API';
+
+require_once '/var/www/src/includes/frontend/header.php';
+require_once '/var/www/src/includes/frontend/navbar.php';
+
+?&gt;
+
+&lt;div class=&quot;container py-4&quot;&gt;
+
+    &lt;h1 class=&quot;h3 mb-4&quot;&gt;
+        Sản phẩm từ REST API
+    &lt;/h1&gt;
+
+    &lt;form id=&quot;filter-form&quot; class=&quot;row g-3 mb-4&quot;&gt;
+
+        &lt;div class=&quot;col-md-6&quot;&gt;
+            &lt;label for=&quot;keyword&quot; class=&quot;form-label&quot;&gt;
+                Từ khóa
+            &lt;/label&gt;
+
+            &lt;input
+                type=&quot;text&quot;
+                id=&quot;keyword&quot;
+                class=&quot;form-control&quot;
+                placeholder=&quot;Tên hoặc mã sản phẩm&quot;
+            &gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;col-md-4&quot;&gt;
+            &lt;label for=&quot;category&quot; class=&quot;form-label&quot;&gt;
+                Danh mục
+            &lt;/label&gt;
+
+            &lt;select id=&quot;category&quot; class=&quot;form-select&quot;&gt;
+                &lt;option value=&quot;&quot;&gt;
+                    Tất cả danh mục
+                &lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;col-md-2 d-flex align-items-end&quot;&gt;
+            &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary w-100&quot;&gt;
+                Tìm kiếm
+            &lt;/button&gt;
+        &lt;/div&gt;
+
+    &lt;/form&gt;
+
+    &lt;div id=&quot;loading&quot; class=&quot;alert alert-info d-none&quot;&gt;
+        Đang tải dữ liệu sản phẩm...
+    &lt;/div&gt;
+
+    &lt;div
+        id=&quot;error-message&quot;
+        class=&quot;alert alert-danger d-none&quot;
+    &gt;&lt;/div&gt;
+
+    &lt;div id=&quot;product-list&quot; class=&quot;row g-4&quot;&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;script&gt;
+
+const filterForm =
+    document.getElementById('filter-form');
+
+const keywordElement =
+    document.getElementById('keyword');
+
+const categoryElement =
+    document.getElementById('category');
+
+const loadingElement =
+    document.getElementById('loading');
+
+const errorElement =
+    document.getElementById('error-message');
+
+const productListElement =
+    document.getElementById('product-list');
+
+
+function formatPrice(price) {
+
+    return Number(price).toLocaleString('vi-VN')
+        + ' đ';
+}
+
+
+function escapeHtml(value) {
+
+    const element =
+        document.createElement('div');
+
+    element.textContent =
+        String(value ?? '');
+
+    return element.innerHTML;
+}
+
+
+function createProductCard(product) {
+
+    const productName =
+        escapeHtml(product.name);
+
+    const productCode =
+        escapeHtml(product.code);
+
+    const categoryName =
+        escapeHtml(product.category);
+
+    const imageUrl = product.image
+        ? '/uploads/products/'
+            + encodeURIComponent(product.image)
+        : '';
+
+    const imageHtml = imageUrl
+        ? `
+            &lt;img
+                src=&quot;${imageUrl}&quot;
+                class=&quot;card-img-top&quot;
+                alt=&quot;${productName}&quot;
+                style=&quot;
+                    height: 220px;
+                    object-fit: contain;
+                &quot;
+            &gt;
+        `
+        : `
+            &lt;div
+                class=&quot;
+                    d-flex
+                    align-items-center
+                    justify-content-center
+                    bg-light
+                    text-muted
+                &quot;
+                style=&quot;height: 220px;&quot;
+            &gt;
+                Chưa có ảnh
+            &lt;/div&gt;
+        `;
+
+    return `
+        &lt;div class=&quot;col-md-6 col-lg-4&quot;&gt;
+            &lt;div class=&quot;card h-100&quot;&gt;
+
+                ${imageHtml}
+
+                &lt;div class=&quot;card-body&quot;&gt;
+
+                    &lt;div class=&quot;text-muted small mb-1&quot;&gt;
+                        ${categoryName}
+                    &lt;/div&gt;
+
+                    &lt;h2 class=&quot;h5&quot;&gt;
+                        ${productName}
+                    &lt;/h2&gt;
+
+                    &lt;div class=&quot;mb-2&quot;&gt;
+                        Mã: ${productCode}
+                    &lt;/div&gt;
+
+                    &lt;div class=&quot;fw-bold mb-2&quot;&gt;
+                        ${formatPrice(product.price)}
+                    &lt;/div&gt;
+
+                    &lt;div class=&quot;mb-3&quot;&gt;
+                        Tồn kho: ${product.stock}
+                    &lt;/div&gt;
+
+                    &lt;a
+                        href=&quot;/product-detail.php?id=${product.id}&quot;
+                        class=&quot;btn btn-primary&quot;
+                    &gt;
+                        Xem chi tiết
+                    &lt;/a&gt;
+
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    `;
+}
+
+
+async function loadCategories() {
+
+    try {
+
+        const response =
+            await fetch('/api/categories.php');
+
+        if (!response.ok) {
+            throw new Error(
+                'Không thể tải danh mục.'
+            );
+        }
+
+        const result =
+            await response.json();
+
+        if (!result.success) {
+            throw new Error(
+                'Dữ liệu danh mục không hợp lệ.'
+            );
+        }
+
+        result.data.forEach(category =&gt; {
+
+            const option =
+                document.createElement('option');
+
+            option.value =
+                category.id;
+
+            option.textContent =
+                category.name;
+
+            categoryElement.appendChild(option);
+        });
+
+    } catch (error) {
+
+        errorElement.textContent =
+            error.message;
+
+        errorElement.classList.remove('d-none');
+    }
+}
+
+
+async function loadProducts() {
+
+    loadingElement.classList.remove('d-none');
+    errorElement.classList.add('d-none');
+    productListElement.innerHTML = '';
+
+    const keyword =
+        keywordElement.value.trim();
+
+    const category =
+        categoryElement.value;
+
+    const params =
+        new URLSearchParams();
+
+    if (keyword !== '') {
+        params.set('keyword', keyword);
+    }
+
+    if (category !== '') {
+        params.set('category', category);
+    }
+
+    let apiUrl =
+        '/api/products.php';
+
+    if (params.toString() !== '') {
+        apiUrl +=
+            '?' + params.toString();
+    }
+
+    try {
+
+        const response =
+            await fetch(apiUrl);
+
+        if (!response.ok) {
+            throw new Error(
+                'Không thể tải dữ liệu sản phẩm.'
+            );
+        }
+
+        const result =
+            await response.json();
+
+        if (!result.success) {
+            throw new Error(
+                'API trả về kết quả không hợp lệ.'
+            );
+        }
+
+        if (result.data.length === 0) {
+
+            productListElement.innerHTML = `
+                &lt;div class=&quot;col-12&quot;&gt;
+                    &lt;div class=&quot;alert alert-warning&quot;&gt;
+                        Không tìm thấy sản phẩm phù hợp.
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            `;
+
+            return;
+        }
+
+        productListElement.innerHTML =
+            result.data
+                .map(createProductCard)
+                .join('');
+
+    } catch (error) {
+
+        errorElement.textContent =
+            error.message;
+
+        errorElement.classList.remove('d-none');
+
+    } finally {
+
+        loadingElement.classList.add('d-none');
+    }
+}
+
+
+filterForm.addEventListener(
+    'submit',
+    function (event) {
+
+        event.preventDefault();
+
+        loadProducts();
+    }
+);
+
+
+async function initializePage() {
+
+    await loadCategories();
+
+    await loadProducts();
+}
+
+
+initializePage();
+
+&lt;/script&gt;
+
+&lt;?php
+
+require_once '/var/www/src/includes/frontend/footer.php';
+
+?&gt;
+</code></pre>
+<h2 id="8-phan-tich-hoat-ong">8. Phân tích hoạt động</h2>
+<p><code>fetch('/api/categories.php')</code> gửi HTTP request để lấy danh mục.
+<code>response.json()</code> chuyển JSON nhận được thành đối tượng JavaScript.</p>
+<p><code>URLSearchParams</code> tạo query string. Ví dụ:</p>
+<pre><code class="language-text">keyword=Bluetooth&amp;category=3
+</code></pre>
+<p>sẽ tạo request:</p>
+<pre><code class="language-text">/api/products.php?keyword=Bluetooth&amp;category=3
+</code></pre>
+<p>Trong sự kiện submit:</p>
+<pre><code class="language-javascript">event.preventDefault();
+</code></pre>
+<p>ngăn form tải lại trang. JavaScript gọi <code>loadProducts()</code> và chỉ cập nhật
+vùng <code>#product-list</code>.</p>
+<h2 id="9-kiem-thu-giao-dien">9. Kiểm thử giao diện</h2>
+<p>Kiểm tra cú pháp:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/html/products-api.php
+</code></pre>
+<p>Mở:</p>
+<pre><code class="language-text">http://localhost:8080/products-api.php
+</code></pre>
+<p>Kiểm thử:</p>
+<hr />
+<p>Trường hợp                          Kết quả mong đợi</p>
+<hr />
+<p>Không nhập từ khóa, không chọn danh Tất cả sản phẩm đang hoạt động
+  mục                                 </p>
+<p>Nhập <code>Laptop</code>                       Sản phẩm có tên hoặc mã phù hợp</p>
+<p>Chọn <code>Phụ kiện</code>                     Sản phẩm thuộc danh mục Phụ kiện</p>
+<p><code>Bluetooth</code> + <code>Phụ kiện</code>            Sản phẩm thỏa cả hai điều kiện</p>
+<p>Từ khóa không tồn tại               Thông báo không tìm thấy sản phẩm</p>
+<hr />
+<p>Trong quá trình tìm kiếm, toàn bộ trang không được tải lại.</p>
+<h2 id="10-quan-sat-request-bang-developer-tools">10. Quan sát request bằng Developer Tools</h2>
+<p>Mở <code>products-api.php</code>, nhấn <code>F12</code>, chọn:</p>
+<pre><code class="language-text">Network → Fetch/XHR
+</code></pre>
+<p>Tải lại trang. Khi khởi tạo, có thể quan sát:</p>
+<pre><code class="language-text">categories.php
+products.php
+</code></pre>
+<p>Chọn <code>products.php</code> và kiểm tra:</p>
+<pre><code class="language-text">Request Method: GET
+Status Code: 200
+</code></pre>
+<p>Nhập <code>Bluetooth</code>, chọn <code>Phụ kiện</code> và bấm <strong>Tìm kiếm</strong>. Request mới có
+URL tương tự:</p>
+<pre><code class="language-text">/api/products.php?keyword=Bluetooth&amp;category=3
+</code></pre>
+<p>Trong <strong>Response</strong>, dữ liệu được trả về dưới dạng JSON.</p>
+<p>Điểm cần chú ý: trình duyệt không gửi lại request đến <code>products-api.php</code>
+để dựng lại toàn bộ trang; JavaScript chỉ gọi API và cập nhật danh sách
+sản phẩm.</p>
+<h2 id="11-so-sanh-voi-cach-truyen-thong">11. So sánh với cách truyền thống</h2>
+<p>Cách PHP render truyền thống:</p>
+<pre><code class="language-text">Tìm kiếm → Submit → PHP → MySQL → tạo lại HTML → tải lại trang
+</code></pre>
+<p>Cách REST API + Fetch API:</p>
+<pre><code class="language-text">Tìm kiếm → JavaScript → fetch() → API → MySQL
+                                      ↓
+                                     JSON
+                                      ↓
+                         cập nhật danh sách sản phẩm
+</code></pre>
+<p>REST API không có nghĩa PHP render truyền thống không còn phù hợp. PHP
+render trực tiếp đơn giản và phù hợp với nhiều website. API đặc biệt hữu
+ích khi cần giao diện tương tác động, nhiều loại client cùng sử dụng dữ
+liệu, tích hợp hệ thống hoặc tách frontend và backend.</p>
+<h2 id="12-khai-niem-can-ghi-nho">12. Khái niệm cần ghi nhớ</h2>
+<ul>
+<li><strong>API (Application Programming Interface):</strong> giao diện cho phép các
+    chương trình giao tiếp với nhau.</li>
+<li><strong>REST (Representational State Transfer):</strong> kiểu kiến trúc thường
+    dùng để thiết kế API trên nền HTTP.</li>
+<li><strong>Endpoint:</strong> điểm truy cập cụ thể của API, ví dụ
+    <code>/api/products.php</code>.</li>
+<li><strong>JSON:</strong> định dạng dữ liệu thường dùng để trao đổi dữ liệu giữa API
+    và client.</li>
+<li><strong>Fetch API:</strong> giao diện JavaScript cho phép trình duyệt gửi HTTP
+    request và xử lý response.</li>
+<li><strong>GET:</strong> phương thức HTTP dùng để đọc dữ liệu trong bài này.</li>
+</ul>
+<p>Trong REST API còn thường gặp <code>POST</code> để tạo dữ liệu, <code>PUT</code> để cập nhật
+và <code>DELETE</code> để xóa. Các phương thức này có thể được phát triển thêm khi
+xây dựng API CRUD hoàn chỉnh.</p>
+<h2 id="13-kiem-tra-va-luu-phien-ban">13. Kiểm tra và lưu phiên bản</h2>
+<p>Kiểm tra cú pháp:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/html/api/categories.php
+docker compose exec web php -l /var/www/html/api/products.php
+docker compose exec web php -l /var/www/html/products-api.php
+</code></pre>
+<p>Thêm các tập tin:</p>
+<pre><code class="language-cmd">git add public/api/categories.php
+git add public/api/products.php
+git add public/products-api.php
+</code></pre>
+<p>Kiểm tra:</p>
+<pre><code class="language-cmd">git status
+git diff --cached --check
+git diff --cached --stat
+</code></pre>
+<p>Commit và đẩy lên repository:</p>
+<pre><code class="language-cmd">git commit -m &quot;Add REST product API and fetch frontend&quot;
+git push
+git status
+</code></pre>
+<p>Kết quả cuối mong đợi:</p>
+<pre><code class="language-text">nothing to commit, working tree clean
+</code></pre>
+<h2 id="14-tong-ket">14. Tổng kết</h2>
+<p>Bài thực hành đã mở rộng ứng dụng từ cách PHP tạo trực tiếp giao diện
+sang mô hình:</p>
+<pre><code class="language-text">MySQL → PHP REST API → JSON → fetch() → JavaScript → Giao diện
+</code></pre>
+<p>Sinh viên xây dựng hai endpoint cho danh mục và sản phẩm; API sản phẩm
+nhận tham số tìm kiếm, lọc; frontend sử dụng <code>fetch()</code> để cập nhật danh
+sách mà không tải lại toàn bộ trang.</p>
+<p>Đây là bước chuyển từ ứng dụng PHP/MySQL truyền thống sang ứng dụng có
+lớp API, tạo nền tảng để dữ liệu có thể tiếp tục được sử dụng bởi giao
+diện web, ứng dụng di động hoặc các hệ thống tích hợp khác.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2344 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Hands-on-04_Category-CRUD/">
+      
+      
+        <link rel="next" href="../Hands-on-06_Upload-Product-Images/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Hands-on 05 - Xây dựng CRUD quản lý sản phẩm - Phát triển ứng dụng Web mã nguồn mở</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hands-on-05-quan-ly-san-pham-va-du-lieu-quan-he" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-header__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Phát triển ứng dụng Web mã nguồn mở
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hands-on 05 - Xây dựng CRUD quản lý sản phẩm
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-nav__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Phát triển ứng dụng Web mã nguồn mở
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chuẩn bị
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chuẩn bị
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preparation/Pre-Lab-00_Environment-Setup-Windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-Lab 00 - Chuẩn bị môi trường
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thực hành
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thực hành
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-01_PHP-Docker_Baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 01 - PHP và Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-02_MySQL-Database-Schema-Seed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 02 - MySQL-Database-Schema-Seed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-03_PHP-MySQLi-Category-Listing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 03 - PHP-MySQLi-Category-Listing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-04_Category-CRUD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 04 - Xây dựng CRUD quản lý danh mục
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 05 - Xây dựng CRUD quản lý sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 05 - Xây dựng CRUD quản lý sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-kiem-tra-trang-thai-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Kiểm tra trạng thái project
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Kiểm tra trạng thái project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lenh-thuc-thi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lệnh thực thi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ket-qua-mong-oi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kết quả mong đợi
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-06_Upload-Product-Images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 06 – Upload hình ảnh sản phẩm với PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-07_Manage-Product-Images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 07 – Quản lý hình ảnh sản phẩm khi cập nhật
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-08_Admin-Frontend-Structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 08 – Tổ chức khu vực quản trị và giao diện người dùng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-09_Product-Storefront-and-Detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-10_Product-Search-Filter-and-Pagination/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 10 – Tìm kiếm, lọc và phân trang sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-11_Shopping-Cart-with-PHP-Session/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 11 – Xây dựng giỏ hàng với PHP Session
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-12_Checkout-and-Order-Processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 12 – Xử lý đặt hàng và lưu đơn hàng vào MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-13_Admin-Order-Management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 13 – Quản lý đơn hàng trong khu vực Admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-14_Customer-Authentication-and-Accounts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 14 – Đăng ký, đăng nhập và tài khoản khách hàng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-15_REST-API-and-Fetch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 15 – REST API và Fetch API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hướng dẫn
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hướng dẫn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/Mini-Hands-on_Git-Push-GitHub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git và GitHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-kiem-tra-trang-thai-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Kiểm tra trạng thái project
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Kiểm tra trạng thái project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lenh-thuc-thi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lệnh thực thi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ket-qua-mong-oi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kết quả mong đợi
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hands-on-05-quan-ly-san-pham-va-du-lieu-quan-he">Hands-on 05 – Quản lý sản phẩm và dữ liệu quan hệ</h1>
+<h2 id="1-muc-tieu">1. Mục tiêu</h2>
+<p>Sau khi hoàn thành Hands-on 05, người học có thể:</p>
+<ul>
+<li>kiểm tra các quan hệ khóa chính – khóa ngoại trong cơ sở dữ liệu;</li>
+<li>phân biệt vai trò của <code>FOREIGN KEY</code> và <code>NOT NULL</code>;</li>
+<li>chuẩn hóa các khóa ngoại bắt buộc thành <code>NOT NULL</code>;</li>
+<li>kiểm tra dữ liệu hiện có trước khi áp dụng ràng buộc mới;</li>
+<li>kết nhiều bảng bằng quan hệ khóa chính – khóa ngoại;</li>
+<li>viết truy vấn bằng <code>FROM ... WHERE ... AND ...</code> và đối chiếu với <code>INNER JOIN ... ON</code>;</li>
+<li>xây dựng CRUD Product bằng PHP/MySQLi;</li>
+<li>tạo <code>&lt;select&gt;</code> động cho Category và Supplier;</li>
+<li>xử lý giá, tồn kho và trạng thái kinh doanh;</li>
+<li>kết hợp <code>product_images</code> để hiển thị ảnh chính của sản phẩm;</li>
+<li>hiểu nguyên tắc: file ảnh lưu trong hệ thống tệp, database chỉ lưu tên file ảnh.</li>
+</ul>
+<blockquote>
+<p><strong>Phạm vi HO05:</strong> dừng ở việc hiển thị ảnh chính đã có. Upload ảnh và quản lý nhiều ảnh sẽ chuyển sang Hands-on tiếp theo.</p>
+</blockquote>
+<hr />
+<h2 id="2-kiem-tra-trang-thai-project">2. Kiểm tra trạng thái project</h2>
+<h3 id="lenh-thuc-thi">Lệnh thực thi</h3>
+<pre><code class="language-cmd">cd /d D:\PTUDW-ST-2026\php-mysql-sales
+
+git status
+docker compose up -d
+docker compose ps
+</code></pre>
+<h3 id="ket-qua-mong-oi">Kết quả mong đợi</h3>
+<pre><code class="language-text">web   Up
+db    Up
+</code></pre>
+<p>Trang <code>http://localhost:8080</code> vẫn hoạt động.</p>
+<hr />
+<h1 id="3-kiem-tra-toan-bo-khoa-ngoai">3. Kiểm tra toàn bộ khóa ngoại</h1>
+<p>Đăng nhập MySQL:</p>
+<pre><code class="language-cmd">docker compose exec db mysql --default-character-set=utf8mb4 -u root -p
+</code></pre>
+<p>Chọn database:</p>
+<pre><code class="language-sql">USE ql_banhang;
+</code></pre>
+<p>Liệt kê toàn bộ khóa ngoại:</p>
+<pre><code class="language-sql">SELECT
+    TABLE_NAME,
+    COLUMN_NAME,
+    REFERENCED_TABLE_NAME,
+    REFERENCED_COLUMN_NAME
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE TABLE_SCHEMA = 'ql_banhang'
+  AND REFERENCED_TABLE_NAME IS NOT NULL
+ORDER BY TABLE_NAME, COLUMN_NAME;
+</code></pre>
+<p>Project có 8 khóa ngoại:</p>
+<pre><code class="language-text">orderdetail.OrderID      → orders.OrderID
+orderdetail.ProductID    → products.ProductID
+orders.CustomerID        → customers.CustomerID
+orders.EmployeeID        → employees.EmployeeID
+orders.ShipperID         → shippers.ShipperID
+product_images.ProductID → products.ProductID
+products.CategoryID      → categories.CategoryID
+products.SupplierID      → suppliers.SupplierID
+</code></pre>
+<hr />
+<h1 id="4-kiem-tra-khoa-ngoai-nao-con-cho-phep-null">4. Kiểm tra khóa ngoại nào còn cho phép NULL</h1>
+<pre><code class="language-sql">SELECT
+    TABLE_NAME,
+    COLUMN_NAME,
+    IS_NULLABLE,
+    COLUMN_TYPE
+FROM information_schema.COLUMNS
+WHERE TABLE_SCHEMA = 'ql_banhang'
+  AND (TABLE_NAME, COLUMN_NAME) IN (
+      SELECT
+          TABLE_NAME,
+          COLUMN_NAME
+      FROM information_schema.KEY_COLUMN_USAGE
+      WHERE TABLE_SCHEMA = 'ql_banhang'
+        AND REFERENCED_TABLE_NAME IS NOT NULL
+  )
+ORDER BY TABLE_NAME, COLUMN_NAME;
+</code></pre>
+<p>Cần chú ý:</p>
+<pre><code class="language-text">IS_NULLABLE = YES
+→ cột hiện cho phép NULL
+
+IS_NULLABLE = NO
+→ cột không cho phép NULL
+</code></pre>
+<hr />
+<h1 id="5-hieu-foreign-key-va-not-null">5. Hiểu <code>FOREIGN KEY</code> và <code>NOT NULL</code></h1>
+<p>Ví dụ:</p>
+<pre><code class="language-sql">CategoryID INT NOT NULL
+</code></pre>
+<p>ngăn:</p>
+<pre><code class="language-text">CategoryID = NULL
+</code></pre>
+<p>Còn:</p>
+<pre><code class="language-sql">FOREIGN KEY (CategoryID)
+REFERENCES categories(CategoryID)
+</code></pre>
+<p>ngăn:</p>
+<pre><code class="language-text">CategoryID = 999
+</code></pre>
+<p>nếu danh mục <code>999</code> không tồn tại.</p>
+<p>Có thể ghi nhớ:</p>
+<pre><code class="language-text">NOT NULL
+→ quan hệ bắt buộc phải có
+
+FOREIGN KEY
+→ giá trị tham chiếu phải tồn tại
+</code></pre>
+<hr />
+<h1 id="6-chuan-hoa-cac-khoa-ngoai-bat-buoc">6. Chuẩn hóa các khóa ngoại bắt buộc</h1>
+<p>Mở:</p>
+<pre><code class="language-text">database/schema.sql
+</code></pre>
+<h2 id="61-trong-bang-products">6.1. Trong bảng <code>products</code></h2>
+<p>Tìm:</p>
+<pre><code class="language-sql">SupplierID INT,
+CategoryID INT,
+</code></pre>
+<p>chỉ thay thành:</p>
+<pre><code class="language-sql">SupplierID INT NOT NULL,
+CategoryID INT NOT NULL,
+</code></pre>
+<h2 id="62-trong-bang-orders">6.2. Trong bảng <code>orders</code></h2>
+<p>Tìm:</p>
+<pre><code class="language-sql">CustomerID INT,
+EmployeeID INT,
+ShipperID INT,
+</code></pre>
+<p>chỉ thay thành:</p>
+<pre><code class="language-sql">CustomerID INT NOT NULL,
+EmployeeID INT NOT NULL,
+ShipperID INT NOT NULL,
+</code></pre>
+<blockquote>
+<p>Không thay toàn bộ file <code>schema.sql</code>. Chỉ sửa đúng các dòng cần thiết.</p>
+</blockquote>
+<hr />
+<h1 id="7-kiem-tra-du-lieu-hien-co-truoc-khi-reset-database">7. Kiểm tra dữ liệu hiện có trước khi reset database</h1>
+<pre><code class="language-sql">SELECT
+    'products.SupplierID' AS ForeignKey,
+    COUNT(*) AS NullCount
+FROM products
+WHERE SupplierID IS NULL
+
+UNION ALL
+
+SELECT
+    'products.CategoryID',
+    COUNT(*)
+FROM products
+WHERE CategoryID IS NULL
+
+UNION ALL
+
+SELECT
+    'orders.CustomerID',
+    COUNT(*)
+FROM orders
+WHERE CustomerID IS NULL
+
+UNION ALL
+
+SELECT
+    'orders.EmployeeID',
+    COUNT(*)
+FROM orders
+WHERE EmployeeID IS NULL
+
+UNION ALL
+
+SELECT
+    'orders.ShipperID',
+    COUNT(*)
+FROM orders
+WHERE ShipperID IS NULL;
+</code></pre>
+<p>Kết quả mong đợi:</p>
+<pre><code class="language-text">products.SupplierID  0
+products.CategoryID  0
+orders.CustomerID    0
+orders.EmployeeID    0
+orders.ShipperID     0
+</code></pre>
+<p>Chỉ khi tất cả <code>NullCount = 0</code> mới tiếp tục.</p>
+<hr />
+<h1 id="8-chuan-bi-anh-mau-truoc-khi-chay-lai-database">8. Chuẩn bị ảnh mẫu trước khi chạy lại database</h1>
+<p>Đây là bước bắt buộc phải hoàn thành <strong>trước khi chạy <code>docker compose down -v</code></strong>, để tên file thật và tên lưu trong <code>seed.sql</code> khớp nhau.</p>
+<h2 id="81-tao-thu-muc-anh">8.1. Tạo thư mục ảnh</h2>
+<p>Thoát MySQL:</p>
+<pre><code class="language-sql">exit;
+</code></pre>
+<p>Trong CMD:</p>
+<pre><code class="language-cmd">mkdir public\uploads
+mkdir public\uploads\products
+</code></pre>
+<p>Cấu trúc:</p>
+<pre><code class="language-text">public/
+└── uploads/
+    └── products/
+</code></pre>
+<h2 id="82-tu-tai-hoac-tu-chuan-bi-4-anh-minh-hoa">8.2. Tự tải hoặc tự chuẩn bị 4 ảnh minh họa</h2>
+<p>Người học tự tải hoặc tự tạo:</p>
+<ul>
+<li>2 ảnh điện thoại;</li>
+<li>1 ảnh laptop;</li>
+<li>1 ảnh chuột không dây.</li>
+</ul>
+<h3 id="ten-file-anh-mau-e-xuat">Tên file ảnh mẫu đề xuất</h3>
+<p>Có thể đặt phần tên như sau:</p>
+<pre><code class="language-text">phone-a-1
+phone-a-2
+laptop-b-1
+mouse-c-1
+</code></pre>
+<p>Ảnh tải về có thể có phần mở rộng như <code>.jpg</code>, <code>.jpeg</code>, <code>.png</code>, <code>.webp</code>,... và có thể giữ nguyên định dạng thực tế của file.</p>
+<p>Ví dụ:</p>
+<pre><code class="language-text">public/uploads/products/
+├── phone-a-1.png
+├── phone-a-2.jpg
+├── laptop-b-1.webp
+└── mouse-c-1.jpeg
+</code></pre>
+<p>Đặt tất cả ảnh tại:</p>
+<pre><code class="language-text">public/uploads/products/
+</code></pre>
+<p>Kiểm tra tên file và phần mở rộng thực tế:</p>
+<pre><code class="language-cmd">dir public\uploads\products
+</code></pre>
+<blockquote>
+<p><strong>Quan trọng:</strong> tên file và phần mở rộng ghi trong trường <code>ImageFile</code> của <code>seed.sql</code> phải khớp chính xác với file thật trong <code>public/uploads/products/</code>. Không mặc định tất cả ảnh đều có cùng phần mở rộng.</p>
+</blockquote>
+<h2 id="83-kiem-tra-anh-bang-trinh-duyet">8.3. Kiểm tra ảnh bằng trình duyệt</h2>
+<p>Ví dụ:</p>
+<pre><code class="language-text">http://localhost:8080/uploads/products/phone-a-1.webp
+</code></pre>
+<p>Ảnh phải hiển thị.</p>
+<hr />
+<h1 id="9-cap-nhat-ten-anh-trong-seedsql">9. Cập nhật tên ảnh trong <code>seed.sql</code></h1>
+<p>Mở:</p>
+<pre><code class="language-text">database/seed.sql
+</code></pre>
+<p>Tìm phần:</p>
+<pre><code class="language-sql">INSERT INTO product_images
+</code></pre>
+<p>Cập nhật <code>ImageFile</code> theo <strong>đúng tên và phần mở rộng của file ảnh thực tế</strong>.</p>
+<p>Ví dụ, nếu các file đã tải về là:</p>
+<pre><code class="language-text">phone-a-1.png
+phone-a-2.jpg
+laptop-b-1.webp
+mouse-c-1.jpeg
+</code></pre>
+<p>thì dữ liệu phải tương ứng:</p>
+<pre><code class="language-sql">INSERT INTO product_images
+    (ProductID, ImageFile, AltText, IsPrimary, SortOrder)
+VALUES
+    (1, 'phone-a-1.png',
+     'Điện thoại Smartphone A - ảnh chính', TRUE, 1),
+    (1, 'phone-a-2.jpg',
+     'Điện thoại Smartphone A - mặt sau', FALSE, 2),
+    (2, 'laptop-b-1.webp',
+     'Laptop B - ảnh chính', TRUE, 1),
+    (3, 'mouse-c-1.jpeg',
+     'Chuột không dây C - ảnh chính', TRUE, 1);
+</code></pre>
+<p>Nguyên tắc cần ghi nhớ:</p>
+<pre><code class="language-text">Tên file thật
+        =
+giá trị ImageFile trong database
+</code></pre>
+<p>Nếu file thật là <code>laptop-b-1.png</code> thì <code>ImageFile</code> cũng phải là <code>laptop-b-1.png</code>. Nếu tên hoặc phần mở rộng không khớp, trình duyệt sẽ tạo đường dẫn đến một file không tồn tại và ảnh sẽ không hiển thị.</p>
+<hr />
+<h1 id="10-tao-lai-database">10. Tạo lại database</h1>
+<p>Chỉ thực hiện khi:</p>
+<pre><code class="language-text">[✓] schema.sql đã sửa NOT NULL
+[✓] không có khóa ngoại hiện tại chứa NULL
+[✓] 4 ảnh đã được đặt đúng thư mục
+[✓] seed.sql đã dùng đúng tên và phần mở rộng file ảnh
+</code></pre>
+<p>Lệnh:</p>
+<pre><code class="language-cmd">docker compose down -v
+docker compose up -d
+docker compose ps
+</code></pre>
+<p><code>-v</code> xóa named volume cũ để MySQL chạy lại:</p>
+<pre><code class="language-text">01-schema.sql
+      ↓
+tạo schema mới
+
+02-seed.sql
+      ↓
+nạp dữ liệu mẫu
+</code></pre>
+<hr />
+<h1 id="11-kiem-tra-schema-sau-khi-tao-lai">11. Kiểm tra schema sau khi tạo lại</h1>
+<pre><code class="language-cmd">docker compose exec db mysql --default-character-set=utf8mb4 -u root -p
+</code></pre>
+<pre><code class="language-sql">USE ql_banhang;
+</code></pre>
+<p>Kiểm tra tổng hợp:</p>
+<pre><code class="language-sql">SELECT
+    k.TABLE_NAME,
+    k.COLUMN_NAME,
+    c.COLUMN_TYPE,
+    c.IS_NULLABLE,
+    k.REFERENCED_TABLE_NAME,
+    k.REFERENCED_COLUMN_NAME
+FROM information_schema.KEY_COLUMN_USAGE AS k
+JOIN information_schema.COLUMNS AS c
+    ON k.TABLE_SCHEMA = c.TABLE_SCHEMA
+    AND k.TABLE_NAME = c.TABLE_NAME
+    AND k.COLUMN_NAME = c.COLUMN_NAME
+WHERE k.TABLE_SCHEMA = 'ql_banhang'
+  AND k.REFERENCED_TABLE_NAME IS NOT NULL
+ORDER BY
+    k.TABLE_NAME,
+    k.COLUMN_NAME;
+</code></pre>
+<p>Tất cả 8 khóa ngoại phải có:</p>
+<pre><code class="language-text">IS_NULLABLE = NO
+</code></pre>
+<p>Kiểm tra nhanh PASS/FAIL:</p>
+<pre><code class="language-sql">SELECT
+    CASE
+        WHEN COUNT(*) = 0
+        THEN 'PASS - Tat ca khoa ngoai deu NOT NULL'
+        ELSE CONCAT(
+            'FAIL - Con ',
+            COUNT(*),
+            ' khoa ngoai cho phep NULL'
+        )
+    END AS Result
+FROM information_schema.KEY_COLUMN_USAGE AS k
+JOIN information_schema.COLUMNS AS c
+    ON k.TABLE_SCHEMA = c.TABLE_SCHEMA
+    AND k.TABLE_NAME = c.TABLE_NAME
+    AND k.COLUMN_NAME = c.COLUMN_NAME
+WHERE k.TABLE_SCHEMA = 'ql_banhang'
+  AND k.REFERENCED_TABLE_NAME IS NOT NULL
+  AND c.IS_NULLABLE = 'YES';
+</code></pre>
+<p>Kiểm tra seed:</p>
+<pre><code class="language-sql">SELECT COUNT(*) AS ProductCount FROM products;
+SELECT COUNT(*) AS OrderCount FROM orders;
+</code></pre>
+<p>Mong đợi:</p>
+<pre><code class="language-text">ProductCount = 3
+OrderCount   = 3
+</code></pre>
+<hr />
+<h1 id="12-ket-bang-theo-quan-he-khoa-chinh-khoa-ngoai">12. Kết bảng theo quan hệ khóa chính – khóa ngoại</h1>
+<p>Quan hệ:</p>
+<pre><code class="language-text">products.CategoryID (FK)
+        =
+categories.CategoryID (PK)
+
+products.SupplierID (FK)
+        =
+suppliers.SupplierID (PK)
+</code></pre>
+<h2 id="121-cach-1-dung-from-where-and">12.1. Cách 1 – dùng <code>FROM ... WHERE ... AND ...</code></h2>
+<pre><code class="language-sql">SELECT
+    p.ProductID,
+    p.ProductCode,
+    p.ProductName,
+    p.Unit,
+    p.Price,
+    p.StockQuantity,
+    p.IsActive,
+    c.CategoryName,
+    s.SupplierName
+FROM
+    products AS p,
+    categories AS c,
+    suppliers AS s
+WHERE
+    p.CategoryID = c.CategoryID
+    AND p.SupplierID = s.SupplierID
+ORDER BY
+    p.ProductID;
+</code></pre>
+<h2 id="122-cach-2-viet-tuong-uong-bang-inner-join-on">12.2. Cách 2 – viết tương đương bằng <code>INNER JOIN ... ON</code></h2>
+<pre><code class="language-sql">SELECT
+    p.ProductID,
+    p.ProductCode,
+    p.ProductName,
+    p.Unit,
+    p.Price,
+    p.StockQuantity,
+    p.IsActive,
+    c.CategoryName,
+    s.SupplierName
+FROM products AS p
+INNER JOIN categories AS c
+    ON p.CategoryID = c.CategoryID
+INNER JOIN suppliers AS s
+    ON p.SupplierID = s.SupplierID
+ORDER BY
+    p.ProductID;
+</code></pre>
+<p>Hai câu phải trả cùng kết quả.</p>
+<p>Điểm cần hiểu:</p>
+<pre><code class="language-text">quan sát quan hệ
+→ xác định PK và FK
+→ viết PK = FK
+→ chọn cú pháp SQL phù hợp
+</code></pre>
+<hr />
+<h1 id="13-tao-trang-danh-sach-san-pham">13. Tạo trang danh sách sản phẩm</h1>
+<p>Thoát MySQL:</p>
+<pre><code class="language-sql">exit;
+</code></pre>
+<p>Tạo:</p>
+<pre><code class="language-cmd">mkdir public\products
+type nul &gt; public\products\index.php
+</code></pre>
+<p>Nếu thư mục đã tồn tại, chỉ tạo file còn thiếu.</p>
+<p>Đây là file mới nên nhập đầy đủ:</p>
+<pre><code class="language-php">&lt;?php
+
+$pageTitle = 'Quản lý sản phẩm';
+
+require_once '/var/www/src/config/database.php';
+
+$sql = &quot;
+    SELECT
+        p.ProductID,
+        p.ProductCode,
+        p.ProductName,
+        p.Unit,
+        p.Price,
+        p.StockQuantity,
+        p.IsActive,
+        c.CategoryName,
+        s.SupplierName
+    FROM
+        products AS p,
+        categories AS c,
+        suppliers AS s
+    WHERE
+        p.CategoryID = c.CategoryID
+        AND p.SupplierID = s.SupplierID
+    ORDER BY
+        p.ProductID
+&quot;;
+
+$result = $conn-&gt;query($sql);
+
+require_once '/var/www/src/includes/header.php';
+require_once '/var/www/src/includes/navbar.php';
+
+?&gt;
+
+&lt;div class=&quot;container mt-4&quot;&gt;
+
+    &lt;div class=&quot;d-flex justify-content-between align-items-center mb-3&quot;&gt;
+        &lt;h2&gt;Quản lý sản phẩm&lt;/h2&gt;
+
+        &lt;a href=&quot;#&quot; class=&quot;btn btn-primary&quot;&gt;
+            Thêm sản phẩm
+        &lt;/a&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;table-responsive&quot;&gt;
+
+        &lt;table class=&quot;table table-bordered table-striped align-middle&quot;&gt;
+
+            &lt;thead class=&quot;table-dark&quot;&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;Mã SP&lt;/th&gt;
+                    &lt;th&gt;Tên sản phẩm&lt;/th&gt;
+                    &lt;th&gt;Danh mục&lt;/th&gt;
+                    &lt;th&gt;Nhà cung cấp&lt;/th&gt;
+                    &lt;th&gt;Đơn vị&lt;/th&gt;
+                    &lt;th&gt;Giá&lt;/th&gt;
+                    &lt;th&gt;Tồn kho&lt;/th&gt;
+                    &lt;th&gt;Trạng thái&lt;/th&gt;
+                    &lt;th&gt;Thao tác&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/thead&gt;
+
+            &lt;tbody&gt;
+
+            &lt;?php while ($product = $result-&gt;fetch_assoc()): ?&gt;
+
+                &lt;tr&gt;
+
+                    &lt;td&gt;&lt;?= htmlspecialchars($product['ProductCode']) ?&gt;&lt;/td&gt;
+
+                    &lt;td&gt;&lt;?= htmlspecialchars($product['ProductName']) ?&gt;&lt;/td&gt;
+
+                    &lt;td&gt;&lt;?= htmlspecialchars($product['CategoryName']) ?&gt;&lt;/td&gt;
+
+                    &lt;td&gt;&lt;?= htmlspecialchars($product['SupplierName']) ?&gt;&lt;/td&gt;
+
+                    &lt;td&gt;&lt;?= htmlspecialchars($product['Unit'] ?? '') ?&gt;&lt;/td&gt;
+
+                    &lt;td class=&quot;text-end&quot;&gt;
+                        &lt;?= number_format(
+                            (float) $product['Price'],
+                            0,
+                            ',',
+                            '.'
+                        ) ?&gt; đ
+                    &lt;/td&gt;
+
+                    &lt;td class=&quot;text-end&quot;&gt;
+                        &lt;?= (int) $product['StockQuantity'] ?&gt;
+                    &lt;/td&gt;
+
+                    &lt;td&gt;
+                        &lt;?php if ((int) $product['IsActive'] === 1): ?&gt;
+
+                            &lt;span class=&quot;badge bg-success&quot;&gt;
+                                Đang bán
+                            &lt;/span&gt;
+
+                        &lt;?php else: ?&gt;
+
+                            &lt;span class=&quot;badge bg-secondary&quot;&gt;
+                                Ngừng bán
+                            &lt;/span&gt;
+
+                        &lt;?php endif; ?&gt;
+                    &lt;/td&gt;
+
+                    &lt;td&gt;
+                        &lt;a href=&quot;#&quot; class=&quot;btn btn-sm btn-warning&quot;&gt;
+                            Sửa
+                        &lt;/a&gt;
+
+                        &lt;a href=&quot;#&quot; class=&quot;btn btn-sm btn-danger&quot;&gt;
+                            Xóa
+                        &lt;/a&gt;
+                    &lt;/td&gt;
+
+                &lt;/tr&gt;
+
+            &lt;?php endwhile; ?&gt;
+
+            &lt;/tbody&gt;
+
+        &lt;/table&gt;
+
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;?php
+
+require_once '/var/www/src/includes/footer.php';
+
+$conn-&gt;close();
+</code></pre>
+<hr />
+<h1 id="14-cap-nhat-menu-san-pham">14. Cập nhật menu Sản phẩm</h1>
+<p>Trong:</p>
+<pre><code class="language-text">src/includes/navbar.php
+</code></pre>
+<p>tìm mục <strong>Sản phẩm</strong> đang có:</p>
+<pre><code class="language-text">href=&quot;#&quot;
+</code></pre>
+<p>chỉ thay <code>#</code> bằng:</p>
+<pre><code class="language-text">/products/
+</code></pre>
+<p>Không thay toàn bộ file.</p>
+<p>Kiểm tra:</p>
+<pre><code class="language-text">http://localhost:8080/products/
+</code></pre>
+<hr />
+<h1 id="15-kien-thuc-moi-trong-danh-sach-san-pham">15. Kiến thức mới trong danh sách sản phẩm</h1>
+<h2 id="number_format"><code>number_format()</code></h2>
+<pre><code class="language-php">number_format(
+    (float) $product['Price'],
+    0,
+    ',',
+    '.'
+)
+</code></pre>
+<p>Ví dụ:</p>
+<pre><code class="language-text">8500000.00 → 8.500.000
+</code></pre>
+<h2 id="ep-kieu">Ép kiểu</h2>
+<pre><code class="language-php">(float) $product['Price']
+(int) $product['StockQuantity']
+</code></pre>
+<h2 id="isactive"><code>IsActive</code></h2>
+<pre><code class="language-text">1 → Đang bán
+0 → Ngừng bán
+</code></pre>
+<hr />
+<h1 id="16-lien-ket-nut-them-san-pham">16. Liên kết nút “Thêm sản phẩm”</h1>
+<p>Trong:</p>
+<pre><code class="language-text">public/products/index.php
+</code></pre>
+<p>tìm nút <strong>Thêm sản phẩm</strong> có:</p>
+<pre><code class="language-text">href=&quot;#&quot;
+</code></pre>
+<p>chỉ thay thành:</p>
+<pre><code class="language-text">/products/create.php
+</code></pre>
+<hr />
+<h1 id="17-tao-chuc-nang-them-san-pham">17. Tạo chức năng thêm sản phẩm</h1>
+<p>Tạo:</p>
+<pre><code class="language-cmd">type nul &gt; public\products\create.php
+</code></pre>
+<p>Đây là file mới. Nội dung chính:</p>
+<pre><code class="language-php">&lt;?php
+
+$pageTitle = 'Thêm sản phẩm';
+
+require_once '/var/www/src/config/database.php';
+
+$error = '';
+
+$sqlCategories = &quot;
+    SELECT CategoryID, CategoryName
+    FROM categories
+    ORDER BY CategoryName
+&quot;;
+
+$categories = $conn-&gt;query($sqlCategories);
+
+$sqlSuppliers = &quot;
+    SELECT SupplierID, SupplierName
+    FROM suppliers
+    ORDER BY SupplierName
+&quot;;
+
+$suppliers = $conn-&gt;query($sqlSuppliers);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $productCode = trim($_POST['product_code'] ?? '');
+    $productName = trim($_POST['product_name'] ?? '');
+    $description = trim($_POST['description'] ?? '');
+    $unit = trim($_POST['unit'] ?? '');
+
+    $price = (float) ($_POST['price'] ?? 0);
+    $stockQuantity = (int) ($_POST['stock_quantity'] ?? 0);
+
+    $categoryID = (int) ($_POST['category_id'] ?? 0);
+    $supplierID = (int) ($_POST['supplier_id'] ?? 0);
+
+    $isActive = isset($_POST['is_active']) ? 1 : 0;
+
+    if ($productCode === '') {
+        $error = 'Mã sản phẩm không được để trống.';
+
+    } elseif ($productName === '') {
+        $error = 'Tên sản phẩm không được để trống.';
+
+    } elseif ($price &lt; 0) {
+        $error = 'Giá sản phẩm không hợp lệ.';
+
+    } elseif ($stockQuantity &lt; 0) {
+        $error = 'Số lượng tồn kho không hợp lệ.';
+
+    } elseif ($categoryID &lt;= 0) {
+        $error = 'Vui lòng chọn danh mục.';
+
+    } elseif ($supplierID &lt;= 0) {
+        $error = 'Vui lòng chọn nhà cung cấp.';
+
+    } else {
+
+        $sql = &quot;
+            INSERT INTO products
+            (
+                ProductCode,
+                ProductName,
+                Description,
+                Unit,
+                Price,
+                StockQuantity,
+                IsActive,
+                SupplierID,
+                CategoryID
+            )
+            VALUES
+            (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        &quot;;
+
+        $stmt = $conn-&gt;prepare($sql);
+
+        $stmt-&gt;bind_param(
+            'ssssdiiii',
+            $productCode,
+            $productName,
+            $description,
+            $unit,
+            $price,
+            $stockQuantity,
+            $isActive,
+            $supplierID,
+            $categoryID
+        );
+
+        if ($stmt-&gt;execute()) {
+            header('Location: /products/');
+            exit;
+        }
+
+        $error = 'Không thể thêm sản phẩm.';
+        $stmt-&gt;close();
+    }
+}
+
+require_once '/var/www/src/includes/header.php';
+require_once '/var/www/src/includes/navbar.php';
+?&gt;
+</code></pre>
+<p>Phần form cần có các trường:</p>
+<pre><code class="language-text">ProductCode
+ProductName
+Description
+Unit
+Price
+StockQuantity
+Category
+Supplier
+IsActive
+</code></pre>
+<p>Category và Supplier phải dùng <code>&lt;select&gt;</code> động.</p>
+<p>Ví dụ:</p>
+<pre><code class="language-php">&lt;select name=&quot;category_id&quot; class=&quot;form-select&quot; required&gt;
+
+    &lt;option value=&quot;&quot;&gt;
+        -- Chọn danh mục --
+    &lt;/option&gt;
+
+    &lt;?php while ($category = $categories-&gt;fetch_assoc()): ?&gt;
+
+        &lt;option
+            value=&quot;&lt;?= $category['CategoryID'] ?&gt;&quot;
+        &gt;
+            &lt;?= htmlspecialchars($category['CategoryName']) ?&gt;
+        &lt;/option&gt;
+
+    &lt;?php endwhile; ?&gt;
+
+&lt;/select&gt;
+</code></pre>
+<p>Supplier làm tương tự.</p>
+<blockquote>
+<p>Khi đóng gói bài thực hành chính thức, người học cần tự viết form dựa trên cấu trúc Category CRUD đã học; không nên chỉ copy một khối HTML quá lớn mà không hiểu từng control.</p>
+</blockquote>
+<hr />
+<h1 id="18-du-lieu-mau-e-thu-create-product">18. Dữ liệu mẫu để thử Create Product</h1>
+<table>
+<thead>
+<tr>
+<th>Trường</th>
+<th>Giá trị</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mã sản phẩm</td>
+<td><code>SP004</code></td>
+</tr>
+<tr>
+<td>Tên sản phẩm</td>
+<td><code>Bàn phím cơ D</code></td>
+</tr>
+<tr>
+<td>Mô tả</td>
+<td><code>Bàn phím cơ có dây, phù hợp học tập và làm việc.</code></td>
+</tr>
+<tr>
+<td>Đơn vị</td>
+<td><code>Chiếc</code></td>
+</tr>
+<tr>
+<td>Giá</td>
+<td><code>1250000</code></td>
+</tr>
+<tr>
+<td>Tồn kho</td>
+<td><code>25</code></td>
+</tr>
+<tr>
+<td>Danh mục</td>
+<td><code>Phụ kiện</code></td>
+</tr>
+<tr>
+<td>Nhà cung cấp</td>
+<td><code>Công ty Thiết bị XYZ</code></td>
+</tr>
+<tr>
+<td>Đang kinh doanh</td>
+<td>Có</td>
+</tr>
+</tbody>
+</table>
+<p>Kết quả mong đợi:</p>
+<pre><code class="language-text">SP004
+Bàn phím cơ D
+Phụ kiện
+Công ty Thiết bị XYZ
+1.250.000 đ
+25
+Đang bán
+</code></pre>
+<hr />
+<h1 id="19-cap-nhat-nut-sua">19. Cập nhật nút Sửa</h1>
+<p>Trong:</p>
+<pre><code class="language-text">public/products/index.php
+</code></pre>
+<p>tìm nút <strong>Sửa</strong> đang có:</p>
+<pre><code class="language-text">href=&quot;#&quot;
+</code></pre>
+<p>chỉ thay bằng:</p>
+<pre><code class="language-php">href=&quot;/products/edit.php?id=&lt;?= $product['ProductID'] ?&gt;&quot;
+</code></pre>
+<hr />
+<h1 id="20-tao-chuc-nang-sua-san-pham">20. Tạo chức năng sửa sản phẩm</h1>
+<p>Tạo:</p>
+<pre><code class="language-cmd">type nul &gt; public\products\edit.php
+</code></pre>
+<p>Logic chính:</p>
+<ol>
+<li>lấy <code>ProductID</code> từ <code>$_GET['id']</code>;</li>
+<li><code>SELECT</code> sản phẩm hiện tại;</li>
+<li>lấy danh sách Category;</li>
+<li>lấy danh sách Supplier;</li>
+<li>hiển thị dữ liệu hiện tại vào form;</li>
+<li>khi POST thì <code>UPDATE</code>;</li>
+<li>redirect về <code>/products/</code>.</li>
+</ol>
+<p>Prepared statement của UPDATE:</p>
+<pre><code class="language-php">$sql = &quot;
+    UPDATE products
+    SET
+        ProductCode = ?,
+        ProductName = ?,
+        Description = ?,
+        Unit = ?,
+        Price = ?,
+        StockQuantity = ?,
+        IsActive = ?,
+        SupplierID = ?,
+        CategoryID = ?
+    WHERE ProductID = ?
+&quot;;
+
+$stmt = $conn-&gt;prepare($sql);
+
+$stmt-&gt;bind_param(
+    'ssssdiiiii',
+    $productCode,
+    $productName,
+    $description,
+    $unit,
+    $price,
+    $stockQuantity,
+    $isActive,
+    $supplierID,
+    $categoryID,
+    $productID
+);
+</code></pre>
+<p>Điểm mới quan trọng của form Edit:</p>
+<pre><code class="language-php">$selectedCategoryID =
+    $_POST['category_id']
+    ?? $product['CategoryID'];
+</code></pre>
+<p>và:</p>
+<pre><code class="language-php">$selectedSupplierID =
+    $_POST['supplier_id']
+    ?? $product['SupplierID'];
+</code></pre>
+<p>để <code>&lt;select&gt;</code> tự chọn đúng khóa ngoại hiện tại.</p>
+<hr />
+<h1 id="21-du-lieu-mau-e-thu-update">21. Dữ liệu mẫu để thử Update</h1>
+<p>Chọn:</p>
+<pre><code class="language-text">SP004 – Bàn phím cơ D
+</code></pre>
+<p>sửa:</p>
+<table>
+<thead>
+<tr>
+<th>Trường</th>
+<th>Giá trị mới</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tên sản phẩm</td>
+<td><code>Bàn phím cơ D Pro</code></td>
+</tr>
+<tr>
+<td>Giá</td>
+<td><code>1450000</code></td>
+</tr>
+<tr>
+<td>Tồn kho</td>
+<td><code>30</code></td>
+</tr>
+<tr>
+<td>Danh mục</td>
+<td><code>Phụ kiện</code></td>
+</tr>
+<tr>
+<td>Nhà cung cấp</td>
+<td><code>Công ty Công nghệ ABC</code></td>
+</tr>
+<tr>
+<td>Đang kinh doanh</td>
+<td>Có</td>
+</tr>
+</tbody>
+</table>
+<p>Kết quả:</p>
+<pre><code class="language-text">SP004
+Bàn phím cơ D Pro
+Phụ kiện
+Công ty Công nghệ ABC
+1.450.000 đ
+30
+Đang bán
+</code></pre>
+<hr />
+<h1 id="22-chuc-nang-delete-product">22. Chức năng Delete Product</h1>
+<p>Trong <code>public/products/index.php</code>, tìm riêng nút Xóa:</p>
+<pre><code class="language-php">&lt;a href=&quot;#&quot; class=&quot;btn btn-sm btn-danger&quot;&gt;
+    Xóa
+&lt;/a&gt;
+</code></pre>
+<p>thay riêng thẻ đó bằng form POST:</p>
+<pre><code class="language-php">&lt;form
+    action=&quot;/products/delete.php&quot;
+    method=&quot;post&quot;
+    class=&quot;d-inline&quot;
+    onsubmit=&quot;return confirm('Bạn có chắc muốn xóa sản phẩm này?');&quot;
+&gt;
+    &lt;input
+        type=&quot;hidden&quot;
+        name=&quot;id&quot;
+        value=&quot;&lt;?= $product['ProductID'] ?&gt;&quot;
+    &gt;
+
+    &lt;button
+        type=&quot;submit&quot;
+        class=&quot;btn btn-sm btn-danger&quot;
+    &gt;
+        Xóa
+    &lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Tạo:</p>
+<pre><code class="language-cmd">type nul &gt; public\products\delete.php
+</code></pre>
+<p>Nội dung:</p>
+<pre><code class="language-php">&lt;?php
+
+require_once '/var/www/src/config/database.php';
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Location: /products/');
+    exit;
+}
+
+$productID = isset($_POST['id'])
+    ? (int) $_POST['id']
+    : 0;
+
+if ($productID &lt;= 0) {
+    header('Location: /products/');
+    exit;
+}
+
+$sql = &quot;
+    DELETE FROM products
+    WHERE ProductID = ?
+&quot;;
+
+$stmt = $conn-&gt;prepare($sql);
+$stmt-&gt;bind_param('i', $productID);
+
+if ($stmt-&gt;execute()) {
+
+    $stmt-&gt;close();
+    $conn-&gt;close();
+
+    header('Location: /products/');
+    exit;
+}
+
+$stmt-&gt;close();
+$conn-&gt;close();
+
+die('Không thể xóa sản phẩm.');
+</code></pre>
+<p>Nên thử xóa SP004 vì sản phẩm này chưa có trong <code>orderdetail</code>.</p>
+<hr />
+<h1 id="23-vi-sao-co-san-pham-khong-the-xoa">23. Vì sao có sản phẩm không thể xóa?</h1>
+<p><code>product_images.ProductID</code> có:</p>
+<pre><code class="language-sql">ON DELETE CASCADE
+</code></pre>
+<p>nên ảnh dữ liệu liên quan có thể tự xóa khi sản phẩm bị xóa.</p>
+<p>Nhưng <code>orderdetail.ProductID</code> không dùng <code>ON DELETE CASCADE</code>.</p>
+<p>Điều này bảo vệ lịch sử đơn hàng.</p>
+<p>Với sản phẩm đã phát sinh giao dịch:</p>
+<pre><code class="language-text">không nên xóa vật lý
+→ có thể dùng IsActive = 0
+→ Ngừng kinh doanh
+</code></pre>
+<hr />
+<h1 id="24-kiem-tra-du-lieu-anh">24. Kiểm tra dữ liệu ảnh</h1>
+<p>Đăng nhập MySQL và chạy:</p>
+<pre><code class="language-sql">USE ql_banhang;
+
+SELECT
+    ProductImageID,
+    ProductID,
+    ImageFile,
+    AltText,
+    IsPrimary,
+    SortOrder
+FROM product_images
+ORDER BY ProductID, SortOrder;
+</code></pre>
+<p>Mong đợi:</p>
+<pre><code class="language-text">Product 1 → phone-a-1.webp  → IsPrimary = 1
+Product 1 → phone-a-2.webp  → IsPrimary = 0
+Product 2 → laptop-b-1.webp → IsPrimary = 1
+Product 3 → mouse-c-1.webp  → IsPrimary = 1
+</code></pre>
+<hr />
+<h1 id="25-mo-rong-truy-van-san-pham-e-lay-anh-chinh">25. Mở rộng truy vấn sản phẩm để lấy ảnh chính</h1>
+<p>Trong:</p>
+<pre><code class="language-text">public/products/index.php
+</code></pre>
+<p>không thay toàn bộ file.</p>
+<p>Trong phần <code>SELECT</code>, bổ sung:</p>
+<pre><code class="language-sql">pi.ImageFile,
+pi.AltText
+</code></pre>
+<p>Trong <code>FROM</code>, bổ sung:</p>
+<pre><code class="language-sql">product_images AS pi
+</code></pre>
+<p>Trong <code>WHERE</code>, bổ sung:</p>
+<pre><code class="language-sql">AND p.ProductID = pi.ProductID
+AND pi.IsPrimary = 1
+</code></pre>
+<p>Câu truy vấn sau thay đổi:</p>
+<pre><code class="language-php">$sql = &quot;
+    SELECT
+        p.ProductID,
+        p.ProductCode,
+        p.ProductName,
+        p.Unit,
+        p.Price,
+        p.StockQuantity,
+        p.IsActive,
+        c.CategoryName,
+        s.SupplierName,
+        pi.ImageFile,
+        pi.AltText
+    FROM
+        products AS p,
+        categories AS c,
+        suppliers AS s,
+        product_images AS pi
+    WHERE
+        p.CategoryID = c.CategoryID
+        AND p.SupplierID = s.SupplierID
+        AND p.ProductID = pi.ProductID
+        AND pi.IsPrimary = 1
+    ORDER BY
+        p.ProductID
+&quot;;
+</code></pre>
+<hr />
+<h1 id="26-them-cot-hinh-anh">26. Thêm cột Hình ảnh</h1>
+<p>Trong <code>&lt;thead&gt;</code>, chèn trước cột <strong>Mã SP</strong>:</p>
+<pre><code class="language-html">&lt;th&gt;Hình ảnh&lt;/th&gt;
+</code></pre>
+<p>Trong <code>&lt;tbody&gt;</code>, ngay đầu <code>&lt;tr&gt;</code>, thêm:</p>
+<pre><code class="language-php">&lt;?php
+$imageFile = $product['ImageFile'] ?? '';
+$altText = $product['AltText'] ?? $product['ProductName'];
+?&gt;
+
+&lt;td&gt;
+    &lt;img
+        src=&quot;/uploads/products/&lt;?= htmlspecialchars($imageFile) ?&gt;&quot;
+        alt=&quot;&lt;?= htmlspecialchars($altText) ?&gt;&quot;
+        width=&quot;80&quot;
+        class=&quot;img-thumbnail&quot;
+    &gt;
+&lt;/td&gt;
+</code></pre>
+<p>Luồng:</p>
+<pre><code class="language-text">product_images.ImageFile
+        ↓
+$product['ImageFile']
+        ↓
+/uploads/products/&lt;tên-file&gt;
+        ↓
+public/uploads/products/&lt;tên-file&gt;
+        ↓
+Browser
+</code></pre>
+<hr />
+<h1 id="27-xu-ly-su-co-thuong-gap">27. Xử lý sự cố thường gặp</h1>
+<h2 id="271-imagefile-co-trong-database-nhung-php-khong-co-gia-tri">27.1. <code>ImageFile</code> có trong database nhưng PHP không có giá trị</h2>
+<p><code>fetch_assoc()</code> chỉ chứa các cột có trong <code>SELECT</code>.</p>
+<p>Kiểm tra câu query đã có:</p>
+<pre><code class="language-sql">pi.ImageFile,
+pi.AltText
+</code></pre>
+<p>hay chưa.</p>
+<p>Có thể debug tạm:</p>
+<pre><code class="language-php">echo '&lt;pre&gt;';
+print_r($product);
+echo '&lt;/pre&gt;';
+</code></pre>
+<p>Sau khi kiểm tra phải xóa đoạn debug.</p>
+<h2 id="272-bieu-tuong-anh-bi-vo">27.2. Biểu tượng ảnh bị vỡ</h2>
+<p>Kiểm tra trực tiếp:</p>
+<pre><code class="language-text">http://localhost:8080/uploads/products/phone-a-1.webp
+</code></pre>
+<p>và:</p>
+<pre><code class="language-cmd">dir public\uploads\products
+</code></pre>
+<p>Tên file vật lý và tên trong database phải giống hoàn toàn.</p>
+<hr />
+<h1 id="28-checkpoint-hands-on-05">28. Checkpoint Hands-on 05</h1>
+<pre><code class="language-text">[ ] Xác định đủ 8 khóa ngoại
+[ ] Tất cả khóa ngoại đều NOT NULL
+[ ] Hiểu FOREIGN KEY và NOT NULL
+[ ] Kiểm tra dữ liệu NULL trước khi reset
+
+[ ] Tự chuẩn bị 4 ảnh sản phẩm
+[ ] Đặt ảnh tại public/uploads/products/
+[ ] Tên và phần mở rộng file ảnh khớp ImageFile trong seed.sql
+[ ] Database tạo lại thành công
+
+[ ] Chạy được FROM ... WHERE ... AND ...
+[ ] Hiểu INNER JOIN ... ON tương đương
+[ ] Menu Sản phẩm hoạt động
+[ ] Danh sách Product hoạt động
+
+[ ] Create Product hoạt động
+[ ] Category/Supplier dùng select động
+[ ] Update Product hoạt động
+[ ] Delete Product hoạt động
+
+[ ] product_images được kết với products
+[ ] Lấy đúng IsPrimary = 1
+[ ] Ảnh chính hiển thị đúng
+[ ] Tiếng Việt hiển thị đúng
+</code></pre>
+<hr />
+<h1 id="29-commit-va-push-checkpoint-ho05">29. Commit và push checkpoint HO05</h1>
+<p>Kiểm tra:</p>
+<pre><code class="language-cmd">git status
+git diff
+</code></pre>
+<p>Các thay đổi chính có thể gồm:</p>
+<pre><code class="language-text">database/schema.sql
+database/seed.sql
+
+src/includes/navbar.php
+
+public/products/index.php
+public/products/create.php
+public/products/edit.php
+public/products/delete.php
+
+public/uploads/products/
+</code></pre>
+<p>Stage:</p>
+<pre><code class="language-cmd">git add .
+git status
+</code></pre>
+<p>Commit:</p>
+<pre><code class="language-cmd">git commit -m &quot;Add product CRUD and relational data handling&quot;
+</code></pre>
+<p>Push:</p>
+<pre><code class="language-cmd">git push
+</code></pre>
+<p>Kiểm tra:</p>
+<pre><code class="language-cmd">git status
+git log -1 --oneline
+</code></pre>
+<p>Mong đợi:</p>
+<pre><code class="language-text">nothing to commit, working tree clean
+</code></pre>
+<hr />
+<h1 id="30-kien-thuc-can-ghi-nho">30. Kiến thức cần ghi nhớ</h1>
+<h2 id="khoa-ngoai-bat-buoc">Khóa ngoại bắt buộc</h2>
+<pre><code class="language-text">FOREIGN KEY + NOT NULL
+</code></pre>
+<h2 id="ket-bang">Kết bảng</h2>
+<pre><code class="language-text">FROM nhiều bảng
+WHERE PK = FK
+AND PK = FK
+</code></pre>
+<p>tương đương trong trường hợp hiện tại với:</p>
+<pre><code class="language-text">INNER JOIN
+ON PK = FK
+</code></pre>
+<h2 id="select-ong">Select động</h2>
+<pre><code class="language-text">database
+→ SELECT
+→ &lt;option value=&quot;ID&quot;&gt;Tên&lt;/option&gt;
+</code></pre>
+<h2 id="crud-product">CRUD Product</h2>
+<pre><code class="language-text">Create → INSERT
+Read   → SELECT + kết bảng
+Update → UPDATE
+Delete → DELETE
+</code></pre>
+<h2 id="anh-san-pham">Ảnh sản phẩm</h2>
+<pre><code class="language-text">Database
+→ chỉ lưu ImageFile
+
+File system
+→ public/uploads/products/
+</code></pre>
+<hr />
+<h1 id="31-chuan-bi-cho-hands-on-tiep-theo">31. Chuẩn bị cho Hands-on tiếp theo</h1>
+<p>HO05 mới dùng ảnh <strong>đã chuẩn bị sẵn</strong>.</p>
+<p>Hands-on tiếp theo sẽ học:</p>
+<pre><code class="language-text">multipart/form-data
+$_FILES
+upload file
+kiểm tra định dạng
+move_uploaded_file()
+INSERT product_images
+nhiều ảnh cho một sản phẩm
+ảnh chính
+</code></pre>
+<p>Đó là bước chuyển từ <strong>hiển thị ảnh có sẵn</strong> sang <strong>quản lý ảnh do người dùng upload</strong>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

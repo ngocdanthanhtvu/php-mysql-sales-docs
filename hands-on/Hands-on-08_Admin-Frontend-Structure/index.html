@@ -1,0 +1,2673 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Hands-on-07_Manage-Product-Images/">
+      
+      
+        <link rel="next" href="../Hands-on-09_Product-Storefront-and-Detail/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Hands-on 08 – Tổ chức khu vực quản trị và giao diện người dùng - Phát triển ứng dụng Web mã nguồn mở</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hands-on-08-to-chuc-khu-vuc-quan-tri-va-giao-dien-nguoi-dung" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-header__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Phát triển ứng dụng Web mã nguồn mở
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hands-on 08 – Tổ chức khu vực quản trị và giao diện người dùng
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-nav__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Phát triển ứng dụng Web mã nguồn mở
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chuẩn bị
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chuẩn bị
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preparation/Pre-Lab-00_Environment-Setup-Windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-Lab 00 - Chuẩn bị môi trường
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thực hành
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thực hành
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-01_PHP-Docker_Baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 01 - PHP và Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-02_MySQL-Database-Schema-Seed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 02 - MySQL-Database-Schema-Seed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-03_PHP-MySQLi-Category-Listing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 03 - PHP-MySQLi-Category-Listing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-04_Category-CRUD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 04 - Xây dựng CRUD quản lý danh mục
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-05_Product-Relational-Data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 05 - Xây dựng CRUD quản lý sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-06_Upload-Product-Images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 06 – Upload hình ảnh sản phẩm với PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-07_Manage-Product-Images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 07 – Quản lý hình ảnh sản phẩm khi cập nhật
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 08 – Tổ chức khu vực quản trị và giao diện người dùng
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 08 – Tổ chức khu vực quản trị và giao diện người dùng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-chuan-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Chuẩn bị
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-vi-sao-can-tach-admin-va-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Vì sao cần tách Admin và Frontend?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tao-khu-vuc-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Tạo khu vực Admin
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Tạo khu vực Admin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-tao-thu-muc-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. Tạo thư mục admin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-di-chuyen-cac-chuc-nang-quan-tri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Di chuyển các chức năng quản trị
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-to-chuc-cac-thanh-phan-giao-dien-cua-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Tổ chức các thành phần giao diện của Admin
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Tổ chức các thành phần giao diện của Admin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-tao-thu-muc-includesadmin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Tạo thư mục includes/admin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-di-chuyen-cac-tap-tin-giao-dien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Di chuyển các tập tin giao diện
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cap-nhat-require_once-cua-cac-trang-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Cập nhật require_once của các trang Admin
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Cập nhật require_once của các trang Admin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-thay-uong-dan-headerphp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Thay đường dẫn header.php
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-kiem-tra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2. Kiểm tra
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-cap-nhat-url-cua-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Cập nhật URL của Categories
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Cập nhật URL của Categories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-thuc-hien-thay-the" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Thực hiện thay thế
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-kiem-tra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Kiểm tra
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-cap-nhat-url-cua-products" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Cập nhật URL của Products
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Cập nhật URL của Products">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-kiem-tra-cac-vi-tri-co-products" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. Kiểm tra các vị trí có products/
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-cap-nhat-url-chuc-nang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2. Cập nhật URL chức năng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-giu-nguyen-uong-dan-hinh-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3. Giữ nguyên đường dẫn hình ảnh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-kiem-tra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4. Kiểm tra
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-cap-nhat-shippers-va-cac-oi-tuong-quan-tri-khac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Cập nhật Shippers và các đối tượng quản trị khác
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-cap-nhat-thanh-ieu-huong-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Cập nhật thanh điều hướng Admin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-tao-trang-chu-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Tạo trang chủ Admin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-kiem-tra-khu-vuc-admin-truoc-khi-tao-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Kiểm tra khu vực Admin trước khi tạo Frontend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-tao-layout-cho-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Tạo layout cho Frontend
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Tạo layout cho Frontend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-tao-thu-muc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.1. Tạo thư mục
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-tao-ba-tap-tin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2. Tạo ba tập tin
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-xay-dung-frontendheaderphp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Xây dựng frontend/header.php
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-xay-dung-frontendnavbarphp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Xây dựng frontend/navbar.php
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-xay-dung-frontendfooterphp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Xây dựng frontend/footer.php
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-cap-nhat-trang-chu-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Cập nhật trang chủ Frontend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-kiem-tra-cu-phap-php" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Kiểm tra cú pháp PHP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-kiem-thu-toan-bo-ung-dung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Kiểm thử toàn bộ ứng dụng
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-kiem-tra-cau-truc-cuoi-cung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Kiểm tra cấu trúc cuối cùng
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-luu-phien-ban-bang-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. Lưu phiên bản bằng Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-ket-qua-at-uoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. Kết quả đạt được
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cau-hoi-cung-co" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Câu hỏi củng cố
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bai-tap-cung-co" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bài tập củng cố
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-09_Product-Storefront-and-Detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-10_Product-Search-Filter-and-Pagination/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 10 – Tìm kiếm, lọc và phân trang sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-11_Shopping-Cart-with-PHP-Session/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 11 – Xây dựng giỏ hàng với PHP Session
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-12_Checkout-and-Order-Processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 12 – Xử lý đặt hàng và lưu đơn hàng vào MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-13_Admin-Order-Management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 13 – Quản lý đơn hàng trong khu vực Admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-14_Customer-Authentication-and-Accounts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 14 – Đăng ký, đăng nhập và tài khoản khách hàng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-15_REST-API-and-Fetch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 15 – REST API và Fetch API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hướng dẫn
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hướng dẫn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/Mini-Hands-on_Git-Push-GitHub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git và GitHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-chuan-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Chuẩn bị
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-vi-sao-can-tach-admin-va-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Vì sao cần tách Admin và Frontend?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tao-khu-vuc-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Tạo khu vực Admin
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Tạo khu vực Admin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-tao-thu-muc-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. Tạo thư mục admin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-di-chuyen-cac-chuc-nang-quan-tri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Di chuyển các chức năng quản trị
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-to-chuc-cac-thanh-phan-giao-dien-cua-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Tổ chức các thành phần giao diện của Admin
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Tổ chức các thành phần giao diện của Admin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-tao-thu-muc-includesadmin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Tạo thư mục includes/admin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-di-chuyen-cac-tap-tin-giao-dien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Di chuyển các tập tin giao diện
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cap-nhat-require_once-cua-cac-trang-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Cập nhật require_once của các trang Admin
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Cập nhật require_once của các trang Admin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-thay-uong-dan-headerphp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Thay đường dẫn header.php
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-kiem-tra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2. Kiểm tra
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-cap-nhat-url-cua-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Cập nhật URL của Categories
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Cập nhật URL của Categories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-thuc-hien-thay-the" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Thực hiện thay thế
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-kiem-tra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Kiểm tra
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-cap-nhat-url-cua-products" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Cập nhật URL của Products
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Cập nhật URL của Products">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-kiem-tra-cac-vi-tri-co-products" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. Kiểm tra các vị trí có products/
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-cap-nhat-url-chuc-nang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2. Cập nhật URL chức năng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-giu-nguyen-uong-dan-hinh-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3. Giữ nguyên đường dẫn hình ảnh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-kiem-tra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4. Kiểm tra
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-cap-nhat-shippers-va-cac-oi-tuong-quan-tri-khac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Cập nhật Shippers và các đối tượng quản trị khác
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-cap-nhat-thanh-ieu-huong-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Cập nhật thanh điều hướng Admin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-tao-trang-chu-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Tạo trang chủ Admin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-kiem-tra-khu-vuc-admin-truoc-khi-tao-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Kiểm tra khu vực Admin trước khi tạo Frontend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-tao-layout-cho-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Tạo layout cho Frontend
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Tạo layout cho Frontend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-tao-thu-muc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.1. Tạo thư mục
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-tao-ba-tap-tin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2. Tạo ba tập tin
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-xay-dung-frontendheaderphp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Xây dựng frontend/header.php
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-xay-dung-frontendnavbarphp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Xây dựng frontend/navbar.php
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-xay-dung-frontendfooterphp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Xây dựng frontend/footer.php
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-cap-nhat-trang-chu-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Cập nhật trang chủ Frontend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-kiem-tra-cu-phap-php" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Kiểm tra cú pháp PHP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-kiem-thu-toan-bo-ung-dung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Kiểm thử toàn bộ ứng dụng
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-kiem-tra-cau-truc-cuoi-cung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Kiểm tra cấu trúc cuối cùng
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-luu-phien-ban-bang-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. Lưu phiên bản bằng Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-ket-qua-at-uoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. Kết quả đạt được
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cau-hoi-cung-co" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Câu hỏi củng cố
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bai-tap-cung-co" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bài tập củng cố
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hands-on-08-to-chuc-khu-vuc-quan-tri-va-giao-dien-nguoi-dung">Hands-on 08 -- Tổ chức khu vực quản trị và giao diện người dùng</h1>
+<h2 id="muc-tieu">Mục tiêu</h2>
+<p>Sau khi hoàn thành Hands-on này, bạn có thể:</p>
+<ul>
+<li>Phân biệt khu vực <strong>quản trị (Admin)</strong> và <strong>giao diện người dùng
+    (Frontend)</strong> trong ứng dụng web.</li>
+<li>Tổ chức các chức năng quản trị vào <code>public/admin/</code>.</li>
+<li>Tách các thành phần giao diện dùng chung của Admin và Frontend.</li>
+<li>Cập nhật đúng URL và đường dẫn <code>require_once</code> sau khi thay đổi cấu
+    trúc thư mục.</li>
+<li>Phân biệt <strong>URL chức năng</strong> với <strong>đường dẫn tài nguyên</strong>, đặc biệt
+    là hình ảnh sản phẩm.</li>
+<li>Kiểm tra lại ứng dụng sau khi tái tổ chức cấu trúc.</li>
+</ul>
+<hr />
+<h2 id="1-chuan-bi">1. Chuẩn bị</h2>
+<p>Hands-on này tiếp tục từ kết quả của <strong>Hands-on 07</strong>.</p>
+<p>Mở <strong>Command Prompt</strong> và chuyển đến thư mục dự án:</p>
+<pre><code class="language-cmd">cd /d D:\PTUDW-ST-2026\php-mysql-sales
+</code></pre>
+<p>Kiểm tra trạng thái Git:</p>
+<pre><code class="language-cmd">git status
+</code></pre>
+<p>Nên bắt đầu khi Git hiển thị:</p>
+<pre><code class="language-text">nothing to commit, working tree clean
+</code></pre>
+<p>Ở thời điểm này, cấu trúc chính của dự án có dạng:</p>
+<pre><code class="language-text">public/
+├── index.php
+├── categories/
+├── products/
+├── shippers/
+└── uploads/
+    └── products/
+
+src/
+├── config/
+│   └── database.php
+└── includes/
+    ├── header.php
+    ├── navbar.php
+    └── footer.php
+</code></pre>
+<p>!!! note "Lưu ý" Cấu trúc của bạn có thể khác đôi chút tùy các chức năng
+đã hoàn thành ở những Hands-on trước.</p>
+<pre><code>Ví dụ, `shippers` có thể chỉ có `index.php`, hoặc đã có thêm `create.php`, `edit.php`, `delete.php`.
+
+Trong Hands-on này, hãy thao tác trên **toàn bộ các tập tin chức năng hiện có** của từng đối tượng. Không cần tạo thêm tập tin chỉ để giống cấu trúc minh họa.
+</code></pre>
+<hr />
+<h2 id="2-vi-sao-can-tach-admin-va-frontend">2. Vì sao cần tách Admin và Frontend?</h2>
+<p>Đến Hands-on 07, các trang quản lý danh mục, sản phẩm và người giao hàng
+đều nằm trực tiếp trong <code>public/</code>.</p>
+<p>Khi ứng dụng tiếp tục phát triển, cần phân biệt hai khu vực:</p>
+<pre><code class="language-text">Ứng dụng
+│
+├── Frontend
+│   └── Giao diện dành cho người dùng
+│
+└── Admin
+    └── Giao diện và chức năng quản trị
+</code></pre>
+<p>Các chức năng CRUD đã xây dựng thuộc khu vực Admin:</p>
+<ul>
+<li>quản lý danh mục;</li>
+<li>quản lý sản phẩm;</li>
+<li>quản lý hình ảnh sản phẩm;</li>
+<li>quản lý người giao hàng;</li>
+<li>các chức năng quản trị khác đã xây dựng.</li>
+</ul>
+<p>Trong khi đó:</p>
+<pre><code class="language-text">public/uploads/products/
+</code></pre>
+<p>là nơi lưu hình ảnh sản phẩm. Đây là <strong>tài nguyên dùng chung</strong>, không
+phải một chức năng quản trị.</p>
+<p>Vì vậy, sau khi tổ chức lại:</p>
+<pre><code class="language-text">/admin/products/
+</code></pre>
+<p>là URL chức năng quản trị sản phẩm, còn:</p>
+<pre><code class="language-text">/uploads/products/
+</code></pre>
+<p>vẫn là URL dùng để truy cập hình ảnh.</p>
+<hr />
+<h2 id="3-tao-khu-vuc-admin">3. Tạo khu vực Admin</h2>
+<h3 id="31-tao-thu-muc-admin">3.1. Tạo thư mục <code>admin</code></h3>
+<p>Tại thư mục gốc của dự án, chạy:</p>
+<pre><code class="language-cmd">mkdir public\admin
+</code></pre>
+<p>Kiểm tra:</p>
+<pre><code class="language-cmd">tree public /F
+</code></pre>
+<p>Bạn phải thấy thư mục:</p>
+<pre><code class="language-text">public
+└── admin
+</code></pre>
+<h3 id="32-di-chuyen-cac-chuc-nang-quan-tri">3.2. Di chuyển các chức năng quản trị</h3>
+<p>Di chuyển các thư mục đã xây dựng:</p>
+<pre><code class="language-cmd">move public\categories public\admin\categories
+move public\products public\admin\products
+move public\shippers public\admin\shippers
+</code></pre>
+<p>Nếu dự án của bạn có thêm đối tượng quản trị khác, thực hiện tương tự
+với đối tượng đó.</p>
+<p>!!! warning "Không di chuyển thư mục hình ảnh" Giữ nguyên:</p>
+<pre><code>```text
+public/uploads/products/
+```
+
+Không chuyển thư mục này vào `public/admin/`.
+</code></pre>
+<p>Kiểm tra lại:</p>
+<pre><code class="language-cmd">tree public /F
+</code></pre>
+<p>Cấu trúc lúc này phải có dạng:</p>
+<pre><code class="language-text">public/
+├── index.php
+├── admin/
+│   ├── categories/
+│   ├── products/
+│   └── shippers/
+└── uploads/
+    └── products/
+</code></pre>
+<hr />
+<h2 id="4-to-chuc-cac-thanh-phan-giao-dien-cua-admin">4. Tổ chức các thành phần giao diện của Admin</h2>
+<p>Các trang quản trị hiện đang dùng chung:</p>
+<pre><code class="language-text">src/includes/header.php
+src/includes/navbar.php
+src/includes/footer.php
+</code></pre>
+<p>Ta chuyển ba tập tin này thành layout riêng của Admin.</p>
+<h3 id="41-tao-thu-muc-includesadmin">4.1. Tạo thư mục <code>includes/admin</code></h3>
+<p>Chạy:</p>
+<pre><code class="language-cmd">mkdir src\includes\admin
+</code></pre>
+<h3 id="42-di-chuyen-cac-tap-tin-giao-dien">4.2. Di chuyển các tập tin giao diện</h3>
+<p>Chạy:</p>
+<pre><code class="language-cmd">move src\includes\header.php src\includes\admin\header.php
+move src\includes\navbar.php src\includes\admin\navbar.php
+move src\includes\footer.php src\includes\admin\footer.php
+</code></pre>
+<p>Kiểm tra:</p>
+<pre><code class="language-cmd">tree src\includes /F
+</code></pre>
+<p>Kết quả cần có:</p>
+<pre><code class="language-text">src/includes/
+└── admin/
+    ├── header.php
+    ├── navbar.php
+    └── footer.php
+</code></pre>
+<hr />
+<h2 id="5-cap-nhat-require_once-cua-cac-trang-admin">5. Cập nhật <code>require_once</code> của các trang Admin</h2>
+<p>Sau khi di chuyển layout, các trang quản trị vẫn tham chiếu đến đường
+dẫn cũ.</p>
+<p>Ta cần đổi:</p>
+<pre><code class="language-php">/var/www/src/includes/header.php
+</code></pre>
+<p>thành:</p>
+<pre><code class="language-php">/var/www/src/includes/admin/header.php
+</code></pre>
+<p>Tương tự với <code>navbar.php</code> và <code>footer.php</code>.</p>
+<h3 id="51-thay-uong-dan-headerphp">5.1. Thay đường dẫn <code>header.php</code></h3>
+<p>Trong VS Code:</p>
+<ol>
+<li>Nhấn <strong>Ctrl + Shift + H</strong> để mở Search/Replace trên toàn dự án.</li>
+<li>Tại <strong>Files to include</strong>, nhập:</li>
+</ol>
+<pre><code class="language-text">public/admin/**/*.php
+</code></pre>
+<ol>
+<li>Tại ô <strong>Search</strong>, nhập:</li>
+</ol>
+<pre><code class="language-text">/var/www/src/includes/header.php
+</code></pre>
+<ol>
+<li>Tại ô <strong>Replace</strong>, nhập:</li>
+</ol>
+<pre><code class="language-text">/var/www/src/includes/admin/header.php
+</code></pre>
+<ol>
+<li>Quan sát danh sách kết quả để chắc chắn phạm vi thay thế chỉ nằm
+    trong các trang Admin.</li>
+<li>Chọn <strong>Replace All</strong>.</li>
+<li>Nhấn <strong>Ctrl + S</strong> nếu VS Code chưa tự lưu thay đổi.</li>
+</ol>
+<p>Thực hiện tương tự với:</p>
+<pre><code class="language-text">/var/www/src/includes/navbar.php
+</code></pre>
+<p>thành:</p>
+<pre><code class="language-text">/var/www/src/includes/admin/navbar.php
+</code></pre>
+<p>và:</p>
+<pre><code class="language-text">/var/www/src/includes/footer.php
+</code></pre>
+<p>thành:</p>
+<pre><code class="language-text">/var/www/src/includes/admin/footer.php
+</code></pre>
+<p>!!! tip "Nguyên tắc khi dùng Replace All" Luôn xem danh sách kết quả
+trước khi thay toàn bộ. Chỉ dùng Replace All khi chuỗi tìm kiếm đủ cụ
+thể và các kết quả đều là những vị trí cần sửa.</p>
+<h3 id="52-kiem-tra">5.2. Kiểm tra</h3>
+<p>Chạy:</p>
+<pre><code class="language-cmd">findstr /s /n /i /c:&quot;/var/www/src/includes/&quot; public\*.php
+</code></pre>
+<p>Các trang trong <code>public/admin/</code> phải sử dụng:</p>
+<pre><code class="language-text">/var/www/src/includes/admin/
+</code></pre>
+<hr />
+<h2 id="6-cap-nhat-url-cua-categories">6. Cập nhật URL của Categories</h2>
+<p>Sau khi chuyển thư mục:</p>
+<pre><code class="language-text">public/categories/
+</code></pre>
+<p>sang:</p>
+<pre><code class="language-text">public/admin/categories/
+</code></pre>
+<p>URL chức năng cũng phải thay đổi.</p>
+<p>Ví dụ:</p>
+<pre><code class="language-text">/categories/
+</code></pre>
+<p>thành:</p>
+<pre><code class="language-text">/admin/categories/
+</code></pre>
+<h3 id="61-thuc-hien-thay-the">6.1. Thực hiện thay thế</h3>
+<p>Trong VS Code, nhấn <strong>Ctrl + Shift + H</strong>.</p>
+<p>Tại <strong>Files to include</strong>, nhập:</p>
+<pre><code class="language-text">public/admin/categories/*.php
+</code></pre>
+<p>Search:</p>
+<pre><code class="language-text">/categories/
+</code></pre>
+<p>Replace:</p>
+<pre><code class="language-text">/admin/categories/
+</code></pre>
+<p>Kiểm tra các kết quả tìm được, sau đó chọn <strong>Replace All</strong>.</p>
+<p>Các vị trí được cập nhật có thể gồm:</p>
+<pre><code class="language-php">header('Location: /admin/categories/');
+</code></pre>
+<pre><code class="language-html">&lt;a href=&quot;/admin/categories/&quot;&gt;
+</code></pre>
+<pre><code class="language-html">&lt;a href=&quot;/admin/categories/edit.php?id=...&quot;&gt;
+</code></pre>
+<pre><code class="language-html">&lt;form action=&quot;/admin/categories/delete.php&quot;&gt;
+</code></pre>
+<h3 id="62-kiem-tra">6.2. Kiểm tra</h3>
+<p>Chạy:</p>
+<pre><code class="language-cmd">findstr /s /n /i /c:&quot;/admin/categories/&quot; public\admin\categories\*.php
+</code></pre>
+<p>Các URL chức năng Category phải bắt đầu bằng:</p>
+<pre><code class="language-text">/admin/categories/
+</code></pre>
+<hr />
+<h2 id="7-cap-nhat-url-cua-products">7. Cập nhật URL của Products</h2>
+<p>Products cần được xử lý khác Categories vì trong mã nguồn có cả:</p>
+<ul>
+<li>URL chức năng;</li>
+<li>URL hình ảnh;</li>
+<li>đường dẫn vật lý đến thư mục hình ảnh.</li>
+</ul>
+<h3 id="71-kiem-tra-cac-vi-tri-co-products">7.1. Kiểm tra các vị trí có <code>products/</code></h3>
+<p>Chạy:</p>
+<pre><code class="language-cmd">findstr /s /n /i /c:&quot;products/&quot; public\admin\products\*.php
+</code></pre>
+<p>Bạn có thể thấy các dạng như:</p>
+<pre><code class="language-text">/products/
+/products/create.php
+/products/edit.php
+/products/delete.php
+/uploads/products/
+/var/www/html/uploads/products/
+</code></pre>
+<p>Phân loại như sau:</p>
+<p>Loại              Trước khi chuyển                    Sau khi chuyển</p>
+<hr />
+<p>URL danh sách     <code>/products/</code>                        <code>/admin/products/</code>
+  URL thêm          <code>/products/create.php</code>              <code>/admin/products/create.php</code>
+  URL sửa           <code>/products/edit.php</code>                <code>/admin/products/edit.php</code>
+  URL xóa           <code>/products/delete.php</code>              <code>/admin/products/delete.php</code>
+  URL hình ảnh      <code>/uploads/products/</code>                <strong>Giữ nguyên</strong>
+  Thư mục lưu ảnh   <code>/var/www/html/uploads/products/</code>   <strong>Giữ nguyên</strong></p>
+<p>!!! warning "Không Replace All <code>/products/</code>" Không thay toàn bộ:</p>
+<pre><code>```text
+/products/
+```
+
+thành:
+
+```text
+/admin/products/
+```
+
+vì thao tác này có thể làm thay đổi cả đường dẫn:
+
+```text
+/uploads/products/
+```
+
+và:
+
+```text
+/var/www/html/uploads/products/
+```
+</code></pre>
+<h3 id="72-cap-nhat-url-chuc-nang">7.2. Cập nhật URL chức năng</h3>
+<p>Trong VS Code, mở các kết quả tìm kiếm trong:</p>
+<pre><code class="language-text">public/admin/products/*.php
+</code></pre>
+<p>Chỉ cập nhật các URL chức năng để đạt các dạng:</p>
+<pre><code class="language-php">header('Location: /admin/products/');
+</code></pre>
+<pre><code class="language-html">href=&quot;/admin/products/&quot;
+</code></pre>
+<pre><code class="language-html">href=&quot;/admin/products/create.php&quot;
+</code></pre>
+<pre><code class="language-html">href=&quot;/admin/products/edit.php?id=...&quot;
+</code></pre>
+<pre><code class="language-html">action=&quot;/admin/products/delete.php&quot;
+</code></pre>
+<p>Nếu trang chỉnh sửa sản phẩm có các nút sử dụng <code>formaction</code>, URL cũng
+phải bắt đầu bằng:</p>
+<pre><code class="language-text">/admin/products/edit.php
+</code></pre>
+<h3 id="73-giu-nguyen-uong-dan-hinh-anh">7.3. Giữ nguyên đường dẫn hình ảnh</h3>
+<p>Các đường dẫn sau <strong>không thay đổi</strong>:</p>
+<pre><code class="language-text">/uploads/products/
+</code></pre>
+<pre><code class="language-text">/var/www/html/uploads/products/
+</code></pre>
+<h3 id="74-kiem-tra">7.4. Kiểm tra</h3>
+<p>Kiểm tra URL Admin:</p>
+<pre><code class="language-cmd">findstr /s /n /i /c:&quot;admin/products/&quot; public\admin\products\*.php
+</code></pre>
+<p>Kiểm tra đường dẫn hình ảnh:</p>
+<pre><code class="language-cmd">findstr /s /n /i /c:&quot;uploads/products/&quot; public\admin\products\*.php
+</code></pre>
+<p>Kết quả thứ hai vẫn phải chứa các đường dẫn dạng:</p>
+<pre><code class="language-text">/uploads/products/
+</code></pre>
+<p>hoặc:</p>
+<pre><code class="language-text">/var/www/html/uploads/products/
+</code></pre>
+<hr />
+<h2 id="8-cap-nhat-shippers-va-cac-oi-tuong-quan-tri-khac">8. Cập nhật Shippers và các đối tượng quản trị khác</h2>
+<p>Với Shippers, URL chức năng:</p>
+<pre><code class="language-text">/shippers/
+</code></pre>
+<p>được đổi thành:</p>
+<pre><code class="language-text">/admin/shippers/
+</code></pre>
+<p>Trong VS Code, giới hạn phạm vi:</p>
+<pre><code class="language-text">public/admin/shippers/*.php
+</code></pre>
+<p>Search:</p>
+<pre><code class="language-text">/shippers/
+</code></pre>
+<p>Replace:</p>
+<pre><code class="language-text">/admin/shippers/
+</code></pre>
+<p>Kiểm tra kết quả rồi chọn <strong>Replace All</strong>.</p>
+<p>!!! note "Tùy theo bài làm hiện tại" Nếu <code>shippers</code> của bạn đã có
+<code>create.php</code>, <code>edit.php</code>, <code>delete.php</code>, hãy cập nhật URL trong tất cả
+các tập tin đó.</p>
+<pre><code>Nếu hiện tại chỉ có `index.php`, chỉ cần cập nhật những URL thực sự có trong `index.php`.
+</code></pre>
+<p>Với các đối tượng quản trị khác đã xây dựng, thực hiện theo cùng nguyên
+tắc.</p>
+<hr />
+<h2 id="9-cap-nhat-thanh-ieu-huong-admin">9. Cập nhật thanh điều hướng Admin</h2>
+<p>Mở:</p>
+<pre><code class="language-cmd">code src\includes\admin\navbar.php
+</code></pre>
+<p>Các liên kết đến chức năng quản trị cần sử dụng URL mới.</p>
+<p>Ví dụ:</p>
+<pre><code class="language-html">&lt;a class=&quot;navbar-brand&quot; href=&quot;/admin/&quot;&gt;
+    Sales Management
+&lt;/a&gt;
+</code></pre>
+<p>Các mục quản trị:</p>
+<pre><code class="language-text">/admin/categories/
+/admin/products/
+/admin/shippers/
+</code></pre>
+<p>Ví dụ:</p>
+<pre><code class="language-html">&lt;li class=&quot;nav-item&quot;&gt;
+    &lt;a class=&quot;nav-link&quot; href=&quot;/admin/categories/&quot;&gt;
+        Danh mục
+    &lt;/a&gt;
+&lt;/li&gt;
+
+&lt;li class=&quot;nav-item&quot;&gt;
+    &lt;a class=&quot;nav-link&quot; href=&quot;/admin/products/&quot;&gt;
+        Sản phẩm
+    &lt;/a&gt;
+&lt;/li&gt;
+
+&lt;li class=&quot;nav-item&quot;&gt;
+    &lt;a class=&quot;nav-link&quot; href=&quot;/admin/shippers/&quot;&gt;
+        Người giao hàng
+    &lt;/a&gt;
+&lt;/li&gt;
+</code></pre>
+<p>Nếu navbar của bạn có thêm các chức năng đã xây dựng, cập nhật URL tương
+ứng sang <code>/admin/...</code>.</p>
+<p>Nhấn <strong>Ctrl + S</strong> để lưu.</p>
+<hr />
+<h2 id="10-tao-trang-chu-admin">10. Tạo trang chủ Admin</h2>
+<p>Tạo tập tin:</p>
+<pre><code class="language-cmd">type nul &gt; public\admin\index.php
+</code></pre>
+<p>Mở:</p>
+<pre><code class="language-cmd">code public\admin\index.php
+</code></pre>
+<p>Nhập:</p>
+<pre><code class="language-php">&lt;?php
+$pageTitle = 'Quản trị hệ thống';
+
+require_once '/var/www/src/includes/admin/header.php';
+require_once '/var/www/src/includes/admin/navbar.php';
+?&gt;
+
+&lt;main class=&quot;container py-5&quot;&gt;
+
+    &lt;h1&gt;Quản trị hệ thống&lt;/h1&gt;
+
+    &lt;p class=&quot;text-muted&quot;&gt;
+        Chọn chức năng quản lý từ thanh điều hướng.
+    &lt;/p&gt;
+
+&lt;/main&gt;
+
+&lt;?php
+require_once '/var/www/src/includes/admin/footer.php';
+</code></pre>
+<p>Lưu bằng <strong>Ctrl + S</strong>.</p>
+<p>Kiểm tra trên trình duyệt:</p>
+<pre><code class="language-text">http://localhost:8080/admin/
+</code></pre>
+<p>Trang phải sử dụng header, navbar và footer của Admin.</p>
+<hr />
+<h2 id="11-kiem-tra-khu-vuc-admin-truoc-khi-tao-frontend">11. Kiểm tra khu vực Admin trước khi tạo Frontend</h2>
+<p>Không chuyển sang bước tiếp theo cho đến khi các chức năng Admin đang
+hoạt động.</p>
+<p>Kiểm tra lần lượt:</p>
+<pre><code class="language-text">http://localhost:8080/admin/
+http://localhost:8080/admin/categories/
+http://localhost:8080/admin/products/
+http://localhost:8080/admin/shippers/
+</code></pre>
+<p>Với Categories, kiểm tra các chức năng đã xây dựng:</p>
+<ul>
+<li>xem danh sách;</li>
+<li>thêm;</li>
+<li>sửa;</li>
+<li>xóa.</li>
+</ul>
+<p>Với Products, kiểm tra:</p>
+<ul>
+<li>xem danh sách;</li>
+<li>thêm sản phẩm;</li>
+<li>sửa sản phẩm;</li>
+<li>xóa sản phẩm;</li>
+<li>hiển thị hình ảnh;</li>
+<li>thêm hình ảnh;</li>
+<li>xóa hình ảnh;</li>
+<li>đặt ảnh chính.</li>
+</ul>
+<p>!!! success "Checkpoint" Chỉ tiếp tục khi các chức năng đã có trước đó
+vẫn hoạt động sau khi chuyển sang <code>/admin/</code>.</p>
+<hr />
+<h2 id="12-tao-layout-cho-frontend">12. Tạo layout cho Frontend</h2>
+<p>Admin đã có layout riêng. Bây giờ tạo layout dành cho người dùng.</p>
+<h3 id="121-tao-thu-muc">12.1. Tạo thư mục</h3>
+<p>Chạy:</p>
+<pre><code class="language-cmd">mkdir src\includes\frontend
+</code></pre>
+<h3 id="122-tao-ba-tap-tin">12.2. Tạo ba tập tin</h3>
+<p>Chạy:</p>
+<pre><code class="language-cmd">type nul &gt; src\includes\frontend\header.php
+type nul &gt; src\includes\frontend\navbar.php
+type nul &gt; src\includes\frontend\footer.php
+</code></pre>
+<p>Kiểm tra:</p>
+<pre><code class="language-cmd">tree src\includes /F
+</code></pre>
+<p>Cấu trúc cần có:</p>
+<pre><code class="language-text">src/includes/
+├── admin/
+│   ├── header.php
+│   ├── navbar.php
+│   └── footer.php
+└── frontend/
+    ├── header.php
+    ├── navbar.php
+    └── footer.php
+</code></pre>
+<hr />
+<h2 id="13-xay-dung-frontendheaderphp">13. Xây dựng <code>frontend/header.php</code></h2>
+<p>Mở:</p>
+<pre><code class="language-cmd">code src\includes\frontend\header.php
+</code></pre>
+<p>Nhập:</p>
+<pre><code class="language-php">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;vi&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+
+    &lt;title&gt;
+        &lt;?= htmlspecialchars($pageTitle ?? 'Sales Management') ?&gt;
+    &lt;/title&gt;
+
+    &lt;link
+        href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css&quot;
+        rel=&quot;stylesheet&quot;
+    &gt;
+
+    &lt;script
+        src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js&quot;&gt;
+    &lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+</code></pre>
+<p>Lưu bằng <strong>Ctrl + S</strong>.</p>
+<hr />
+<h2 id="14-xay-dung-frontendnavbarphp">14. Xây dựng <code>frontend/navbar.php</code></h2>
+<p>Mở:</p>
+<pre><code class="language-cmd">code src\includes\frontend\navbar.php
+</code></pre>
+<p>Nhập:</p>
+<pre><code class="language-php">&lt;nav class=&quot;navbar navbar-expand-lg bg-dark navbar-dark&quot;&gt;
+
+    &lt;div class=&quot;container&quot;&gt;
+
+        &lt;a class=&quot;navbar-brand&quot; href=&quot;/&quot;&gt;
+            Sales Management
+        &lt;/a&gt;
+
+        &lt;button
+            class=&quot;navbar-toggler&quot;
+            type=&quot;button&quot;
+            data-bs-toggle=&quot;collapse&quot;
+            data-bs-target=&quot;#frontendNavbar&quot;
+        &gt;
+            &lt;span class=&quot;navbar-toggler-icon&quot;&gt;&lt;/span&gt;
+        &lt;/button&gt;
+
+        &lt;div
+            class=&quot;collapse navbar-collapse&quot;
+            id=&quot;frontendNavbar&quot;
+        &gt;
+
+            &lt;ul class=&quot;navbar-nav&quot;&gt;
+
+                &lt;li class=&quot;nav-item&quot;&gt;
+                    &lt;a class=&quot;nav-link&quot; href=&quot;/&quot;&gt;
+                        Trang chủ
+                    &lt;/a&gt;
+                &lt;/li&gt;
+
+            &lt;/ul&gt;
+
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+
+&lt;/nav&gt;
+</code></pre>
+<p>Lưu bằng <strong>Ctrl + S</strong>.</p>
+<p>!!! note "Vì sao chưa có mục Sản phẩm?" Ở Hands-on 08, Frontend mới được
+tổ chức về cấu trúc. Trang danh sách sản phẩm dành cho người dùng sẽ
+được xây dựng ở Hands-on tiếp theo.</p>
+<pre><code>Vì vậy, chưa tạo liên kết đến một trang chưa tồn tại.
+</code></pre>
+<hr />
+<h2 id="15-xay-dung-frontendfooterphp">15. Xây dựng <code>frontend/footer.php</code></h2>
+<p>Mở:</p>
+<pre><code class="language-cmd">code src\includes\frontend\footer.php
+</code></pre>
+<p>Nhập:</p>
+<pre><code class="language-php">&lt;footer class=&quot;mt-5 p-4 bg-dark text-white text-center&quot;&gt;
+
+    &lt;p class=&quot;mb-0&quot;&gt;
+        Hệ thống quản lý bán hàng
+    &lt;/p&gt;
+
+&lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Lưu bằng <strong>Ctrl + S</strong>.</p>
+<hr />
+<h2 id="16-cap-nhat-trang-chu-frontend">16. Cập nhật trang chủ Frontend</h2>
+<p>Mở tập tin:</p>
+<pre><code class="language-cmd">code public\index.php
+</code></pre>
+<p>Thay nội dung hiện tại bằng:</p>
+<pre><code class="language-php">&lt;?php
+$pageTitle = 'Trang chủ';
+
+require_once '/var/www/src/includes/frontend/header.php';
+require_once '/var/www/src/includes/frontend/navbar.php';
+?&gt;
+
+&lt;main class=&quot;container py-5&quot;&gt;
+
+    &lt;h1&gt;Hệ thống quản lý bán hàng&lt;/h1&gt;
+
+    &lt;p class=&quot;text-muted&quot;&gt;
+        Ứng dụng PHP và MySQL đang hoạt động.
+    &lt;/p&gt;
+
+&lt;/main&gt;
+
+&lt;?php
+require_once '/var/www/src/includes/frontend/footer.php';
+</code></pre>
+<p>Lưu bằng <strong>Ctrl + S</strong>.</p>
+<p>Bây giờ:</p>
+<pre><code class="language-text">/
+</code></pre>
+<p>sử dụng layout Frontend, còn:</p>
+<pre><code class="language-text">/admin/
+</code></pre>
+<p>sử dụng layout Admin.</p>
+<hr />
+<h2 id="17-kiem-tra-cu-phap-php">17. Kiểm tra cú pháp PHP</h2>
+<p>Dự án đang chạy PHP trong Docker, vì vậy thực hiện kiểm tra cú pháp bằng
+PHP trong container.</p>
+<p>Kiểm tra trang chủ:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/html/index.php
+</code></pre>
+<p>Kiểm tra Admin:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/html/admin/index.php
+</code></pre>
+<p>Kiểm tra các trang chính:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/html/admin/categories/index.php
+docker compose exec web php -l /var/www/html/admin/products/index.php
+docker compose exec web php -l /var/www/html/admin/shippers/index.php
+</code></pre>
+<p>Kết quả đúng có dạng:</p>
+<pre><code class="language-text">No syntax errors detected in ...
+</code></pre>
+<p>Nếu bạn có các tập tin <code>create.php</code>, <code>edit.php</code>, <code>delete.php</code>, cũng kiểm
+tra cú pháp các tập tin đã thay đổi trước khi kiểm thử trên trình duyệt.</p>
+<hr />
+<h2 id="18-kiem-thu-toan-bo-ung-dung">18. Kiểm thử toàn bộ ứng dụng</h2>
+<p>Thực hiện lần lượt và đánh dấu kết quả.</p>
+<p>Nội dung kiểm tra      Kết quả mong đợi</p>
+<hr />
+<p><code>/</code>                    Trang chủ Frontend hiển thị đúng
+  <code>/admin/</code>              Trang chủ Admin hiển thị đúng
+  <code>/admin/categories/</code>   Danh sách Category hoạt động
+  CRUD Category          Các chức năng đã xây dựng vẫn hoạt động
+  <code>/admin/products/</code>     Danh sách Product và hình ảnh hiển thị đúng
+  CRUD Product           Các chức năng đã xây dựng vẫn hoạt động
+  Quản lý ảnh Product    Thêm, xóa, đặt ảnh chính hoạt động
+  <code>/admin/shippers/</code>     Các chức năng Shipper đã xây dựng vẫn hoạt động</p>
+<p>Đặc biệt, hình ảnh sản phẩm phải tiếp tục được truy cập từ:</p>
+<pre><code class="language-text">/uploads/products/
+</code></pre>
+<p>không phải:</p>
+<pre><code class="language-text">/admin/uploads/products/
+</code></pre>
+<p>hay:</p>
+<pre><code class="language-text">/uploads/admin/products/
+</code></pre>
+<hr />
+<h2 id="19-kiem-tra-cau-truc-cuoi-cung">19. Kiểm tra cấu trúc cuối cùng</h2>
+<p>Chạy:</p>
+<pre><code class="language-cmd">tree public /F
+</code></pre>
+<p>và:</p>
+<pre><code class="language-cmd">tree src\includes /F
+</code></pre>
+<p>Cấu trúc chính sau Hands-on 08:</p>
+<pre><code class="language-text">public/
+├── index.php
+├── admin/
+│   ├── index.php
+│   ├── categories/
+│   ├── products/
+│   └── shippers/
+└── uploads/
+    └── products/
+
+src/includes/
+├── admin/
+│   ├── header.php
+│   ├── navbar.php
+│   └── footer.php
+└── frontend/
+    ├── header.php
+    ├── navbar.php
+    └── footer.php
+</code></pre>
+<hr />
+<h2 id="20-luu-phien-ban-bang-git">20. Lưu phiên bản bằng Git</h2>
+<p>Sau khi toàn bộ kiểm thử đã đạt, kiểm tra:</p>
+<pre><code class="language-cmd">git status
+</code></pre>
+<p>Thêm các thay đổi:</p>
+<pre><code class="language-cmd">git add .
+</code></pre>
+<p>Kiểm tra:</p>
+<pre><code class="language-cmd">git diff --cached --check
+</code></pre>
+<p>Nếu không có thông báo lỗi, xem tóm tắt:</p>
+<pre><code class="language-cmd">git diff --cached --stat
+</code></pre>
+<p>Commit:</p>
+<pre><code class="language-cmd">git commit -m &quot;refactor: separate admin and frontend areas&quot;
+</code></pre>
+<p>Đẩy lên GitHub:</p>
+<pre><code class="language-cmd">git push
+</code></pre>
+<hr />
+<h2 id="21-ket-qua-at-uoc">21. Kết quả đạt được</h2>
+<p>Sau Hands-on 08, ứng dụng đã được tổ chức thành hai khu vực:</p>
+<pre><code class="language-text">Frontend
+/
+└── Giao diện dành cho người dùng
+
+Admin
+/admin/
+├── categories/
+├── products/
+└── shippers/
+
+Tài nguyên dùng chung
+/uploads/products/
+└── Hình ảnh sản phẩm
+</code></pre>
+<p>Việc tổ chức này tạo nền tảng để tiếp tục xây dựng các chức năng dành
+cho người dùng mà không làm lẫn giao diện và URL với khu vực quản trị.</p>
+<hr />
+<h2 id="cau-hoi-cung-co">Câu hỏi củng cố</h2>
+<ol>
+<li>Khu vực Admin và Frontend khác nhau về mục đích sử dụng như thế nào?</li>
+<li>Vì sao <code>public/uploads/products/</code> không được chuyển vào
+    <code>public/admin/</code>?</li>
+<li>Phân biệt <code>/admin/products/</code> và <code>/uploads/products/</code>.</li>
+<li>Vì sao Admin và Frontend nên có các tập tin <code>navbar.php</code> riêng?</li>
+<li>Sau khi di chuyển một trang PHP sang thư mục khác, những loại đường
+    dẫn nào cần được kiểm tra lại?</li>
+<li>Vì sao cần kiểm thử lại chức năng quản lý hình ảnh sau khi chuyển
+    Products vào khu vực Admin?</li>
+</ol>
+<h2 id="bai-tap-cung-co">Bài tập củng cố</h2>
+<p>Rà soát dự án của bạn. Nếu đã xây dựng thêm các đối tượng quản trị ngoài
+Categories, Products và Shippers:</p>
+<ol>
+<li>Chuyển các chức năng đó vào <code>public/admin/</code>.</li>
+<li>Cập nhật URL chức năng sang <code>/admin/...</code>.</li>
+<li>Sử dụng layout Admin.</li>
+<li>Giữ nguyên các đường dẫn tài nguyên dùng chung nếu chúng không thuộc
+    riêng khu vực Admin.</li>
+<li>Kiểm tra cú pháp và kiểm thử lại chức năng sau khi hoàn thành.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

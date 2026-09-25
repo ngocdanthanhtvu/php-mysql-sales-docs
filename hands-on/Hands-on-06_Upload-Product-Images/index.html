@@ -1,0 +1,2583 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Hands-on-05_Product-Relational-Data/">
+      
+      
+        <link rel="next" href="../Hands-on-07_Manage-Product-Images/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Hands-on 06 – Upload hình ảnh sản phẩm với PHP - Phát triển ứng dụng Web mã nguồn mở</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hands-on-06-upload-hinh-anh-san-pham-voi-php" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-header__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Phát triển ứng dụng Web mã nguồn mở
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hands-on 06 – Upload hình ảnh sản phẩm với PHP
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-nav__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Phát triển ứng dụng Web mã nguồn mở
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chuẩn bị
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chuẩn bị
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preparation/Pre-Lab-00_Environment-Setup-Windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-Lab 00 - Chuẩn bị môi trường
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thực hành
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thực hành
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-01_PHP-Docker_Baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 01 - PHP và Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-02_MySQL-Database-Schema-Seed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 02 - MySQL-Database-Schema-Seed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-03_PHP-MySQLi-Category-Listing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 03 - PHP-MySQLi-Category-Listing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-04_Category-CRUD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 04 - Xây dựng CRUD quản lý danh mục
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-05_Product-Relational-Data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 05 - Xây dựng CRUD quản lý sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 06 – Upload hình ảnh sản phẩm với PHP
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 06 – Upload hình ảnh sản phẩm với PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-kiem-tra-moi-truong-upload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Kiểm tra môi trường upload
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tao-trang-thu-nghiem-upload-testphp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Tạo trang thử nghiệm upload-test.php
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Tạo trang thử nghiệm upload-test.php">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kien-thuc-can-hieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiến thức cần hiểu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-luu-file-bang-move_uploaded_file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Lưu file bằng move_uploaded_file()
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-kiem-tra-file-truoc-khi-luu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Kiểm tra file trước khi lưu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tao-ten-file-moi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Tạo tên file mới
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ghep-upload-vao-chuc-nang-them-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Ghép upload vào chức năng Thêm sản phẩm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Ghép upload vào chức năng Thêm sản phẩm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#du-lieu-mau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dữ liệu mẫu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-bao-am-toan-ven-bang-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Bảo đảm toàn vẹn bằng transaction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Bảo đảm toàn vẹn bằng transaction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-khong-thuoc-transaction-cua-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File không thuộc transaction của MySQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-kiem-thu-rollback-co-chu-ich" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Kiểm thử rollback có chủ đích
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Kiểm thử rollback có chủ đích">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canh-bao-bat-buoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CẢNH BÁO BẮT BUỘC
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-quan-sat-_files-khi-upload-nhieu-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Quan sát $_FILES khi upload nhiều ảnh
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-xu-ly-tu-1-en-4-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Xử lý từ 1 đến 4 ảnh
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-createphp-hoan-chinh-ho-tro-nhieu-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. create.php hoàn chỉnh hỗ trợ nhiều ảnh
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-kiem-tra-ket-qua-cuoi-bai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Kiểm tra kết quả cuối bài
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-checklist-cuoi-hands-on-06" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Checklist cuối Hands-on 06
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-kien-thuc-phpmysqli-a-su-dung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Kiến thức PHP/MySQLi đã sử dụng
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-ket-thuc-hands-on-06" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Kết thúc Hands-on 06
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-07_Manage-Product-Images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 07 – Quản lý hình ảnh sản phẩm khi cập nhật
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-08_Admin-Frontend-Structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 08 – Tổ chức khu vực quản trị và giao diện người dùng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-09_Product-Storefront-and-Detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-10_Product-Search-Filter-and-Pagination/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 10 – Tìm kiếm, lọc và phân trang sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-11_Shopping-Cart-with-PHP-Session/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 11 – Xây dựng giỏ hàng với PHP Session
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-12_Checkout-and-Order-Processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 12 – Xử lý đặt hàng và lưu đơn hàng vào MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-13_Admin-Order-Management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 13 – Quản lý đơn hàng trong khu vực Admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-14_Customer-Authentication-and-Accounts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 14 – Đăng ký, đăng nhập và tài khoản khách hàng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-15_REST-API-and-Fetch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 15 – REST API và Fetch API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hướng dẫn
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hướng dẫn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/Mini-Hands-on_Git-Push-GitHub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git và GitHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-kiem-tra-moi-truong-upload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Kiểm tra môi trường upload
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tao-trang-thu-nghiem-upload-testphp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Tạo trang thử nghiệm upload-test.php
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Tạo trang thử nghiệm upload-test.php">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kien-thuc-can-hieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiến thức cần hiểu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-luu-file-bang-move_uploaded_file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Lưu file bằng move_uploaded_file()
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-kiem-tra-file-truoc-khi-luu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Kiểm tra file trước khi lưu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tao-ten-file-moi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Tạo tên file mới
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ghep-upload-vao-chuc-nang-them-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Ghép upload vào chức năng Thêm sản phẩm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Ghép upload vào chức năng Thêm sản phẩm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#du-lieu-mau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dữ liệu mẫu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-bao-am-toan-ven-bang-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Bảo đảm toàn vẹn bằng transaction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Bảo đảm toàn vẹn bằng transaction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-khong-thuoc-transaction-cua-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File không thuộc transaction của MySQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-kiem-thu-rollback-co-chu-ich" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Kiểm thử rollback có chủ đích
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Kiểm thử rollback có chủ đích">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canh-bao-bat-buoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CẢNH BÁO BẮT BUỘC
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-quan-sat-_files-khi-upload-nhieu-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Quan sát $_FILES khi upload nhiều ảnh
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-xu-ly-tu-1-en-4-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Xử lý từ 1 đến 4 ảnh
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-createphp-hoan-chinh-ho-tro-nhieu-anh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. create.php hoàn chỉnh hỗ trợ nhiều ảnh
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-kiem-tra-ket-qua-cuoi-bai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Kiểm tra kết quả cuối bài
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-checklist-cuoi-hands-on-06" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Checklist cuối Hands-on 06
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-kien-thuc-phpmysqli-a-su-dung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Kiến thức PHP/MySQLi đã sử dụng
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-ket-thuc-hands-on-06" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Kết thúc Hands-on 06
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hands-on-06-upload-hinh-anh-san-pham-voi-php">Hands-on 06 -- Upload hình ảnh sản phẩm với PHP</h1>
+<h2 id="1-muc-tieu">1. Mục tiêu</h2>
+<p>Sau Hands-on 06, người học có thể:</p>
+<ul>
+<li>sử dụng <code>enctype="multipart/form-data"</code> và <code>$_FILES</code>;</li>
+<li>kiểm tra lỗi upload, kích thước và MIME của ảnh;</li>
+<li>dùng <code>finfo</code>, <code>random_bytes()</code>, <code>bin2hex()</code> và
+    <code>move_uploaded_file()</code>;</li>
+<li>lưu tên ảnh vào bảng <code>product_images</code>;</li>
+<li>dùng <code>$conn-&gt;insert_id</code> để liên kết ảnh với sản phẩm vừa thêm;</li>
+<li>dùng transaction, <code>commit()</code>, <code>rollback()</code> và <code>unlink()</code> để bảo đảm
+    dữ liệu đồng bộ;</li>
+<li>upload từ 1 đến 4 ảnh, quy định ảnh đầu tiên là ảnh chính và lưu
+    <code>SortOrder</code>.</li>
+</ul>
+<p>Kết quả cuối bài:</p>
+<pre><code class="language-text">Product
+└── 1..4 ProductImage
+    ├── ảnh 1 → IsPrimary = 1 → SortOrder = 1
+    ├── ảnh 2 → IsPrimary = 0 → SortOrder = 2
+    ├── ảnh 3 → IsPrimary = 0 → SortOrder = 3
+    └── ảnh 4 → IsPrimary = 0 → SortOrder = 4
+</code></pre>
+<hr />
+<h2 id="2-kiem-tra-moi-truong-upload">2. Kiểm tra môi trường upload</h2>
+<p>Chạy:</p>
+<pre><code class="language-cmd">docker compose exec web php -i | findstr /I &quot;file_uploads upload_max_filesize post_max_size&quot;
+</code></pre>
+<p>Cần có:</p>
+<pre><code class="language-text">file_uploads =&gt; On =&gt; On
+</code></pre>
+<p>Kiểm tra thư mục:</p>
+<pre><code class="language-cmd">dir public\uploads\products
+docker compose exec web ls -ld /var/www/html/uploads/products
+</code></pre>
+<p>Do <code>public</code> được mount vào <code>/var/www/html</code>:</p>
+<pre><code class="language-text">public/uploads/products/
+        ↕
+/var/www/html/uploads/products/
+</code></pre>
+<hr />
+<h2 id="3-tao-trang-thu-nghiem-upload-testphp">3. Tạo trang thử nghiệm <code>upload-test.php</code></h2>
+<p>Tạo:</p>
+<pre><code class="language-text">public/products/upload-test.php
+</code></pre>
+<p>Nội dung:</p>
+<pre><code class="language-php">&lt;?php
+$pageTitle = 'Kiểm tra Upload File';
+require_once '/var/www/src/includes/header.php';
+require_once '/var/www/src/includes/navbar.php';
+?&gt;
+
+&lt;div class=&quot;container mt-4&quot;&gt;
+
+    &lt;h2&gt;Kiểm tra Upload File&lt;/h2&gt;
+
+    &lt;form method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
+
+        &lt;div class=&quot;mb-3&quot;&gt;
+            &lt;label for=&quot;productImage&quot; class=&quot;form-label&quot;&gt;
+                Chọn ảnh
+            &lt;/label&gt;
+
+            &lt;input
+                type=&quot;file&quot;
+                class=&quot;form-control&quot;
+                id=&quot;productImage&quot;
+                name=&quot;product_image&quot;
+                accept=&quot;image/*&quot;
+            &gt;
+        &lt;/div&gt;
+
+        &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;
+            Gửi file
+        &lt;/button&gt;
+    &lt;/form&gt;
+
+    &lt;?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?&gt;
+
+        &lt;hr&gt;
+        &lt;h4&gt;Dữ liệu nhận được trong $_FILES&lt;/h4&gt;
+        &lt;pre&gt;&lt;?php print_r($_FILES); ?&gt;&lt;/pre&gt;
+
+    &lt;?php endif; ?&gt;
+
+&lt;/div&gt;
+
+&lt;?php
+require_once '/var/www/src/includes/footer.php';
+</code></pre>
+<p>Mở:</p>
+<pre><code class="language-text">http://localhost:8080/products/upload-test.php
+</code></pre>
+<p>Kết quả mẫu:</p>
+<pre><code class="language-text">Array
+(
+    [product_image] =&gt; Array
+        (
+            [name] =&gt; test.png
+            [full_path] =&gt; test.png
+            [type] =&gt; image/png
+            [tmp_name] =&gt; /tmp/phpxxxxxx
+            [error] =&gt; 0
+            [size] =&gt; 2851
+        )
+)
+</code></pre>
+<h3 id="kien-thuc-can-hieu">Kiến thức cần hiểu</h3>
+<p><code>multipart/form-data</code> là kiểu mã hóa cần dùng khi form gửi file.</p>
+<p>Với:</p>
+<pre><code class="language-html">name=&quot;product_image&quot;
+</code></pre>
+<p>PHP nhận file qua:</p>
+<pre><code class="language-php">$_FILES['product_image']
+</code></pre>
+<p>Phần tử      Ý nghĩa</p>
+<hr />
+<p><code>name</code>       tên file gốc
+  <code>type</code>       MIME type do request cung cấp
+  <code>tmp_name</code>   file tạm trên server
+  <code>error</code>      mã lỗi upload
+  <code>size</code>       kích thước theo byte</p>
+<p><code>error = 0</code> tương ứng <code>UPLOAD_ERR_OK</code>.</p>
+<hr />
+<h2 id="4-luu-file-bang-move_uploaded_file">4. Lưu file bằng <code>move_uploaded_file()</code></h2>
+<p>Sau khi đã quan sát <code>$_FILES</code>, bổ sung vào phần POST của
+<code>upload-test.php</code>:</p>
+<pre><code class="language-php">&lt;?php
+
+if (
+    isset($_FILES['product_image'])
+    &amp;&amp; $_FILES['product_image']['error'] === UPLOAD_ERR_OK
+) {
+
+    $file = $_FILES['product_image'];
+
+    $originalName = basename($file['name']);
+
+    $destination =
+        '/var/www/html/uploads/products/' . $originalName;
+
+    if (move_uploaded_file(
+        $file['tmp_name'],
+        $destination
+    )) {
+        echo '&lt;div class=&quot;alert alert-success mt-3&quot;&gt;';
+        echo 'Upload file thành công.';
+        echo '&lt;/div&gt;';
+    } else {
+        echo '&lt;div class=&quot;alert alert-danger mt-3&quot;&gt;';
+        echo 'Không thể lưu file.';
+        echo '&lt;/div&gt;';
+    }
+}
+?&gt;
+</code></pre>
+<p>Kiểm tra:</p>
+<pre><code class="language-cmd">dir public\uploads\products
+</code></pre>
+<p>File chỉ được lưu lâu dài sau khi <code>move_uploaded_file()</code> thành công.</p>
+<hr />
+<h2 id="5-kiem-tra-file-truoc-khi-luu">5. Kiểm tra file trước khi lưu</h2>
+<p>Quy định của bài:</p>
+<pre><code class="language-text">JPEG / PNG / WebP
+Tối đa 2 MB cho mỗi ảnh
+</code></pre>
+<p>Sau:</p>
+<pre><code class="language-php">$file = $_FILES['product_image'];
+</code></pre>
+<p>thêm:</p>
+<pre><code class="language-php">$maxSize = 2 * 1024 * 1024;
+
+if ($file['size'] &gt; $maxSize) {
+    die('File ảnh không được vượt quá 2 MB.');
+}
+</code></pre>
+<p>Kiểm tra MIME ở server:</p>
+<pre><code class="language-php">$finfo = new finfo(FILEINFO_MIME_TYPE);
+$mimeType = $finfo-&gt;file($file['tmp_name']);
+
+$allowedTypes = [
+    'image/jpeg',
+    'image/png',
+    'image/webp'
+];
+
+if (!in_array($mimeType, $allowedTypes, true)) {
+    die('Chỉ cho phép file JPG, JPEG, PNG hoặc WebP.');
+}
+</code></pre>
+<p>Có thể tạm quan sát:</p>
+<pre><code class="language-php">echo '&lt;p&gt;MIME type: '
+    . htmlspecialchars($mimeType)
+    . '&lt;/p&gt;';
+</code></pre>
+<blockquote>
+<p><code>accept="image/*"</code> chỉ hỗ trợ lựa chọn file ở trình duyệt; vẫn phải
+kiểm tra file ở server.</p>
+</blockquote>
+<hr />
+<h2 id="6-tao-ten-file-moi">6. Tạo tên file mới</h2>
+<p>Ánh xạ MIME sang phần mở rộng:</p>
+<pre><code class="language-php">$extensionMap = [
+    'image/jpeg' =&gt; 'jpg',
+    'image/png'  =&gt; 'png',
+    'image/webp' =&gt; 'webp'
+];
+
+$extension = $extensionMap[$mimeType];
+</code></pre>
+<p>Tạo tên:</p>
+<pre><code class="language-php">$newFileName =
+    'product-'
+    . bin2hex(random_bytes(8))
+    . '.'
+    . $extension;
+</code></pre>
+<p>Ví dụ:</p>
+<pre><code class="language-text">product-a83f51c98d467102.png
+</code></pre>
+<p>Đổi đường dẫn đích thành:</p>
+<pre><code class="language-php">$destination =
+    '/var/www/html/uploads/products/' . $newFileName;
+</code></pre>
+<p><code>random_bytes()</code> tạo dữ liệu ngẫu nhiên; <code>bin2hex()</code> chuyển thành chuỗi
+hexadecimal thuận tiện cho tên file.</p>
+<hr />
+<h2 id="7-ghep-upload-vao-chuc-nang-them-san-pham">7. Ghép upload vào chức năng Thêm sản phẩm</h2>
+<p>Đến đây <code>upload-test.php</code> đã kiểm chứng riêng toàn bộ cơ chế upload.</p>
+<p>Ta ghép:</p>
+<pre><code class="language-text">create.php của HO05
+        +
+logic đã kiểm chứng trong upload-test.php
+        ↓
+create.php có upload ảnh
+</code></pre>
+<p>Vì thay đổi logic liên quan nhiều khối phụ thuộc nhau, ở bước tích hợp
+nên dùng <strong>mã hoàn chỉnh đã kiểm chứng</strong>, thay vì yêu cầu người học chắp
+ghép quá nhiều đoạn nhỏ.</p>
+<p>Có thể sao lưu trước:</p>
+<pre><code class="language-cmd">copy public\products\create.php public\products\create-before-upload.php
+</code></pre>
+<p>Form phải có:</p>
+<pre><code class="language-html">&lt;form method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
+</code></pre>
+<p>Input một ảnh ở giai đoạn đầu:</p>
+<pre><code class="language-html">&lt;input
+    type=&quot;file&quot;
+    class=&quot;form-control&quot;
+    id=&quot;productImage&quot;
+    name=&quot;product_image&quot;
+    accept=&quot;image/jpeg,image/png,image/webp&quot;
+    required
+&gt;
+</code></pre>
+<p>PHP nhận:</p>
+<pre><code class="language-php">$file = $_FILES['product_image'] ?? null;
+</code></pre>
+<p>Sau khi thêm sản phẩm:</p>
+<pre><code class="language-php">$productID = $conn-&gt;insert_id;
+</code></pre>
+<p>ID này được dùng khi thêm ảnh:</p>
+<pre><code class="language-php">$stmtImage-&gt;bind_param(
+    'iss',
+    $productID,
+    $newFileName,
+    $altText
+);
+</code></pre>
+<p>Luồng:</p>
+<pre><code class="language-text">INSERT products
+      ↓
+$conn-&gt;insert_id
+      ↓
+move_uploaded_file()
+      ↓
+INSERT product_images
+</code></pre>
+<h3 id="du-lieu-mau">Dữ liệu mẫu</h3>
+<pre><code class="language-text">Mã SP:         SP004
+Tên:           Tai nghe Bluetooth D
+Mô tả:         Tai nghe Bluetooth không dây, pin sử dụng lâu.
+Đơn vị:        Chiếc
+Giá:           890000
+Tồn kho:       40
+Danh mục:      Phụ kiện
+Nhà cung cấp:  Công ty Thiết bị XYZ
+Trạng thái:    Đang kinh doanh
+Ảnh:           JPG/PNG/WebP &lt;= 2 MB
+</code></pre>
+<p>Kiểm tra:</p>
+<pre><code class="language-sql">SELECT
+    p.ProductID,
+    p.ProductCode,
+    p.ProductName,
+    pi.ImageFile,
+    pi.IsPrimary
+FROM
+    products AS p,
+    product_images AS pi
+WHERE
+    p.ProductID = pi.ProductID
+    AND p.ProductCode = 'SP004';
+</code></pre>
+<hr />
+<h2 id="8-bao-am-toan-ven-bang-transaction">8. Bảo đảm toàn vẹn bằng transaction</h2>
+<p>Rủi ro:</p>
+<pre><code class="language-text">INSERT products ✓
+move file       ✓
+INSERT image    ✗
+</code></pre>
+<p>Nếu không xử lý, sản phẩm và ảnh có thể không đồng bộ.</p>
+<p>Dùng:</p>
+<pre><code class="language-php">$conn-&gt;begin_transaction();
+</code></pre>
+<p>Khi thành công:</p>
+<pre><code class="language-php">$conn-&gt;commit();
+</code></pre>
+<p>Khi lỗi:</p>
+<pre><code class="language-php">$conn-&gt;rollback();
+</code></pre>
+<p>Cấu trúc:</p>
+<pre><code class="language-php">try {
+
+    $conn-&gt;begin_transaction();
+
+    // INSERT products
+    // lấy insert_id
+    // move_uploaded_file()
+    // INSERT product_images
+
+    $conn-&gt;commit();
+
+} catch (Throwable $e) {
+
+    $conn-&gt;rollback();
+
+    $error = $e-&gt;getMessage();
+}
+</code></pre>
+<h3 id="file-khong-thuoc-transaction-cua-mysql">File không thuộc transaction của MySQL</h3>
+<p>Ghi nhận:</p>
+<pre><code class="language-php">$fileMoved = false;
+</code></pre>
+<p>Sau khi move thành công:</p>
+<pre><code class="language-php">$fileMoved = true;
+</code></pre>
+<p>Nếu database lỗi:</p>
+<pre><code class="language-php">if (
+    $fileMoved
+    &amp;&amp; file_exists($destination)
+) {
+    unlink($destination);
+}
+</code></pre>
+<p>Như vậy:</p>
+<pre><code class="language-text">Database lỗi
+   ├── rollback() → hủy dữ liệu
+   └── unlink()   → xóa file đã lưu
+</code></pre>
+<hr />
+<h2 id="9-kiem-thu-rollback-co-chu-ich">9. Kiểm thử rollback có chủ đích</h2>
+<p>Tạm đổi trong câu <code>INSERT product_images</code>:</p>
+<pre><code class="language-sql">ImageFile
+</code></pre>
+<p>thành:</p>
+<pre><code class="language-sql">ImageFileXYZ
+</code></pre>
+<p>Thử thêm <code>SP006</code>.</p>
+<p>Kiểm tra:</p>
+<pre><code class="language-sql">SELECT *
+FROM products
+WHERE ProductCode = 'SP006';
+</code></pre>
+<p>Kết quả mong đợi:</p>
+<pre><code class="language-text">Empty set
+</code></pre>
+<p>Kiểm tra file:</p>
+<pre><code class="language-cmd">dir public\uploads\products
+</code></pre>
+<p>Không được có file rác của lần thêm thất bại.</p>
+<h3 id="canh-bao-bat-buoc">CẢNH BÁO BẮT BUỘC</h3>
+<blockquote>
+<p><code>ImageFileXYZ</code> chỉ dùng để cố ý tạo lỗi kiểm thử.</p>
+</blockquote>
+<p>Sau khi xác nhận <code>rollback()</code> và <code>unlink()</code> hoạt động, <strong>phải sửa
+ngay</strong>:</p>
+<pre><code class="language-sql">ImageFileXYZ
+</code></pre>
+<p>trở lại:</p>
+<pre><code class="language-sql">ImageFile
+</code></pre>
+<p><strong>Không chuyển sang upload nhiều ảnh khi chưa khôi phục <code>ImageFile</code>.</strong></p>
+<hr />
+<h2 id="10-quan-sat-_files-khi-upload-nhieu-anh">10. Quan sát <code>$_FILES</code> khi upload nhiều ảnh</h2>
+<p>Đổi input thành:</p>
+<pre><code class="language-html">&lt;input
+    type=&quot;file&quot;
+    class=&quot;form-control&quot;
+    id=&quot;productImages&quot;
+    name=&quot;product_images[]&quot;
+    accept=&quot;image/jpeg,image/png,image/webp&quot;
+    multiple
+    required
+&gt;
+</code></pre>
+<p>Đổi label tương ứng sang:</p>
+<pre><code class="language-html">for=&quot;productImages&quot;
+</code></pre>
+<p>Hướng dẫn:</p>
+<pre><code class="language-html">&lt;div class=&quot;form-text&quot;&gt;
+    Chọn từ 1 đến 4 ảnh.
+    Chấp nhận JPG, PNG hoặc WebP.
+    Mỗi ảnh tối đa 2 MB.
+    Ảnh đầu tiên là ảnh chính.
+&lt;/div&gt;
+</code></pre>
+<p>Tạm quan sát:</p>
+<pre><code class="language-php">echo '&lt;pre&gt;';
+print_r($_FILES['product_images'] ?? []);
+echo '&lt;/pre&gt;';
+exit;
+</code></pre>
+<p>Khi chọn 4 ảnh, <code>name</code>, <code>tmp_name</code>, <code>error</code>, <code>size</code> đều trở thành các
+mảng có cùng chỉ số:</p>
+<pre><code class="language-text">              ảnh 1   ảnh 2   ảnh 3   ảnh 4
+name            [0]     [1]     [2]     [3]
+tmp_name        [0]     [1]     [2]     [3]
+error           [0]     [1]     [2]     [3]
+size            [0]     [1]     [2]     [3]
+</code></pre>
+<blockquote>
+<p>Sau khi quan sát xong, xóa đoạn <code>print_r()</code> và <code>exit</code>.</p>
+</blockquote>
+<hr />
+<h2 id="11-xu-ly-tu-1-en-4-anh">11. Xử lý từ 1 đến 4 ảnh</h2>
+<p>Nhận:</p>
+<pre><code class="language-php">$files = $_FILES['product_images'] ?? null;
+</code></pre>
+<p>Đếm:</p>
+<pre><code class="language-php">$fileCount = count($files['name']);
+</code></pre>
+<p>Kiểm tra:</p>
+<pre><code class="language-php">if ($fileCount &lt; 1 || $fileCount &gt; 4) {
+    $error = 'Chỉ được chọn từ 1 đến 4 ảnh.';
+}
+</code></pre>
+<p>Kiểm tra từng ảnh:</p>
+<pre><code class="language-php">for ($i = 0; $i &lt; $fileCount; $i++) {
+    // error
+    // size
+    // MIME
+    // tạo tên file
+}
+</code></pre>
+<p>Chuẩn bị:</p>
+<pre><code class="language-php">$preparedImages[] = [
+    'tmp_name'   =&gt; $files['tmp_name'][$i],
+    'file_name'  =&gt; $newFileName,
+    'is_primary' =&gt; ($i === 0) ? 1 : 0,
+    'sort_order' =&gt; $i + 1
+];
+</code></pre>
+<p>Nguyên tắc:</p>
+<pre><code class="language-text">kiểm tra tất cả ảnh
+        ↓
+tất cả hợp lệ
+        ↓
+mới bắt đầu transaction
+</code></pre>
+<hr />
+<h2 id="12-createphp-hoan-chinh-ho-tro-nhieu-anh">12. <code>create.php</code> hoàn chỉnh hỗ trợ nhiều ảnh</h2>
+<p>Thay nội dung <code>public/products/create.php</code> bằng phiên bản sau sau khi đã
+hoàn tất các bước quan sát ở trên:</p>
+<pre><code class="language-php">&lt;?php
+
+$pageTitle = 'Thêm sản phẩm';
+
+require_once '/var/www/src/config/database.php';
+
+$error = '';
+
+$sqlCategories = &quot;
+    SELECT CategoryID, CategoryName
+    FROM categories
+    ORDER BY CategoryName
+&quot;;
+
+$categories = $conn-&gt;query($sqlCategories);
+
+$sqlSuppliers = &quot;
+    SELECT SupplierID, SupplierName
+    FROM suppliers
+    ORDER BY SupplierName
+&quot;;
+
+$suppliers = $conn-&gt;query($sqlSuppliers);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $productCode = trim($_POST['product_code'] ?? '');
+    $productName = trim($_POST['product_name'] ?? '');
+    $description = trim($_POST['description'] ?? '');
+    $unit = trim($_POST['unit'] ?? '');
+
+    $price = (float) ($_POST['price'] ?? 0);
+    $stockQuantity = (int) ($_POST['stock_quantity'] ?? 0);
+    $categoryID = (int) ($_POST['category_id'] ?? 0);
+    $supplierID = (int) ($_POST['supplier_id'] ?? 0);
+
+    $isActive = isset($_POST['is_active']) ? 1 : 0;
+
+    $files = $_FILES['product_images'] ?? null;
+
+    if ($productCode === '') {
+        $error = 'Mã sản phẩm không được để trống.';
+    } elseif ($productName === '') {
+        $error = 'Tên sản phẩm không được để trống.';
+    } elseif ($price &lt; 0) {
+        $error = 'Giá sản phẩm không hợp lệ.';
+    } elseif ($stockQuantity &lt; 0) {
+        $error = 'Số lượng tồn kho không hợp lệ.';
+    } elseif ($categoryID &lt;= 0) {
+        $error = 'Vui lòng chọn danh mục.';
+    } elseif ($supplierID &lt;= 0) {
+        $error = 'Vui lòng chọn nhà cung cấp.';
+    } elseif (
+        !$files
+        || !isset($files['name'])
+        || !is_array($files['name'])
+    ) {
+        $error = 'Vui lòng chọn ảnh sản phẩm.';
+    } else {
+
+        $fileCount = count($files['name']);
+
+        if ($fileCount &lt; 1 || $fileCount &gt; 4) {
+
+            $error = 'Chỉ được chọn từ 1 đến 4 ảnh.';
+
+        } else {
+
+            $maxSize = 2 * 1024 * 1024;
+
+            $extensionMap = [
+                'image/jpeg' =&gt; 'jpg',
+                'image/png'  =&gt; 'png',
+                'image/webp' =&gt; 'webp'
+            ];
+
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $preparedImages = [];
+
+            for ($i = 0; $i &lt; $fileCount; $i++) {
+
+                if ($files['error'][$i] !== UPLOAD_ERR_OK) {
+                    $error = 'Có file ảnh upload không thành công.';
+                    break;
+                }
+
+                if ($files['size'][$i] &gt; $maxSize) {
+                    $error = 'Mỗi file ảnh không được vượt quá 2 MB.';
+                    break;
+                }
+
+                $mimeType = $finfo-&gt;file(
+                    $files['tmp_name'][$i]
+                );
+
+                if (!isset($extensionMap[$mimeType])) {
+                    $error = 'Chỉ cho phép file JPG, PNG hoặc WebP.';
+                    break;
+                }
+
+                $extension = $extensionMap[$mimeType];
+
+                $newFileName =
+                    'product-'
+                    . bin2hex(random_bytes(8))
+                    . '.'
+                    . $extension;
+
+                $preparedImages[] = [
+                    'tmp_name'   =&gt; $files['tmp_name'][$i],
+                    'file_name'  =&gt; $newFileName,
+                    'is_primary' =&gt; ($i === 0) ? 1 : 0,
+                    'sort_order' =&gt; $i + 1
+                ];
+            }
+
+            if ($error === '') {
+
+                $movedFiles = [];
+
+                try {
+
+                    $conn-&gt;begin_transaction();
+
+                    $sql = &quot;
+                        INSERT INTO products
+                        (
+                            ProductCode,
+                            ProductName,
+                            Description,
+                            Unit,
+                            Price,
+                            StockQuantity,
+                            IsActive,
+                            SupplierID,
+                            CategoryID
+                        )
+                        VALUES
+                        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    &quot;;
+
+                    $stmt = $conn-&gt;prepare($sql);
+
+                    $stmt-&gt;bind_param(
+                        'ssssdiiii',
+                        $productCode,
+                        $productName,
+                        $description,
+                        $unit,
+                        $price,
+                        $stockQuantity,
+                        $isActive,
+                        $supplierID,
+                        $categoryID
+                    );
+
+                    if (!$stmt-&gt;execute()) {
+                        throw new Exception(
+                            'Không thể thêm sản phẩm.'
+                        );
+                    }
+
+                    $productID = $conn-&gt;insert_id;
+                    $stmt-&gt;close();
+
+                    $sqlImage = &quot;
+                        INSERT INTO product_images
+                        (
+                            ProductID,
+                            ImageFile,
+                            AltText,
+                            IsPrimary,
+                            SortOrder
+                        )
+                        VALUES
+                        (?, ?, ?, ?, ?)
+                    &quot;;
+
+                    $stmtImage = $conn-&gt;prepare($sqlImage);
+
+                    foreach ($preparedImages as $index =&gt; $image) {
+
+                        $destination =
+                            '/var/www/html/uploads/products/'
+                            . $image['file_name'];
+
+                        if (!move_uploaded_file(
+                            $image['tmp_name'],
+                            $destination
+                        )) {
+                            throw new Exception(
+                                'Không thể lưu một trong các file ảnh.'
+                            );
+                        }
+
+                        $movedFiles[] = $destination;
+
+                        if ($image['is_primary'] === 1) {
+                            $altText =
+                                $productName . ' - ảnh chính';
+                        } else {
+                            $altText =
+                                $productName
+                                . ' - ảnh '
+                                . ($index + 1);
+                        }
+
+                        $imageFile = $image['file_name'];
+                        $isPrimary = $image['is_primary'];
+                        $sortOrder = $image['sort_order'];
+
+                        $stmtImage-&gt;bind_param(
+                            'issii',
+                            $productID,
+                            $imageFile,
+                            $altText,
+                            $isPrimary,
+                            $sortOrder
+                        );
+
+                        if (!$stmtImage-&gt;execute()) {
+                            throw new Exception(
+                                'Không thể lưu thông tin ảnh.'
+                            );
+                        }
+                    }
+
+                    $stmtImage-&gt;close();
+                    $conn-&gt;commit();
+
+                    header('Location: /products/');
+                    exit;
+
+                } catch (Throwable $e) {
+
+                    $conn-&gt;rollback();
+
+                    foreach ($movedFiles as $movedFile) {
+                        if (file_exists($movedFile)) {
+                            unlink($movedFile);
+                        }
+                    }
+
+                    $error = $e-&gt;getMessage();
+                }
+            }
+        }
+    }
+}
+
+require_once '/var/www/src/includes/header.php';
+require_once '/var/www/src/includes/navbar.php';
+
+?&gt;
+
+&lt;div class=&quot;container mt-4&quot;&gt;
+
+    &lt;h2 class=&quot;mb-4&quot;&gt;Thêm sản phẩm&lt;/h2&gt;
+
+    &lt;?php if ($error !== ''): ?&gt;
+        &lt;div class=&quot;alert alert-danger&quot;&gt;
+            &lt;?= htmlspecialchars($error) ?&gt;
+        &lt;/div&gt;
+    &lt;?php endif; ?&gt;
+
+    &lt;form method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
+
+        &lt;div class=&quot;row&quot;&gt;
+
+            &lt;div class=&quot;col-md-4 mb-3&quot;&gt;
+                &lt;label for=&quot;productCode&quot; class=&quot;form-label&quot;&gt;
+                    Mã sản phẩm
+                &lt;/label&gt;
+                &lt;input
+                    type=&quot;text&quot;
+                    class=&quot;form-control&quot;
+                    id=&quot;productCode&quot;
+                    name=&quot;product_code&quot;
+                    value=&quot;&lt;?= htmlspecialchars(
+                        $_POST['product_code'] ?? ''
+                    ) ?&gt;&quot;
+                    required
+                &gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;col-md-8 mb-3&quot;&gt;
+                &lt;label for=&quot;productName&quot; class=&quot;form-label&quot;&gt;
+                    Tên sản phẩm
+                &lt;/label&gt;
+                &lt;input
+                    type=&quot;text&quot;
+                    class=&quot;form-control&quot;
+                    id=&quot;productName&quot;
+                    name=&quot;product_name&quot;
+                    value=&quot;&lt;?= htmlspecialchars(
+                        $_POST['product_name'] ?? ''
+                    ) ?&gt;&quot;
+                    required
+                &gt;
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+
+        &lt;div class=&quot;mb-3&quot;&gt;
+            &lt;label for=&quot;description&quot; class=&quot;form-label&quot;&gt;
+                Mô tả
+            &lt;/label&gt;
+            &lt;textarea
+                class=&quot;form-control&quot;
+                id=&quot;description&quot;
+                name=&quot;description&quot;
+                rows=&quot;3&quot;
+            &gt;&lt;?= htmlspecialchars(
+                $_POST['description'] ?? ''
+            ) ?&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;row&quot;&gt;
+
+            &lt;div class=&quot;col-md-4 mb-3&quot;&gt;
+                &lt;label for=&quot;unit&quot; class=&quot;form-label&quot;&gt;
+                    Đơn vị tính
+                &lt;/label&gt;
+                &lt;input
+                    type=&quot;text&quot;
+                    class=&quot;form-control&quot;
+                    id=&quot;unit&quot;
+                    name=&quot;unit&quot;
+                    value=&quot;&lt;?= htmlspecialchars(
+                        $_POST['unit'] ?? ''
+                    ) ?&gt;&quot;
+                &gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;col-md-4 mb-3&quot;&gt;
+                &lt;label for=&quot;price&quot; class=&quot;form-label&quot;&gt;
+                    Giá
+                &lt;/label&gt;
+                &lt;input
+                    type=&quot;number&quot;
+                    class=&quot;form-control&quot;
+                    id=&quot;price&quot;
+                    name=&quot;price&quot;
+                    min=&quot;0&quot;
+                    step=&quot;0.01&quot;
+                    value=&quot;&lt;?= htmlspecialchars(
+                        $_POST['price'] ?? '0'
+                    ) ?&gt;&quot;
+                    required
+                &gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;col-md-4 mb-3&quot;&gt;
+                &lt;label for=&quot;stockQuantity&quot; class=&quot;form-label&quot;&gt;
+                    Tồn kho
+                &lt;/label&gt;
+                &lt;input
+                    type=&quot;number&quot;
+                    class=&quot;form-control&quot;
+                    id=&quot;stockQuantity&quot;
+                    name=&quot;stock_quantity&quot;
+                    min=&quot;0&quot;
+                    value=&quot;&lt;?= htmlspecialchars(
+                        $_POST['stock_quantity'] ?? '0'
+                    ) ?&gt;&quot;
+                    required
+                &gt;
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+
+        &lt;div class=&quot;row&quot;&gt;
+
+            &lt;div class=&quot;col-md-6 mb-3&quot;&gt;
+                &lt;label for=&quot;categoryID&quot; class=&quot;form-label&quot;&gt;
+                    Danh mục
+                &lt;/label&gt;
+
+                &lt;select
+                    class=&quot;form-select&quot;
+                    id=&quot;categoryID&quot;
+                    name=&quot;category_id&quot;
+                    required
+                &gt;
+                    &lt;option value=&quot;&quot;&gt;-- Chọn danh mục --&lt;/option&gt;
+
+                    &lt;?php while (
+                        $category = $categories-&gt;fetch_assoc()
+                    ): ?&gt;
+
+                        &lt;option
+                            value=&quot;&lt;?= $category['CategoryID'] ?&gt;&quot;
+                            &lt;?= (
+                                ($_POST['category_id'] ?? '')
+                                == $category['CategoryID']
+                            ) ? 'selected' : '' ?&gt;
+                        &gt;
+                            &lt;?= htmlspecialchars(
+                                $category['CategoryName']
+                            ) ?&gt;
+                        &lt;/option&gt;
+
+                    &lt;?php endwhile; ?&gt;
+                &lt;/select&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;col-md-6 mb-3&quot;&gt;
+                &lt;label for=&quot;supplierID&quot; class=&quot;form-label&quot;&gt;
+                    Nhà cung cấp
+                &lt;/label&gt;
+
+                &lt;select
+                    class=&quot;form-select&quot;
+                    id=&quot;supplierID&quot;
+                    name=&quot;supplier_id&quot;
+                    required
+                &gt;
+                    &lt;option value=&quot;&quot;&gt;-- Chọn nhà cung cấp --&lt;/option&gt;
+
+                    &lt;?php while (
+                        $supplier = $suppliers-&gt;fetch_assoc()
+                    ): ?&gt;
+
+                        &lt;option
+                            value=&quot;&lt;?= $supplier['SupplierID'] ?&gt;&quot;
+                            &lt;?= (
+                                ($_POST['supplier_id'] ?? '')
+                                == $supplier['SupplierID']
+                            ) ? 'selected' : '' ?&gt;
+                        &gt;
+                            &lt;?= htmlspecialchars(
+                                $supplier['SupplierName']
+                            ) ?&gt;
+                        &lt;/option&gt;
+
+                    &lt;?php endwhile; ?&gt;
+                &lt;/select&gt;
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+
+        &lt;div class=&quot;mb-3&quot;&gt;
+            &lt;label for=&quot;productImages&quot; class=&quot;form-label&quot;&gt;
+                Hình ảnh sản phẩm
+            &lt;/label&gt;
+
+            &lt;input
+                type=&quot;file&quot;
+                class=&quot;form-control&quot;
+                id=&quot;productImages&quot;
+                name=&quot;product_images[]&quot;
+                accept=&quot;image/jpeg,image/png,image/webp&quot;
+                multiple
+                required
+            &gt;
+
+            &lt;div class=&quot;form-text&quot;&gt;
+                Chọn từ 1 đến 4 ảnh.
+                Chấp nhận JPG, PNG hoặc WebP.
+                Mỗi ảnh tối đa 2 MB.
+                Ảnh đầu tiên là ảnh chính.
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;form-check mb-3&quot;&gt;
+            &lt;input
+                type=&quot;checkbox&quot;
+                class=&quot;form-check-input&quot;
+                id=&quot;isActive&quot;
+                name=&quot;is_active&quot;
+                value=&quot;1&quot;
+                &lt;?= (
+                    isset($_POST['is_active'])
+                    || $_SERVER['REQUEST_METHOD'] !== 'POST'
+                ) ? 'checked' : '' ?&gt;
+            &gt;
+
+            &lt;label class=&quot;form-check-label&quot; for=&quot;isActive&quot;&gt;
+                Đang kinh doanh
+            &lt;/label&gt;
+        &lt;/div&gt;
+
+        &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;
+            Lưu
+        &lt;/button&gt;
+
+        &lt;a href=&quot;/products/&quot; class=&quot;btn btn-secondary&quot;&gt;
+            Hủy
+        &lt;/a&gt;
+
+    &lt;/form&gt;
+&lt;/div&gt;
+
+&lt;?php
+require_once '/var/www/src/includes/footer.php';
+$conn-&gt;close();
+</code></pre>
+<hr />
+<h2 id="13-kiem-tra-ket-qua-cuoi-bai">13. Kiểm tra kết quả cuối bài</h2>
+<p>Dữ liệu mẫu:</p>
+<pre><code class="language-text">Mã SP:         SP006
+Tên:           Loa Bluetooth F
+Mô tả:         Loa Bluetooth di động, âm thanh rõ và pin sử dụng lâu.
+Đơn vị:        Chiếc
+Giá:           1590000
+Tồn kho:       15
+Danh mục:      Phụ kiện
+Nhà cung cấp:  Công ty Công nghệ ABC
+Trạng thái:    Đang kinh doanh
+Ảnh:           chọn 4 ảnh
+</code></pre>
+<p>Kiểm tra:</p>
+<pre><code class="language-sql">SELECT
+    p.ProductID,
+    p.ProductCode,
+    p.ProductName,
+    pi.ImageFile,
+    pi.IsPrimary,
+    pi.SortOrder
+FROM
+    products AS p,
+    product_images AS pi
+WHERE
+    p.ProductID = pi.ProductID
+    AND p.ProductCode = 'SP006'
+ORDER BY
+    pi.SortOrder;
+</code></pre>
+<p>Kết quả cần có 4 dòng:</p>
+<pre><code class="language-text">ảnh 1 → IsPrimary = 1 → SortOrder = 1
+ảnh 2 → IsPrimary = 0 → SortOrder = 2
+ảnh 3 → IsPrimary = 0 → SortOrder = 3
+ảnh 4 → IsPrimary = 0 → SortOrder = 4
+</code></pre>
+<p>Trang danh sách sản phẩm vẫn chỉ lấy ảnh chính nếu truy vấn có:</p>
+<pre><code class="language-sql">AND pi.IsPrimary = 1
+</code></pre>
+<hr />
+<h2 id="14-checklist-cuoi-hands-on-06">14. Checklist cuối Hands-on 06</h2>
+<pre><code class="language-text">[ ] file_uploads = On
+[ ] thư mục uploads/products tồn tại
+[ ] hiểu multipart/form-data
+[ ] hiểu $_FILES khi upload một file
+[ ] hiểu tmp_name và UPLOAD_ERR_OK
+[ ] sử dụng move_uploaded_file()
+[ ] kiểm tra giới hạn 2 MB
+[ ] kiểm tra MIME bằng finfo
+[ ] chỉ chấp nhận JPEG, PNG, WebP
+[ ] tạo tên file bằng random_bytes() và bin2hex()
+[ ] ghép upload vào create.php
+[ ] hiểu $conn-&gt;insert_id
+[ ] lưu đúng ProductID vào product_images
+[ ] hiểu begin_transaction(), commit(), rollback()
+[ ] dùng unlink() khi transaction thất bại
+[ ] đã kiểm thử rollback bằng ImageFileXYZ
+[ ] BẮT BUỘC đã sửa ImageFileXYZ trở lại ImageFile
+[ ] đã xóa print_r($_FILES) và exit dùng để quan sát
+[ ] hiểu $_FILES khi upload nhiều file
+[ ] chọn được từ 1 đến 4 ảnh
+[ ] tất cả ảnh được kiểm tra trước khi INSERT
+[ ] ảnh đầu tiên có IsPrimary = 1
+[ ] các ảnh còn lại có IsPrimary = 0
+[ ] SortOrder lần lượt 1, 2, 3, 4
+[ ] SP006 có đúng 4 ảnh trong product_images
+</code></pre>
+<hr />
+<h2 id="15-kien-thuc-phpmysqli-a-su-dung">15. Kiến thức PHP/MySQLi đã sử dụng</h2>
+<p>Thành phần               Vai trò</p>
+<hr />
+<p><code>$_FILES</code>                nhận file upload
+  <code>multipart/form-data</code>    mã hóa form có file
+  <code>UPLOAD_ERR_OK</code>          xác nhận upload không lỗi
+  <code>finfo</code>                  kiểm tra MIME
+  <code>random_bytes()</code>         tạo dữ liệu ngẫu nhiên
+  <code>bin2hex()</code>              chuyển byte thành chuỗi hexadecimal
+  <code>move_uploaded_file()</code>   lưu file upload
+  <code>$conn-&gt;insert_id</code>       lấy ID bản ghi vừa thêm
+  <code>begin_transaction()</code>    bắt đầu transaction
+  <code>commit()</code>               xác nhận transaction
+  <code>rollback()</code>             hủy thay đổi database
+  <code>throw</code> / <code>catch</code>        phát sinh và xử lý ngoại lệ
+  <code>file_exists()</code>          kiểm tra file
+  <code>unlink()</code>               xóa file
+  <code>for</code> / <code>foreach</code>        duyệt nhiều ảnh
+  Prepared Statement       thực thi SQL có tham số</p>
+<hr />
+<h2 id="16-ket-thuc-hands-on-06">16. Kết thúc Hands-on 06</h2>
+<p>Hands-on 06 dừng tại:</p>
+<pre><code class="language-text">Thêm sản phẩm
+      +
+Upload 1–4 ảnh
+      +
+Transaction
+      +
+Ảnh chính
+      +
+Thứ tự ảnh
+</code></pre>
+<p>Chưa thực hiện quản lý vòng đời ảnh trong bài này.</p>
+<p>Hands-on tiếp theo:</p>
+<pre><code class="language-text">HO07 – Quản lý hình ảnh sản phẩm
+
+Hiển thị tất cả ảnh
+        ↓
+Đặt ảnh chính
+        ↓
+Thêm ảnh
+        ↓
+Xóa ảnh
+        ↓
+Đồng bộ database và file vật lý
+</code></pre>
+<blockquote>
+<p>Giữ nguyên SP006 và 4 ảnh đã tạo ở cuối HO06 để tiếp tục thực hành
+HO07.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

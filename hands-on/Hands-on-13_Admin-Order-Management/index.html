@@ -1,0 +1,3115 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Hands-on-12_Checkout-and-Order-Processing/">
+      
+      
+        <link rel="next" href="../Hands-on-14_Customer-Authentication-and-Accounts/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Hands-on 13 – Quản lý đơn hàng trong khu vực Admin - Phát triển ứng dụng Web mã nguồn mở</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hands-on-13-quan-ly-on-hang-trong-khu-vuc-admin" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-header__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Phát triển ứng dụng Web mã nguồn mở
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hands-on 13 – Quản lý đơn hàng trong khu vực Admin
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-nav__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Phát triển ứng dụng Web mã nguồn mở
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chuẩn bị
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chuẩn bị
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preparation/Pre-Lab-00_Environment-Setup-Windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-Lab 00 - Chuẩn bị môi trường
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thực hành
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thực hành
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-01_PHP-Docker_Baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 01 - PHP và Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-02_MySQL-Database-Schema-Seed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 02 - MySQL-Database-Schema-Seed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-03_PHP-MySQLi-Category-Listing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 03 - PHP-MySQLi-Category-Listing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-04_Category-CRUD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 04 - Xây dựng CRUD quản lý danh mục
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-05_Product-Relational-Data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 05 - Xây dựng CRUD quản lý sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-06_Upload-Product-Images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 06 – Upload hình ảnh sản phẩm với PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-07_Manage-Product-Images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 07 – Quản lý hình ảnh sản phẩm khi cập nhật
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-08_Admin-Frontend-Structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 08 – Tổ chức khu vực quản trị và giao diện người dùng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-09_Product-Storefront-and-Detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-10_Product-Search-Filter-and-Pagination/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 10 – Tìm kiếm, lọc và phân trang sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-11_Shopping-Cart-with-PHP-Session/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 11 – Xây dựng giỏ hàng với PHP Session
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-12_Checkout-and-Order-Processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 12 – Xử lý đặt hàng và lưu đơn hàng vào MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 13 – Quản lý đơn hàng trong khu vực Admin
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 13 – Quản lý đơn hàng trong khu vực Admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-chuan-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Chuẩn bị
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-phan-tich-nghiep-vu-quan-ly-on-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Phân tích nghiệp vụ quản lý đơn hàng
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Phân tích nghiệp vụ quản lý đơn hàng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-vong-oi-on-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Vòng đời đơn hàng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-huy-on-va-ton-kho" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Hủy đơn và tồn kho
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-bo-sung-lien-ket-on-hang-vao-navbar-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Bổ sung liên kết Đơn hàng vào Navbar Admin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-tao-trang-danh-sach-on-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Tạo trang danh sách đơn hàng
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Tạo trang danh sách đơn hàng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-phan-tich-truy-van-danh-sach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Phân tích truy vấn danh sách
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-hien-thi-trang-thai-bang-badge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Hiển thị trạng thái bằng Badge
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-tao-trang-chi-tiet-va-xu-ly-trang-thai-on-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Tạo trang chi tiết và xử lý trạng thái đơn hàng
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-hieu-cach-oc-chi-tiet-on-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Hiểu cách đọc chi tiết đơn hàng
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-kiem-soat-vong-oi-trang-thai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Kiểm soát vòng đời trạng thái
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Kiểm soát vòng đời trạng thái">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-khong-chi-kiem-tra-o-giao-dien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. Không chỉ kiểm tra ở giao diện
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-transaction-khi-huy-on-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Transaction khi hủy đơn hàng
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Transaction khi hủy đơn hàng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-vi-sao-phai-oc-lai-trang-thai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1. Vì sao phải đọc lại trạng thái?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-vai-tro-cua-for-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2. Vai trò của FOR UPDATE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-hoan-ton-kho-khi-huy-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Hoàn tồn kho khi hủy đơn
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-vi-sao-cap-nhat-trang-thai-cung-nam-trong-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Vì sao cập nhật trạng thái cũng nằm trong transaction?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-kiem-tra-cu-phap-php" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Kiểm tra cú pháp PHP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-kiem-thu-danh-sach-va-chi-tiet-on-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Kiểm thử danh sách và chi tiết đơn hàng
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Kiểm thử danh sách và chi tiết đơn hàng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-kiem-tra-danh-sach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.1. Kiểm tra danh sách
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-kiem-tra-chi-tiet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2. Kiểm tra chi tiết
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-kiem-thu-vong-oi-trang-thai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Kiểm thử vòng đời trạng thái
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-kiem-thu-huy-on-va-hoan-ton-kho" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Kiểm thử hủy đơn và hoàn tồn kho
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Kiểm thử hủy đơn và hoàn tồn kho">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-ghi-nhan-ton-kho-ban-au" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1. Ghi nhận tồn kho ban đầu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-tao-mot-on-hang-moi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.2. Tạo một đơn hàng mới
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-huy-on-trong-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3. Hủy đơn trong Admin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144-so-sanh-voi-xac-nhan-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.4. So sánh với xác nhận đơn
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-cau-truc-du-an-sau-hands-on-13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Cấu trúc dự án sau Hands-on 13
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-kiem-tra-thay-oi-truoc-khi-luu-checkpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Kiểm tra thay đổi trước khi lưu checkpoint
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-luu-checkpoint-bang-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Lưu checkpoint bằng Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-ket-qua-at-uoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Kết quả đạt được
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-14_Customer-Authentication-and-Accounts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 14 – Đăng ký, đăng nhập và tài khoản khách hàng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-15_REST-API-and-Fetch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 15 – REST API và Fetch API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hướng dẫn
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hướng dẫn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/Mini-Hands-on_Git-Push-GitHub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git và GitHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-chuan-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Chuẩn bị
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-phan-tich-nghiep-vu-quan-ly-on-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Phân tích nghiệp vụ quản lý đơn hàng
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Phân tích nghiệp vụ quản lý đơn hàng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-vong-oi-on-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Vòng đời đơn hàng
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-huy-on-va-ton-kho" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Hủy đơn và tồn kho
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-bo-sung-lien-ket-on-hang-vao-navbar-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Bổ sung liên kết Đơn hàng vào Navbar Admin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-tao-trang-danh-sach-on-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Tạo trang danh sách đơn hàng
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Tạo trang danh sách đơn hàng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-phan-tich-truy-van-danh-sach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Phân tích truy vấn danh sách
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-hien-thi-trang-thai-bang-badge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Hiển thị trạng thái bằng Badge
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-tao-trang-chi-tiet-va-xu-ly-trang-thai-on-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Tạo trang chi tiết và xử lý trạng thái đơn hàng
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-hieu-cach-oc-chi-tiet-on-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Hiểu cách đọc chi tiết đơn hàng
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-kiem-soat-vong-oi-trang-thai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Kiểm soát vòng đời trạng thái
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Kiểm soát vòng đời trạng thái">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-khong-chi-kiem-tra-o-giao-dien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. Không chỉ kiểm tra ở giao diện
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-transaction-khi-huy-on-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Transaction khi hủy đơn hàng
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Transaction khi hủy đơn hàng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-vi-sao-phai-oc-lai-trang-thai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1. Vì sao phải đọc lại trạng thái?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-vai-tro-cua-for-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2. Vai trò của FOR UPDATE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-hoan-ton-kho-khi-huy-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Hoàn tồn kho khi hủy đơn
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-vi-sao-cap-nhat-trang-thai-cung-nam-trong-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Vì sao cập nhật trạng thái cũng nằm trong transaction?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-kiem-tra-cu-phap-php" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Kiểm tra cú pháp PHP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-kiem-thu-danh-sach-va-chi-tiet-on-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Kiểm thử danh sách và chi tiết đơn hàng
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Kiểm thử danh sách và chi tiết đơn hàng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-kiem-tra-danh-sach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.1. Kiểm tra danh sách
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-kiem-tra-chi-tiet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2. Kiểm tra chi tiết
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-kiem-thu-vong-oi-trang-thai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Kiểm thử vòng đời trạng thái
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-kiem-thu-huy-on-va-hoan-ton-kho" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Kiểm thử hủy đơn và hoàn tồn kho
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Kiểm thử hủy đơn và hoàn tồn kho">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-ghi-nhan-ton-kho-ban-au" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1. Ghi nhận tồn kho ban đầu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-tao-mot-on-hang-moi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.2. Tạo một đơn hàng mới
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-huy-on-trong-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3. Hủy đơn trong Admin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144-so-sanh-voi-xac-nhan-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.4. So sánh với xác nhận đơn
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-cau-truc-du-an-sau-hands-on-13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Cấu trúc dự án sau Hands-on 13
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-kiem-tra-thay-oi-truoc-khi-luu-checkpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Kiểm tra thay đổi trước khi lưu checkpoint
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-luu-checkpoint-bang-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Lưu checkpoint bằng Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-ket-qua-at-uoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Kết quả đạt được
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hands-on-13-quan-ly-on-hang-trong-khu-vuc-admin">Hands-on 13 -- Quản lý đơn hàng trong khu vực Admin</h1>
+<h2 id="muc-tieu">Mục tiêu</h2>
+<p>Sau khi hoàn thành Hands-on này, bạn có thể:</p>
+<ul>
+<li>xây dựng chức năng quản lý đơn hàng trong khu vực Admin;</li>
+<li>đọc dữ liệu liên quan giữa <code>orders</code> và <code>customers</code> để lập danh sách đơn hàng;</li>
+<li>đọc dữ liệu <code>orderdetail</code> và <code>products</code> để hiển thị chi tiết một đơn hàng;</li>
+<li>sử dụng Prepared Statement khi truy vấn đơn hàng theo <code>OrderID</code>;</li>
+<li>mô hình hóa vòng đời đơn hàng bằng các trạng thái <code>Pending</code>, <code>Confirmed</code>, <code>Shipping</code>, <code>Completed</code>, <code>Cancelled</code>;</li>
+<li>giới hạn các phép chuyển trạng thái theo quy tắc nghiệp vụ;</li>
+<li>kiểm tra lại trạng thái đơn hàng ở phía server thay vì chỉ dựa vào giao diện;</li>
+<li>sử dụng transaction khi hủy đơn hàng;</li>
+<li>hoàn lại số lượng tồn kho khi đơn hàng chuyển sang <code>Cancelled</code>;</li>
+<li>sử dụng <code>SELECT ... FOR UPDATE</code> để khóa đơn hàng trong quá trình hủy;</li>
+<li>ngăn việc hoàn tồn kho nhiều lần cho cùng một đơn hàng;</li>
+<li>kiểm thử tính nhất quán giữa trạng thái đơn hàng và số lượng tồn kho.</li>
+</ul>
+<blockquote>
+<p><strong>Phạm vi Hands-on 13:</strong> quản trị viên xem danh sách đơn hàng, xem chi tiết và cập nhật trạng thái đơn. Khi hủy đơn, hệ thống hoàn lại tồn kho. Chưa xây dựng đăng nhập/phân quyền, phân công nhân viên, chọn người giao hàng hoặc lịch sử thay đổi trạng thái.</p>
+</blockquote>
+<hr />
+<h2 id="1-chuan-bi">1. Chuẩn bị</h2>
+<p>Hands-on này tiếp tục trực tiếp từ <strong>Hands-on 12</strong>. Ứng dụng hiện đã có quy trình:</p>
+<pre><code class="language-text">Giỏ hàng
+   ↓
+Checkout
+   ↓
+customers
+   ↓
+orders
+   ↓
+orderdetail
+   ↓
+Cập nhật tồn kho
+</code></pre>
+<p>Khi khách đặt hàng thành công, đơn mới có trạng thái mặc định:</p>
+<pre><code class="language-text">Pending
+</code></pre>
+<p>Mở <strong>Command Prompt</strong> và chuyển đến thư mục dự án:</p>
+<pre><code class="language-cmd">cd /d D:\PTUDW-ST-2026\php-mysql-sales
+</code></pre>
+<p>Kiểm tra Git:</p>
+<pre><code class="language-cmd">git status
+</code></pre>
+<p>Nên bắt đầu khi kết quả có:</p>
+<pre><code class="language-text">nothing to commit, working tree clean
+</code></pre>
+<p>Kiểm tra Docker:</p>
+<pre><code class="language-cmd">docker compose ps
+</code></pre>
+<p>Nếu các container chưa chạy:</p>
+<pre><code class="language-cmd">docker compose up -d
+</code></pre>
+<p>Mở khu vực Admin:</p>
+<pre><code class="language-text">http://localhost:8080/admin/
+</code></pre>
+<hr />
+<h2 id="2-phan-tich-nghiep-vu-quan-ly-on-hang">2. Phân tích nghiệp vụ quản lý đơn hàng</h2>
+<p>Khác với danh mục hoặc sản phẩm, đơn hàng <strong>không được tạo thủ công trong Admin</strong>. Đơn hàng được hình thành từ quá trình Checkout ở frontend.</p>
+<p>Vì vậy, chức năng Admin trong Hands-on này tập trung vào:</p>
+<pre><code class="language-text">Danh sách đơn hàng
+        ↓
+Xem chi tiết
+        ↓
+Cập nhật trạng thái
+        ↓
+Theo dõi quá trình xử lý
+</code></pre>
+<p>Không xây dựng <code>create.php</code> và cũng không xóa trực tiếp đơn hàng khỏi cơ sở dữ liệu. Khi không tiếp tục xử lý một đơn, hệ thống chuyển đơn sang trạng thái <code>Cancelled</code> để vẫn giữ được dữ liệu lịch sử.</p>
+<h3 id="21-vong-oi-on-hang">2.1. Vòng đời đơn hàng</h3>
+<p>Sử dụng năm trạng thái:</p>
+<pre><code class="language-text">Pending
+Confirmed
+Shipping
+Completed
+Cancelled
+</code></pre>
+<p>Quy tắc chuyển trạng thái:</p>
+<pre><code class="language-text">Pending ─────→ Confirmed ─────→ Shipping ─────→ Completed
+   │               │                │
+   └───────────────┴────────────────┴──────────→ Cancelled
+</code></pre>
+<p>Trong đó:</p>
+<ul>
+<li><code>Pending</code>: đơn vừa được khách tạo;</li>
+<li><code>Confirmed</code>: đơn đã được xác nhận;</li>
+<li><code>Shipping</code>: đơn đang được giao;</li>
+<li><code>Completed</code>: đơn đã hoàn tất;</li>
+<li><code>Cancelled</code>: đơn đã hủy.</li>
+</ul>
+<p><code>Completed</code> và <code>Cancelled</code> là <strong>trạng thái kết thúc</strong>. Khi đơn đã ở một trong hai trạng thái này, hệ thống không cho chuyển sang trạng thái khác.</p>
+<h3 id="22-huy-on-va-ton-kho">2.2. Hủy đơn và tồn kho</h3>
+<p>Ở Hands-on 12, số lượng tồn kho được giảm ngay khi đặt hàng thành công. Vì vậy, nếu Admin hủy đơn, lượng hàng đã giữ cho đơn đó phải được hoàn lại:</p>
+<pre><code class="language-text">Đặt 2 sản phẩm
+StockQuantity - 2
+
+Hủy đơn
+StockQuantity + 2
+</code></pre>
+<p>Hai thao tác <strong>hoàn tồn kho</strong> và <strong>đổi trạng thái sang <code>Cancelled</code></strong> phải cùng thành công. Đây là lý do transaction tiếp tục được sử dụng trong Hands-on 13.</p>
+<hr />
+<h2 id="3-bo-sung-lien-ket-on-hang-vao-navbar-admin">3. Bổ sung liên kết Đơn hàng vào Navbar Admin</h2>
+<p>Mở:</p>
+<pre><code class="language-text">src/includes/admin/navbar.php
+</code></pre>
+<p>Tìm mục Đơn hàng đang sử dụng đường dẫn:</p>
+<pre><code class="language-php">&lt;a class=&quot;nav-link&quot; href=&quot;/orders/&quot;&gt;
+    Đơn hàng
+&lt;/a&gt;
+</code></pre>
+<p>Thay bằng:</p>
+<pre><code class="language-php">&lt;a class=&quot;nav-link&quot; href=&quot;/admin/orders/&quot;&gt;
+    Đơn hàng
+&lt;/a&gt;
+</code></pre>
+<p>Sau thay đổi, menu Admin dẫn đúng đến khu vực quản lý đơn hàng:</p>
+<pre><code class="language-text">/admin/orders/
+</code></pre>
+<hr />
+<h2 id="4-tao-trang-danh-sach-on-hang">4. Tạo trang danh sách đơn hàng</h2>
+<p>Tạo thư mục:</p>
+<pre><code class="language-text">public/admin/orders/
+</code></pre>
+<p>Trong thư mục này, tạo tập tin mới:</p>
+<pre><code class="language-text">public/admin/orders/index.php
+</code></pre>
+<p>Vì đây là tập tin mới, nhập toàn bộ nội dung sau:</p>
+<pre><code class="language-php">&lt;?php
+
+$pageTitle = 'Quản lý đơn hàng';
+
+require_once '/var/www/src/config/database.php';
+
+$sql = &quot;
+    SELECT
+        o.OrderID,
+        o.OrderDate,
+        o.TotalAmount,
+        o.Status,
+        c.CustomerName,
+        c.Phone
+    FROM
+        orders AS o,
+        customers AS c
+    WHERE
+        o.CustomerID = c.CustomerID
+    ORDER BY
+        o.OrderID DESC
+&quot;;
+
+$result = $conn-&gt;query($sql);
+
+require_once '/var/www/src/includes/admin/header.php';
+require_once '/var/www/src/includes/admin/navbar.php';
+
+?&gt;
+
+&lt;div class=&quot;container mt-4&quot;&gt;
+
+    &lt;div class=&quot;d-flex justify-content-between align-items-center mb-3&quot;&gt;
+
+        &lt;h2&gt;Quản lý đơn hàng&lt;/h2&gt;
+
+    &lt;/div&gt;
+
+    &lt;div class=&quot;table-responsive&quot;&gt;
+
+        &lt;table class=&quot;table table-bordered table-striped align-middle&quot;&gt;
+
+            &lt;thead class=&quot;table-dark&quot;&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;Mã đơn&lt;/th&gt;
+                    &lt;th&gt;Ngày đặt&lt;/th&gt;
+                    &lt;th&gt;Khách hàng&lt;/th&gt;
+                    &lt;th&gt;Điện thoại&lt;/th&gt;
+                    &lt;th&gt;Tổng tiền&lt;/th&gt;
+                    &lt;th&gt;Trạng thái&lt;/th&gt;
+                    &lt;th&gt;Thao tác&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/thead&gt;
+
+            &lt;tbody&gt;
+
+            &lt;?php while ($order = $result-&gt;fetch_assoc()): ?&gt;
+
+                &lt;tr&gt;
+
+                    &lt;td&gt;
+                        #&lt;?= (int) $order['OrderID'] ?&gt;
+                    &lt;/td&gt;
+
+                    &lt;td&gt;
+                        &lt;?= htmlspecialchars($order['OrderDate']) ?&gt;
+                    &lt;/td&gt;
+
+                    &lt;td&gt;
+                        &lt;?= htmlspecialchars($order['CustomerName']) ?&gt;
+                    &lt;/td&gt;
+
+                    &lt;td&gt;
+                        &lt;?= htmlspecialchars($order['Phone'] ?? '') ?&gt;
+                    &lt;/td&gt;
+
+                    &lt;td class=&quot;text-end&quot;&gt;
+                        &lt;?= number_format(
+                            (float) $order['TotalAmount'],
+                            0,
+                            ',',
+                            '.'
+                        ) ?&gt; đ
+                    &lt;/td&gt;
+
+                    &lt;td&gt;
+
+                        &lt;?php
+
+                        $status = $order['Status'];
+
+                        $badgeClass = match ($status) {
+                            'Pending' =&gt; 'bg-warning text-dark',
+                            'Confirmed' =&gt; 'bg-primary',
+                            'Shipping' =&gt; 'bg-info text-dark',
+                            'Completed' =&gt; 'bg-success',
+                            'Cancelled' =&gt; 'bg-secondary',
+                            default =&gt; 'bg-secondary'
+                        };
+
+                        ?&gt;
+
+                        &lt;span class=&quot;badge &lt;?= $badgeClass ?&gt;&quot;&gt;
+                            &lt;?= htmlspecialchars($status) ?&gt;
+                        &lt;/span&gt;
+
+                    &lt;/td&gt;
+
+                    &lt;td&gt;
+                        &lt;a
+                            href=&quot;/admin/orders/detail.php?id=&lt;?= (int) $order['OrderID'] ?&gt;&quot;
+                            class=&quot;btn btn-sm btn-primary&quot;
+                        &gt;
+                            Xem
+                        &lt;/a&gt;
+                    &lt;/td&gt;
+
+                &lt;/tr&gt;
+
+            &lt;?php endwhile; ?&gt;
+
+            &lt;/tbody&gt;
+
+        &lt;/table&gt;
+
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;?php
+
+require_once '/var/www/src/includes/admin/footer.php';
+
+$conn-&gt;close();
+</code></pre>
+<h3 id="41-phan-tich-truy-van-danh-sach">4.1. Phân tích truy vấn danh sách</h3>
+<p>Hai bảng được liên kết qua khóa:</p>
+<pre><code class="language-sql">FROM
+    orders AS o,
+    customers AS c
+WHERE
+    o.CustomerID = c.CustomerID
+</code></pre>
+<p>Cách viết này tiếp tục quy ước đã sử dụng trong các Hands-on trước: quan hệ khóa chính – khóa ngoại được biểu diễn bằng điều kiện trong <code>WHERE</code>.</p>
+<p>Danh sách được sắp xếp:</p>
+<pre><code class="language-sql">ORDER BY o.OrderID DESC
+</code></pre>
+<p>nhằm đưa đơn mới nhất lên đầu.</p>
+<h3 id="42-hien-thi-trang-thai-bang-badge">4.2. Hiển thị trạng thái bằng Badge</h3>
+<p>Biểu thức <code>match</code> ánh xạ trạng thái với lớp Bootstrap:</p>
+<pre><code class="language-php">$badgeClass = match ($status) {
+    'Pending' =&gt; 'bg-warning text-dark',
+    'Confirmed' =&gt; 'bg-primary',
+    'Shipping' =&gt; 'bg-info text-dark',
+    'Completed' =&gt; 'bg-success',
+    'Cancelled' =&gt; 'bg-secondary',
+    default =&gt; 'bg-secondary'
+};
+</code></pre>
+<p>Dữ liệu lưu trong MySQL vẫn là các giá trị trạng thái; lớp CSS chỉ phục vụ trình bày giao diện.</p>
+<hr />
+<h2 id="5-tao-trang-chi-tiet-va-xu-ly-trang-thai-on-hang">5. Tạo trang chi tiết và xử lý trạng thái đơn hàng</h2>
+<p>Trong:</p>
+<pre><code class="language-text">public/admin/orders/
+</code></pre>
+<p>tạo tập tin mới:</p>
+<pre><code class="language-text">public/admin/orders/detail.php
+</code></pre>
+<p>Nhập toàn bộ nội dung sau:</p>
+<pre><code class="language-php">&lt;?php
+
+$pageTitle = 'Chi tiết đơn hàng';
+
+require_once '/var/www/src/config/database.php';
+
+$orderID = isset($_GET['id'])
+    ? (int) $_GET['id']
+    : 0;
+
+if ($orderID &lt;= 0) {
+    header('Location: /admin/orders/');
+    exit;
+}
+
+$sqlOrder = &quot;
+    SELECT
+        o.OrderID,
+        o.OrderDate,
+        o.TotalAmount,
+        o.Status,
+        c.CustomerName,
+        c.ContactName,
+        c.Phone,
+        c.Address,
+        c.City,
+        c.PostalCode,
+        c.Country
+    FROM
+        orders AS o,
+        customers AS c
+    WHERE
+        o.CustomerID = c.CustomerID
+        AND o.OrderID = ?
+&quot;;
+
+$stmtOrder = $conn-&gt;prepare($sqlOrder);
+$stmtOrder-&gt;bind_param('i', $orderID);
+$stmtOrder-&gt;execute();
+
+$orderResult = $stmtOrder-&gt;get_result();
+$order = $orderResult-&gt;fetch_assoc();
+
+$orderResult-&gt;free();
+$stmtOrder-&gt;close();
+
+if (!$order) {
+    header('Location: /admin/orders/');
+    exit;
+}
+
+/*
+ * Các trạng thái được phép chuyển tiếp.
+ */
+$allowedTransitions = [
+    'Pending' =&gt; [
+        'Confirmed',
+        'Cancelled'
+    ],
+    'Confirmed' =&gt; [
+        'Shipping',
+        'Cancelled'
+    ],
+    'Shipping' =&gt; [
+        'Completed',
+        'Cancelled'
+    ],
+    'Completed' =&gt; [],
+    'Cancelled' =&gt; []
+];
+
+/*
+ * Xử lý cập nhật trạng thái.
+ */
+if ($_SERVER['REQUEST_METHOD'] === 'POST'
+    &amp;&amp; isset($_POST['update_status'])) {
+
+    $newStatus = $_POST['status'] ?? '';
+
+    try {
+
+        $conn-&gt;begin_transaction();
+
+        /*
+         * Đọc và khóa đơn hàng.
+         * Trạng thái phải được kiểm tra lại trong transaction.
+         */
+        $sqlLockOrder = &quot;
+            SELECT Status
+            FROM orders
+            WHERE OrderID = ?
+            FOR UPDATE
+        &quot;;
+
+        $stmtLockOrder = $conn-&gt;prepare($sqlLockOrder);
+        $stmtLockOrder-&gt;bind_param('i', $orderID);
+        $stmtLockOrder-&gt;execute();
+
+        $lockResult = $stmtLockOrder-&gt;get_result();
+        $lockedOrder = $lockResult-&gt;fetch_assoc();
+
+        $lockResult-&gt;free();
+        $stmtLockOrder-&gt;close();
+
+        if (!$lockedOrder) {
+            throw new Exception(
+                'Không tìm thấy đơn hàng.'
+            );
+        }
+
+        $currentStatus = $lockedOrder['Status'];
+
+        $allowedStatuses =
+            $allowedTransitions[$currentStatus] ?? [];
+
+        if (!in_array(
+            $newStatus,
+            $allowedStatuses,
+            true
+        )) {
+            throw new Exception(
+                'Không thể chuyển sang trạng thái đã chọn.'
+            );
+        }
+
+        /*
+         * Nếu hủy đơn hàng, hoàn lại tồn kho
+         * theo số lượng đã lưu trong orderdetail.
+         */
+        if ($newStatus === 'Cancelled') {
+
+            $sqlItems = &quot;
+                SELECT
+                    ProductID,
+                    Quantity
+                FROM orderdetail
+                WHERE OrderID = ?
+            &quot;;
+
+            $stmtItems = $conn-&gt;prepare($sqlItems);
+            $stmtItems-&gt;bind_param('i', $orderID);
+            $stmtItems-&gt;execute();
+
+            $itemsResult = $stmtItems-&gt;get_result();
+
+            $orderItems = [];
+
+            while ($item = $itemsResult-&gt;fetch_assoc()) {
+                $orderItems[] = $item;
+            }
+
+            $itemsResult-&gt;free();
+            $stmtItems-&gt;close();
+
+            $sqlRestoreStock = &quot;
+                UPDATE products
+                SET StockQuantity =
+                    StockQuantity + ?
+                WHERE ProductID = ?
+            &quot;;
+
+            $stmtRestoreStock =
+                $conn-&gt;prepare($sqlRestoreStock);
+
+            foreach ($orderItems as $item) {
+
+                $quantity =
+                    (int) $item['Quantity'];
+
+                $productID =
+                    (int) $item['ProductID'];
+
+                $stmtRestoreStock-&gt;bind_param(
+                    'ii',
+                    $quantity,
+                    $productID
+                );
+
+                $stmtRestoreStock-&gt;execute();
+
+                if ($stmtRestoreStock-&gt;affected_rows !== 1) {
+                    throw new Exception(
+                        'Không thể hoàn lại tồn kho.'
+                    );
+                }
+            }
+
+            $stmtRestoreStock-&gt;close();
+        }
+
+        /*
+         * Cập nhật trạng thái đơn hàng.
+         */
+        $sqlUpdate = &quot;
+            UPDATE orders
+            SET Status = ?
+            WHERE OrderID = ?
+        &quot;;
+
+        $stmtUpdate = $conn-&gt;prepare($sqlUpdate);
+        $stmtUpdate-&gt;bind_param(
+            'si',
+            $newStatus,
+            $orderID
+        );
+        $stmtUpdate-&gt;execute();
+
+        if ($stmtUpdate-&gt;affected_rows !== 1) {
+            throw new Exception(
+                'Không thể cập nhật trạng thái đơn hàng.'
+            );
+        }
+
+        $stmtUpdate-&gt;close();
+
+        $conn-&gt;commit();
+
+        header(
+            'Location: /admin/orders/detail.php?id='
+            . $orderID
+        );
+        exit;
+
+    } catch (Throwable $e) {
+
+        $conn-&gt;rollback();
+
+        $errorMessage = $e-&gt;getMessage();
+    }
+}
+
+/*
+ * Sau POST, đọc lại thông tin đơn hàng
+ * để giao diện luôn phản ánh dữ liệu hiện tại.
+ */
+$stmtOrder = $conn-&gt;prepare($sqlOrder);
+$stmtOrder-&gt;bind_param('i', $orderID);
+$stmtOrder-&gt;execute();
+
+$orderResult = $stmtOrder-&gt;get_result();
+$order = $orderResult-&gt;fetch_assoc();
+
+$orderResult-&gt;free();
+$stmtOrder-&gt;close();
+
+/*
+ * Đọc chi tiết sản phẩm trong đơn hàng.
+ */
+$sqlDetail = &quot;
+    SELECT
+        od.Quantity,
+        od.UnitPrice,
+        p.ProductCode,
+        p.ProductName
+    FROM
+        orderdetail AS od,
+        products AS p
+    WHERE
+        od.ProductID = p.ProductID
+        AND od.OrderID = ?
+    ORDER BY
+        od.OrderDetailID
+&quot;;
+
+$stmtDetail = $conn-&gt;prepare($sqlDetail);
+$stmtDetail-&gt;bind_param('i', $orderID);
+$stmtDetail-&gt;execute();
+
+$detailResult = $stmtDetail-&gt;get_result();
+
+require_once '/var/www/src/includes/admin/header.php';
+require_once '/var/www/src/includes/admin/navbar.php';
+
+?&gt;
+
+&lt;div class=&quot;container mt-4&quot;&gt;
+
+    &lt;div
+        class=&quot;d-flex
+               justify-content-between
+               align-items-center
+               mb-3&quot;
+    &gt;
+        &lt;h2&gt;
+            Chi tiết đơn hàng #&lt;?= (int) $order['OrderID'] ?&gt;
+        &lt;/h2&gt;
+
+        &lt;a
+            href=&quot;/admin/orders/&quot;
+            class=&quot;btn btn-outline-secondary&quot;
+        &gt;
+            Quay lại
+        &lt;/a&gt;
+    &lt;/div&gt;
+
+    &lt;?php if (!empty($errorMessage)): ?&gt;
+
+        &lt;div class=&quot;alert alert-danger&quot;&gt;
+            &lt;?= htmlspecialchars($errorMessage) ?&gt;
+        &lt;/div&gt;
+
+    &lt;?php endif; ?&gt;
+
+    &lt;div class=&quot;row g-4 mb-4&quot;&gt;
+
+        &lt;div class=&quot;col-md-6&quot;&gt;
+
+            &lt;div class=&quot;card h-100&quot;&gt;
+
+                &lt;div class=&quot;card-header&quot;&gt;
+                    &lt;strong&gt;Thông tin đơn hàng&lt;/strong&gt;
+                &lt;/div&gt;
+
+                &lt;div class=&quot;card-body&quot;&gt;
+
+                    &lt;p&gt;
+                        &lt;strong&gt;Mã đơn:&lt;/strong&gt;
+                        #&lt;?= (int) $order['OrderID'] ?&gt;
+                    &lt;/p&gt;
+
+                    &lt;p&gt;
+                        &lt;strong&gt;Ngày đặt:&lt;/strong&gt;
+                        &lt;?= htmlspecialchars($order['OrderDate']) ?&gt;
+                    &lt;/p&gt;
+
+                    &lt;p&gt;
+                        &lt;strong&gt;Trạng thái:&lt;/strong&gt;
+                        &lt;?= htmlspecialchars($order['Status']) ?&gt;
+                    &lt;/p&gt;
+
+                    &lt;p&gt;
+                        &lt;strong&gt;Tổng tiền:&lt;/strong&gt;
+                        &lt;?= number_format(
+                            (float) $order['TotalAmount'],
+                            0,
+                            ',',
+                            '.'
+                        ) ?&gt; đ
+                    &lt;/p&gt;
+
+                    &lt;?php
+
+                    $nextStatuses =
+                        $allowedTransitions[$order['Status']]
+                        ?? [];
+
+                    ?&gt;
+
+                    &lt;?php if (!empty($nextStatuses)): ?&gt;
+
+                        &lt;hr&gt;
+
+                        &lt;form method=&quot;post&quot;&gt;
+
+                            &lt;div class=&quot;mb-3&quot;&gt;
+
+                                &lt;label
+                                    for=&quot;status&quot;
+                                    class=&quot;form-label&quot;
+                                &gt;
+                                    Cập nhật trạng thái
+                                &lt;/label&gt;
+
+                                &lt;select
+                                    name=&quot;status&quot;
+                                    id=&quot;status&quot;
+                                    class=&quot;form-select&quot;
+                                    required
+                                &gt;
+
+                                    &lt;option value=&quot;&quot;&gt;
+                                        -- Chọn trạng thái --
+                                    &lt;/option&gt;
+
+                                    &lt;?php foreach (
+                                        $nextStatuses as $status
+                                    ): ?&gt;
+
+                                        &lt;option
+                                            value=&quot;&lt;?= htmlspecialchars(
+                                                $status
+                                            ) ?&gt;&quot;
+                                        &gt;
+                                            &lt;?= htmlspecialchars(
+                                                $status
+                                            ) ?&gt;
+                                        &lt;/option&gt;
+
+                                    &lt;?php endforeach; ?&gt;
+
+                                &lt;/select&gt;
+
+                            &lt;/div&gt;
+
+                            &lt;button
+                                type=&quot;submit&quot;
+                                name=&quot;update_status&quot;
+                                class=&quot;btn btn-primary&quot;
+                            &gt;
+                                Cập nhật
+                            &lt;/button&gt;
+
+                        &lt;/form&gt;
+
+                    &lt;?php else: ?&gt;
+
+                        &lt;div class=&quot;alert alert-secondary mb-0&quot;&gt;
+                            Đơn hàng đã ở trạng thái kết thúc.
+                        &lt;/div&gt;
+
+                    &lt;?php endif; ?&gt;
+
+                &lt;/div&gt;
+
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+
+        &lt;div class=&quot;col-md-6&quot;&gt;
+
+            &lt;div class=&quot;card h-100&quot;&gt;
+
+                &lt;div class=&quot;card-header&quot;&gt;
+                    &lt;strong&gt;Thông tin khách hàng&lt;/strong&gt;
+                &lt;/div&gt;
+
+                &lt;div class=&quot;card-body&quot;&gt;
+
+                    &lt;p&gt;
+                        &lt;strong&gt;Khách hàng:&lt;/strong&gt;
+                        &lt;?= htmlspecialchars(
+                            $order['CustomerName']
+                        ) ?&gt;
+                    &lt;/p&gt;
+
+                    &lt;p&gt;
+                        &lt;strong&gt;Người liên hệ:&lt;/strong&gt;
+                        &lt;?= htmlspecialchars(
+                            $order['ContactName'] ?? ''
+                        ) ?&gt;
+                    &lt;/p&gt;
+
+                    &lt;p&gt;
+                        &lt;strong&gt;Điện thoại:&lt;/strong&gt;
+                        &lt;?= htmlspecialchars(
+                            $order['Phone'] ?? ''
+                        ) ?&gt;
+                    &lt;/p&gt;
+
+                    &lt;p&gt;
+                        &lt;strong&gt;Địa chỉ:&lt;/strong&gt;
+                        &lt;?= htmlspecialchars(
+                            $order['Address'] ?? ''
+                        ) ?&gt;
+                    &lt;/p&gt;
+
+                    &lt;p&gt;
+                        &lt;strong&gt;Thành phố:&lt;/strong&gt;
+                        &lt;?= htmlspecialchars(
+                            $order['City'] ?? ''
+                        ) ?&gt;
+                    &lt;/p&gt;
+
+                    &lt;p&gt;
+                        &lt;strong&gt;Mã bưu chính:&lt;/strong&gt;
+                        &lt;?= htmlspecialchars(
+                            $order['PostalCode'] ?? ''
+                        ) ?&gt;
+                    &lt;/p&gt;
+
+                    &lt;p class=&quot;mb-0&quot;&gt;
+                        &lt;strong&gt;Quốc gia:&lt;/strong&gt;
+                        &lt;?= htmlspecialchars(
+                            $order['Country'] ?? ''
+                        ) ?&gt;
+                    &lt;/p&gt;
+
+                &lt;/div&gt;
+
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card&quot;&gt;
+
+        &lt;div class=&quot;card-header&quot;&gt;
+            &lt;strong&gt;Sản phẩm trong đơn hàng&lt;/strong&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;card-body&quot;&gt;
+
+            &lt;div class=&quot;table-responsive&quot;&gt;
+
+                &lt;table
+                    class=&quot;table
+                           table-bordered
+                           align-middle
+                           mb-0&quot;
+                &gt;
+
+                    &lt;thead class=&quot;table-light&quot;&gt;
+                        &lt;tr&gt;
+                            &lt;th&gt;Mã SP&lt;/th&gt;
+                            &lt;th&gt;Tên sản phẩm&lt;/th&gt;
+                            &lt;th class=&quot;text-end&quot;&gt;
+                                Đơn giá
+                            &lt;/th&gt;
+                            &lt;th class=&quot;text-end&quot;&gt;
+                                Số lượng
+                            &lt;/th&gt;
+                            &lt;th class=&quot;text-end&quot;&gt;
+                                Thành tiền
+                            &lt;/th&gt;
+                        &lt;/tr&gt;
+                    &lt;/thead&gt;
+
+                    &lt;tbody&gt;
+
+                    &lt;?php while (
+                        $item = $detailResult-&gt;fetch_assoc()
+                    ): ?&gt;
+
+                        &lt;?php
+
+                        $subtotal =
+                            (float) $item['UnitPrice']
+                            * (int) $item['Quantity'];
+
+                        ?&gt;
+
+                        &lt;tr&gt;
+
+                            &lt;td&gt;
+                                &lt;?= htmlspecialchars(
+                                    $item['ProductCode']
+                                ) ?&gt;
+                            &lt;/td&gt;
+
+                            &lt;td&gt;
+                                &lt;?= htmlspecialchars(
+                                    $item['ProductName']
+                                ) ?&gt;
+                            &lt;/td&gt;
+
+                            &lt;td class=&quot;text-end&quot;&gt;
+                                &lt;?= number_format(
+                                    (float) $item['UnitPrice'],
+                                    0,
+                                    ',',
+                                    '.'
+                                ) ?&gt; đ
+                            &lt;/td&gt;
+
+                            &lt;td class=&quot;text-end&quot;&gt;
+                                &lt;?= (int) $item['Quantity'] ?&gt;
+                            &lt;/td&gt;
+
+                            &lt;td class=&quot;text-end&quot;&gt;
+                                &lt;?= number_format(
+                                    $subtotal,
+                                    0,
+                                    ',',
+                                    '.'
+                                ) ?&gt; đ
+                            &lt;/td&gt;
+
+                        &lt;/tr&gt;
+
+                    &lt;?php endwhile; ?&gt;
+
+                    &lt;/tbody&gt;
+
+                    &lt;tfoot&gt;
+                        &lt;tr&gt;
+
+                            &lt;th
+                                colspan=&quot;4&quot;
+                                class=&quot;text-end&quot;
+                            &gt;
+                                Tổng cộng
+                            &lt;/th&gt;
+
+                            &lt;th class=&quot;text-end&quot;&gt;
+                                &lt;?= number_format(
+                                    (float) $order['TotalAmount'],
+                                    0,
+                                    ',',
+                                    '.'
+                                ) ?&gt; đ
+                            &lt;/th&gt;
+
+                        &lt;/tr&gt;
+                    &lt;/tfoot&gt;
+
+                &lt;/table&gt;
+
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;?php
+
+$detailResult-&gt;free();
+$stmtDetail-&gt;close();
+
+require_once '/var/www/src/includes/admin/footer.php';
+
+$conn-&gt;close();
+</code></pre>
+<hr />
+<h2 id="6-hieu-cach-oc-chi-tiet-on-hang">6. Hiểu cách đọc chi tiết đơn hàng</h2>
+<p>Trang chi tiết nhận <code>OrderID</code> từ Query String:</p>
+<pre><code class="language-php">$orderID = isset($_GET['id'])
+    ? (int) $_GET['id']
+    : 0;
+</code></pre>
+<p>Ví dụ:</p>
+<pre><code class="language-text">/admin/orders/detail.php?id=6
+</code></pre>
+<p>Nếu ID không hợp lệ, người dùng được chuyển về danh sách:</p>
+<pre><code class="language-php">if ($orderID &lt;= 0) {
+    header('Location: /admin/orders/');
+    exit;
+}
+</code></pre>
+<p>Thông tin đơn hàng và khách hàng được đọc bằng Prepared Statement:</p>
+<pre><code class="language-sql">FROM
+    orders AS o,
+    customers AS c
+WHERE
+    o.CustomerID = c.CustomerID
+    AND o.OrderID = ?
+</code></pre>
+<p>Dấu <code>?</code> không được ghép trực tiếp từ URL mà được truyền bằng:</p>
+<pre><code class="language-php">$stmtOrder-&gt;bind_param('i', $orderID);
+</code></pre>
+<p>Chi tiết sản phẩm được đọc từ:</p>
+<pre><code class="language-text">orderdetail → products
+</code></pre>
+<p>với điều kiện:</p>
+<pre><code class="language-sql">od.ProductID = p.ProductID
+AND od.OrderID = ?
+</code></pre>
+<p><code>UnitPrice</code> được lấy từ <code>orderdetail</code>, không lấy từ <code>products.Price</code>, vì đây là giá đã được lưu tại thời điểm khách đặt hàng.</p>
+<hr />
+<h2 id="7-kiem-soat-vong-oi-trang-thai">7. Kiểm soát vòng đời trạng thái</h2>
+<p>Mảng <code>$allowedTransitions</code> đóng vai trò mô tả các phép chuyển hợp lệ:</p>
+<pre><code class="language-php">$allowedTransitions = [
+    'Pending' =&gt; [
+        'Confirmed',
+        'Cancelled'
+    ],
+    'Confirmed' =&gt; [
+        'Shipping',
+        'Cancelled'
+    ],
+    'Shipping' =&gt; [
+        'Completed',
+        'Cancelled'
+    ],
+    'Completed' =&gt; [],
+    'Cancelled' =&gt; []
+];
+</code></pre>
+<p>Ví dụ, khi đơn đang ở <code>Pending</code>, giao diện chỉ hiển thị:</p>
+<pre><code class="language-text">Confirmed
+Cancelled
+</code></pre>
+<p>Sau khi chuyển sang <code>Confirmed</code>, chỉ còn:</p>
+<pre><code class="language-text">Shipping
+Cancelled
+</code></pre>
+<p>Khi <code>Completed</code> hoặc <code>Cancelled</code>, mảng trạng thái tiếp theo rỗng. Form cập nhật không còn hiển thị và được thay bằng thông báo:</p>
+<pre><code class="language-text">Đơn hàng đã ở trạng thái kết thúc.
+</code></pre>
+<h3 id="71-khong-chi-kiem-tra-o-giao-dien">7.1. Không chỉ kiểm tra ở giao diện</h3>
+<p>Việc giới hạn <code>&lt;select&gt;</code> chưa đủ vì dữ liệu POST có thể được gửi mà không đi qua giao diện.</p>
+<p>Server tiếp tục kiểm tra:</p>
+<pre><code class="language-php">if (!in_array(
+    $newStatus,
+    $allowedStatuses,
+    true
+)) {
+    throw new Exception(
+        'Không thể chuyển sang trạng thái đã chọn.'
+    );
+}
+</code></pre>
+<p>Do đó, quy tắc nghiệp vụ được bảo vệ ở phía server.</p>
+<hr />
+<h2 id="8-transaction-khi-huy-on-hang">8. Transaction khi hủy đơn hàng</h2>
+<p>Khi cập nhật trạng thái, transaction được bắt đầu bằng:</p>
+<pre><code class="language-php">$conn-&gt;begin_transaction();
+</code></pre>
+<p>Sau đó hệ thống đọc lại trạng thái hiện tại:</p>
+<pre><code class="language-sql">SELECT Status
+FROM orders
+WHERE OrderID = ?
+FOR UPDATE
+</code></pre>
+<h3 id="81-vi-sao-phai-oc-lai-trang-thai">8.1. Vì sao phải đọc lại trạng thái?</h3>
+<p>Thông tin <code>$order</code> đã được đọc trước khi người dùng gửi form. Trong khoảng thời gian đó, trạng thái trong cơ sở dữ liệu có thể đã thay đổi.</p>
+<p>Vì vậy, khi bắt đầu transaction, server không dựa hoàn toàn vào dữ liệu cũ mà đọc lại trạng thái trực tiếp từ MySQL.</p>
+<h3 id="82-vai-tro-cua-for-update">8.2. Vai trò của <code>FOR UPDATE</code></h3>
+<p><code>FOR UPDATE</code> khóa mẩu tin đơn hàng trong transaction hiện tại.</p>
+<p>Điều này đặc biệt quan trọng khi hủy đơn. Nếu hai yêu cầu cùng cố hủy một đơn, không được để cả hai cùng hoàn tồn kho:</p>
+<pre><code class="language-text">Yêu cầu A ──→ hoàn kho
+Yêu cầu B ──→ hoàn kho lần nữa   ← sai
+</code></pre>
+<p>Với khóa và việc kiểm tra lại trạng thái, yêu cầu sau chỉ được xử lý khi transaction trước hoàn tất. Khi đó trạng thái đã là <code>Cancelled</code>, nên phép chuyển tiếp không còn hợp lệ.</p>
+<hr />
+<h2 id="9-hoan-ton-kho-khi-huy-on">9. Hoàn tồn kho khi hủy đơn</h2>
+<p>Logic hoàn kho chỉ chạy khi:</p>
+<pre><code class="language-php">$newStatus === 'Cancelled'
+</code></pre>
+<p>Hệ thống đọc các sản phẩm của đơn:</p>
+<pre><code class="language-sql">SELECT
+    ProductID,
+    Quantity
+FROM orderdetail
+WHERE OrderID = ?
+</code></pre>
+<p>Sau đó hoàn lại từng số lượng:</p>
+<pre><code class="language-sql">UPDATE products
+SET StockQuantity = StockQuantity + ?
+WHERE ProductID = ?
+</code></pre>
+<p>Ví dụ, một đơn có:</p>
+<pre><code class="language-text">ProductID = 2
+Quantity  = 3
+</code></pre>
+<p>khi hủy sẽ thực hiện tương đương:</p>
+<pre><code class="language-text">StockQuantity = StockQuantity + 3
+</code></pre>
+<p>Nếu cập nhật tồn kho không thành công, exception được phát sinh và transaction bị rollback.</p>
+<hr />
+<h2 id="10-vi-sao-cap-nhat-trang-thai-cung-nam-trong-transaction">10. Vì sao cập nhật trạng thái cũng nằm trong transaction?</h2>
+<p>Sau khi hoàn kho, trạng thái mới được cập nhật:</p>
+<pre><code class="language-sql">UPDATE orders
+SET Status = ?
+WHERE OrderID = ?
+</code></pre>
+<p>Chỉ khi tất cả thao tác thành công mới thực hiện:</p>
+<pre><code class="language-php">$conn-&gt;commit();
+</code></pre>
+<p>Nếu có lỗi:</p>
+<pre><code class="language-php">$conn-&gt;rollback();
+</code></pre>
+<p>Nhờ đó không xảy ra hai tình huống không nhất quán:</p>
+<pre><code class="language-text">Đơn = Cancelled
+nhưng tồn kho chưa được hoàn
+</code></pre>
+<p>hoặc:</p>
+<pre><code class="language-text">Tồn kho đã được hoàn
+nhưng đơn vẫn chưa Cancelled
+</code></pre>
+<p>Toàn bộ nghiệp vụ hủy đơn được xem như <strong>một đơn vị công việc</strong>.</p>
+<hr />
+<h2 id="11-kiem-tra-cu-phap-php">11. Kiểm tra cú pháp PHP</h2>
+<p>Từ thư mục dự án, chạy:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/html/admin/orders/index.php
+</code></pre>
+<p>Kết quả mong đợi:</p>
+<pre><code class="language-text">No syntax errors detected in /var/www/html/admin/orders/index.php
+</code></pre>
+<p>Tiếp tục:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/html/admin/orders/detail.php
+</code></pre>
+<p>Kết quả mong đợi:</p>
+<pre><code class="language-text">No syntax errors detected in /var/www/html/admin/orders/detail.php
+</code></pre>
+<hr />
+<h2 id="12-kiem-thu-danh-sach-va-chi-tiet-on-hang">12. Kiểm thử danh sách và chi tiết đơn hàng</h2>
+<h3 id="121-kiem-tra-danh-sach">12.1. Kiểm tra danh sách</h3>
+<p>Mở:</p>
+<pre><code class="language-text">http://localhost:8080/admin/orders/
+</code></pre>
+<p>Kiểm tra:</p>
+<ul>
+<li>các đơn hàng được hiển thị;</li>
+<li>đơn mới hơn nằm phía trên;</li>
+<li>có ngày đặt, khách hàng, điện thoại, tổng tiền và trạng thái;</li>
+<li>trạng thái được hiển thị bằng Badge;</li>
+<li>mỗi đơn có nút <strong>Xem</strong>.</li>
+</ul>
+<h3 id="122-kiem-tra-chi-tiet">12.2. Kiểm tra chi tiết</h3>
+<p>Bấm <strong>Xem</strong> tại một đơn hàng.</p>
+<p>Trang chi tiết phải hiển thị:</p>
+<ul>
+<li>mã đơn;</li>
+<li>ngày đặt;</li>
+<li>trạng thái;</li>
+<li>tổng tiền;</li>
+<li>thông tin khách hàng;</li>
+<li>các sản phẩm thuộc đơn;</li>
+<li>đơn giá tại thời điểm đặt;</li>
+<li>số lượng;</li>
+<li>thành tiền từng dòng.</li>
+</ul>
+<p>Thử URL không tồn tại:</p>
+<pre><code class="language-text">http://localhost:8080/admin/orders/detail.php?id=99999
+</code></pre>
+<p>Ứng dụng phải chuyển về:</p>
+<pre><code class="language-text">/admin/orders/
+</code></pre>
+<hr />
+<h2 id="13-kiem-thu-vong-oi-trang-thai">13. Kiểm thử vòng đời trạng thái</h2>
+<p>Chọn một đơn <code>Pending</code> và thực hiện:</p>
+<pre><code class="language-text">Pending → Confirmed
+</code></pre>
+<p>Kiểm tra trực tiếp trong MySQL:</p>
+<pre><code class="language-cmd">docker compose exec db mysql -u root -p
+</code></pre>
+<p>Sau khi đăng nhập:</p>
+<pre><code class="language-sql">USE ql_banhang;
+</code></pre>
+<p>Kiểm tra:</p>
+<pre><code class="language-sql">SELECT
+    OrderID,
+    Status,
+    TotalAmount
+FROM orders
+WHERE OrderID = &lt;OrderID&gt;;
+</code></pre>
+<p>Trạng thái phải là:</p>
+<pre><code class="language-text">Confirmed
+</code></pre>
+<p>Tiếp tục trên giao diện:</p>
+<pre><code class="language-text">Confirmed → Shipping → Completed
+</code></pre>
+<p>Khi đã <code>Completed</code>, form cập nhật phải biến mất và trang hiển thị:</p>
+<pre><code class="language-text">Đơn hàng đã ở trạng thái kết thúc.
+</code></pre>
+<p><code>Completed</code> không được quay trở lại <code>Pending</code>, <code>Confirmed</code> hoặc <code>Shipping</code>.</p>
+<hr />
+<h2 id="14-kiem-thu-huy-on-va-hoan-ton-kho">14. Kiểm thử hủy đơn và hoàn tồn kho</h2>
+<p>Đây là phép thử quan trọng nhất của Hands-on 13.</p>
+<h3 id="141-ghi-nhan-ton-kho-ban-au">14.1. Ghi nhận tồn kho ban đầu</h3>
+<p>Chọn một sản phẩm, ví dụ <code>ProductID = 2</code>:</p>
+<pre><code class="language-sql">SELECT
+    ProductID,
+    ProductName,
+    StockQuantity
+FROM products
+WHERE ProductID = 2;
+</code></pre>
+<p>Gọi số lượng hiện tại là <strong>A</strong>.</p>
+<h3 id="142-tao-mot-on-hang-moi">14.2. Tạo một đơn hàng mới</h3>
+<p>Trên frontend, thêm <strong>1 sản phẩm</strong> vào giỏ và đặt hàng thành công.</p>
+<p>Kiểm tra lại:</p>
+<pre><code class="language-sql">SELECT
+    ProductID,
+    ProductName,
+    StockQuantity
+FROM products
+WHERE ProductID = 2;
+</code></pre>
+<p>Kết quả phải là:</p>
+<pre><code class="language-text">A - 1
+</code></pre>
+<h3 id="143-huy-on-trong-admin">14.3. Hủy đơn trong Admin</h3>
+<p>Vào:</p>
+<pre><code class="language-text">/admin/orders/
+</code></pre>
+<p>mở đơn vừa tạo và chuyển:</p>
+<pre><code class="language-text">Pending → Cancelled
+</code></pre>
+<p>Kiểm tra lại tồn kho:</p>
+<pre><code class="language-sql">SELECT
+    ProductID,
+    ProductName,
+    StockQuantity
+FROM products
+WHERE ProductID = 2;
+</code></pre>
+<p>Kết quả phải trở về:</p>
+<pre><code class="language-text">A
+</code></pre>
+<p>Kiểm tra trạng thái đơn:</p>
+<pre><code class="language-sql">SELECT
+    OrderID,
+    Status
+FROM orders
+ORDER BY OrderID DESC
+LIMIT 1;
+</code></pre>
+<p>Kết quả phải có:</p>
+<pre><code class="language-text">Status = Cancelled
+</code></pre>
+<p>Ta đã kiểm chứng chuỗi:</p>
+<pre><code class="language-text">Tồn kho A
+   ↓ đặt 1 sản phẩm
+A - 1
+   ↓ hủy đơn
+A
+</code></pre>
+<h3 id="144-so-sanh-voi-xac-nhan-on">14.4. So sánh với xác nhận đơn</h3>
+<p>Tạo một đơn mới khác và chuyển:</p>
+<pre><code class="language-text">Pending → Confirmed
+</code></pre>
+<p>Tồn kho <strong>không được hoàn lại</strong>. Số lượng vẫn giữ mức đã giảm khi khách đặt hàng.</p>
+<p>Điều này xác nhận hai nhánh nghiệp vụ khác nhau:</p>
+<pre><code class="language-text">Đặt hàng
+   ↓
+Tồn kho giảm
+   ↓
+┌──────────────────┬──────────────────┐
+│ Cancelled        │ Confirmed        │
+│                  │                  │
+│ hoàn tồn kho     │ không hoàn kho   │
+└──────────────────┴──────────────────┘
+</code></pre>
+<hr />
+<h2 id="15-cau-truc-du-an-sau-hands-on-13">15. Cấu trúc dự án sau Hands-on 13</h2>
+<p>Các thành phần liên quan trực tiếp đến Hands-on này:</p>
+<pre><code class="language-text">php-mysql-sales/
+├── public/
+│   └── admin/
+│       └── orders/
+│           ├── index.php
+│           └── detail.php
+│
+└── src/
+    └── includes/
+        └── admin/
+            └── navbar.php
+</code></pre>
+<p>Vai trò:</p>
+<pre><code class="language-text">navbar.php
+   ↓
+/admin/orders/
+   ↓
+index.php
+   ↓
+Danh sách orders + customers
+   ↓
+Xem
+   ↓
+detail.php?id=...
+   ├── orders + customers
+   ├── orderdetail + products
+   └── cập nhật trạng thái
+          ↓
+       Cancelled?
+       ├── Không → cập nhật trạng thái
+       └── Có   → transaction + hoàn tồn kho
+</code></pre>
+<hr />
+<h2 id="16-kiem-tra-thay-oi-truoc-khi-luu-checkpoint">16. Kiểm tra thay đổi trước khi lưu checkpoint</h2>
+<p>Kiểm tra trạng thái Git:</p>
+<pre><code class="language-cmd">git status
+</code></pre>
+<p>Các thay đổi của Hands-on này gồm:</p>
+<pre><code class="language-text">modified:
+    src/includes/admin/navbar.php
+
+new:
+    public/admin/orders/index.php
+    public/admin/orders/detail.php
+</code></pre>
+<p>Kiểm tra lỗi khoảng trắng:</p>
+<pre><code class="language-cmd">git diff --check
+</code></pre>
+<p>Nếu lệnh không xuất thông báo, phần thay đổi không có lỗi whitespace mà Git phát hiện.</p>
+<p>Kiểm tra cú pháp lần cuối:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/html/admin/orders/index.php
+docker compose exec web php -l /var/www/html/admin/orders/detail.php
+</code></pre>
+<p>Chỉ lưu checkpoint sau khi:</p>
+<ul>
+<li>danh sách đơn hàng hoạt động;</li>
+<li>xem chi tiết hoạt động;</li>
+<li>chuyển trạng thái đúng quy tắc;</li>
+<li><code>Completed</code> và <code>Cancelled</code> là trạng thái kết thúc;</li>
+<li>hủy đơn hoàn đúng tồn kho;</li>
+<li>xác nhận đơn không hoàn tồn kho;</li>
+<li>hai tập tin PHP không có lỗi cú pháp.</li>
+</ul>
+<hr />
+<h2 id="17-luu-checkpoint-bang-git">17. Lưu checkpoint bằng Git</h2>
+<p>Stage các thay đổi:</p>
+<pre><code class="language-cmd">git add src/includes/admin/navbar.php public/admin/orders/
+</code></pre>
+<p>Kiểm tra:</p>
+<pre><code class="language-cmd">git status
+</code></pre>
+<p>Commit:</p>
+<pre><code class="language-cmd">git commit -m &quot;Add admin order management&quot;
+</code></pre>
+<p>Đẩy lên GitHub:</p>
+<pre><code class="language-cmd">git push origin main
+</code></pre>
+<p>Kiểm tra lần cuối:</p>
+<pre><code class="language-cmd">git status
+</code></pre>
+<p>Kết quả mong đợi:</p>
+<pre><code class="language-text">On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+</code></pre>
+<hr />
+<h2 id="18-ket-qua-at-uoc">18. Kết quả đạt được</h2>
+<p>Sau Hands-on 13, ứng dụng đã có một quy trình quản lý đơn hàng cơ bản ở phía Admin:</p>
+<pre><code class="language-text">Khách hàng đặt hàng
+        ↓
+Pending
+        ↓
+Admin xem đơn
+        ↓
+┌─────────────────────────────────────┐
+│                                     │
+▼                                     ▼
+Confirmed                         Cancelled
+   ↓                                  ↓
+Shipping                         Hoàn tồn kho
+   ↓                                  ↓
+Completed                       Kết thúc
+   ↓
+Kết thúc
+</code></pre>
+<p>Điểm quan trọng của Hands-on này không chỉ là tạo thêm hai trang Admin. Ứng dụng đã bắt đầu thể hiện <strong>quy tắc nghiệp vụ</strong> trong mã nguồn:</p>
+<ul>
+<li>trạng thái không được chuyển tùy ý;</li>
+<li>trạng thái được kiểm tra lại ở phía server;</li>
+<li>đơn hoàn tất không quay lại trạng thái trước;</li>
+<li>đơn hủy không bị xóa khỏi cơ sở dữ liệu;</li>
+<li>hàng của đơn hủy được trả lại tồn kho;</li>
+<li>transaction bảo đảm trạng thái đơn và tồn kho được cập nhật nhất quán;</li>
+<li><code>FOR UPDATE</code> giúp tránh xử lý hủy lặp trên cùng một đơn hàng.</li>
+</ul>
+<p>Đây là nền tảng để tiếp tục phát triển các chức năng có người dùng và quyền truy cập ở Hands-on tiếp theo.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

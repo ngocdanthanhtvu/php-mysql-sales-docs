@@ -1,0 +1,2549 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Hands-on-08_Admin-Frontend-Structure/">
+      
+      
+        <link rel="next" href="../Hands-on-10_Product-Search-Filter-and-Pagination/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm - Phát triển ứng dụng Web mã nguồn mở</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hands-on-09-xay-dung-trang-danh-sach-va-chi-tiet-san-pham" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-header__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Phát triển ứng dụng Web mã nguồn mở
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Phát triển ứng dụng Web mã nguồn mở" class="md-nav__button md-logo" aria-label="Phát triển ứng dụng Web mã nguồn mở" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Phát triển ứng dụng Web mã nguồn mở
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chuẩn bị
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chuẩn bị
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preparation/Pre-Lab-00_Environment-Setup-Windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-Lab 00 - Chuẩn bị môi trường
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thực hành
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thực hành
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-01_PHP-Docker_Baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 01 - PHP và Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-02_MySQL-Database-Schema-Seed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 02 - MySQL-Database-Schema-Seed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-03_PHP-MySQLi-Category-Listing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 03 - PHP-MySQLi-Category-Listing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-04_Category-CRUD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 04 - Xây dựng CRUD quản lý danh mục
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-05_Product-Relational-Data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 05 - Xây dựng CRUD quản lý sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-06_Upload-Product-Images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 06 – Upload hình ảnh sản phẩm với PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-07_Manage-Product-Images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 07 – Quản lý hình ảnh sản phẩm khi cập nhật
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-08_Admin-Frontend-Structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 08 – Tổ chức khu vực quản trị và giao diện người dùng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 09 – Xây dựng trang danh sách và chi tiết sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-chuan-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Chuẩn bị
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-xac-inh-du-lieu-can-hien-thi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Xác định dữ liệu cần hiển thị
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Xác định dữ liệu cần hiển thị">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-quan-he-du-lieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Quan hệ dữ liệu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-bo-sung-lien-ket-san-pham-vao-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Bổ sung liên kết Sản phẩm vào Frontend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-tao-trang-danh-sach-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Tạo trang danh sách sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-truy-van-danh-sach-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Truy vấn danh sách sản phẩm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Truy vấn danh sách sản phẩm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-y-nghia-cua-truy-van" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Ý nghĩa của truy vấn
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-hien-thi-danh-sach-bang-bootstrap-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Hiển thị danh sách bằng Bootstrap Card
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Hiển thị danh sách bằng Bootstrap Card">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-vi-sao-dung-object-fit-contain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Vì sao dùng object-fit: contain?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-kiem-tra-trang-danh-sach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Kiểm tra trang danh sách
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-tao-trang-chi-tiet-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Tạo trang chi tiết sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-nhan-va-kiem-tra-productid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Nhận và kiểm tra ProductID
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-truy-van-thong-tin-chi-tiet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Truy vấn thông tin chi tiết
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Truy vấn thông tin chi tiết">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-quan-he-giua-ba-bang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1. Quan hệ giữa ba bảng
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-lay-danh-sach-hinh-anh-cua-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Lấy danh sách hình ảnh của sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-hien-thi-chi-tiet-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Hiển thị chi tiết sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-kiem-tra-trang-chi-tiet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Kiểm tra trang chi tiết
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-kiem-tra-responsive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Kiểm tra responsive
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-kiem-tra-toan-bo-hands-on-09" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Kiểm tra toàn bộ Hands-on 09
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-cau-truc-sau-hands-on-09" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Cấu trúc sau Hands-on 09
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-luu-phien-ban-bang-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Lưu phiên bản bằng Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-ket-qua-at-uoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Kết quả đạt được
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cau-hoi-cung-co" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Câu hỏi củng cố
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bai-tap-cung-co" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bài tập củng cố
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-10_Product-Search-Filter-and-Pagination/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 10 – Tìm kiếm, lọc và phân trang sản phẩm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-11_Shopping-Cart-with-PHP-Session/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 11 – Xây dựng giỏ hàng với PHP Session
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-12_Checkout-and-Order-Processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 12 – Xử lý đặt hàng và lưu đơn hàng vào MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-13_Admin-Order-Management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 13 – Quản lý đơn hàng trong khu vực Admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-14_Customer-Authentication-and-Accounts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 14 – Đăng ký, đăng nhập và tài khoản khách hàng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hands-on-15_REST-API-and-Fetch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on 15 – REST API và Fetch API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hướng dẫn
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hướng dẫn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/Mini-Hands-on_Git-Push-GitHub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git và GitHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mục tiêu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-chuan-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Chuẩn bị
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-xac-inh-du-lieu-can-hien-thi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Xác định dữ liệu cần hiển thị
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Xác định dữ liệu cần hiển thị">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-quan-he-du-lieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Quan hệ dữ liệu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-bo-sung-lien-ket-san-pham-vao-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Bổ sung liên kết Sản phẩm vào Frontend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-tao-trang-danh-sach-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Tạo trang danh sách sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-truy-van-danh-sach-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Truy vấn danh sách sản phẩm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Truy vấn danh sách sản phẩm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-y-nghia-cua-truy-van" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Ý nghĩa của truy vấn
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-hien-thi-danh-sach-bang-bootstrap-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Hiển thị danh sách bằng Bootstrap Card
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Hiển thị danh sách bằng Bootstrap Card">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-vi-sao-dung-object-fit-contain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Vì sao dùng object-fit: contain?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-kiem-tra-trang-danh-sach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Kiểm tra trang danh sách
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-tao-trang-chi-tiet-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Tạo trang chi tiết sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-nhan-va-kiem-tra-productid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Nhận và kiểm tra ProductID
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-truy-van-thong-tin-chi-tiet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Truy vấn thông tin chi tiết
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Truy vấn thông tin chi tiết">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-quan-he-giua-ba-bang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1. Quan hệ giữa ba bảng
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-lay-danh-sach-hinh-anh-cua-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Lấy danh sách hình ảnh của sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-hien-thi-chi-tiet-san-pham" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Hiển thị chi tiết sản phẩm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-kiem-tra-trang-chi-tiet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Kiểm tra trang chi tiết
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-kiem-tra-responsive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Kiểm tra responsive
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-kiem-tra-toan-bo-hands-on-09" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Kiểm tra toàn bộ Hands-on 09
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-cau-truc-sau-hands-on-09" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Cấu trúc sau Hands-on 09
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-luu-phien-ban-bang-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Lưu phiên bản bằng Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-ket-qua-at-uoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Kết quả đạt được
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cau-hoi-cung-co" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Câu hỏi củng cố
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bai-tap-cung-co" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bài tập củng cố
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hands-on-09-xay-dung-trang-danh-sach-va-chi-tiet-san-pham">Hands-on 09 -- Xây dựng trang danh sách và chi tiết sản phẩm</h1>
+<h2 id="muc-tieu">Mục tiêu</h2>
+<p>Sau khi hoàn thành Hands-on này, bạn có thể:</p>
+<ul>
+<li>Xây dựng trang danh sách sản phẩm dành cho người dùng.</li>
+<li>Truy vấn dữ liệu từ nhiều bảng có quan hệ khóa ngoại bằng điều kiện
+    <code>PK = FK</code>.</li>
+<li>Chỉ hiển thị các sản phẩm đang hoạt động.</li>
+<li>Lấy ảnh chính của sản phẩm để hiển thị trên danh sách.</li>
+<li>Xây dựng trang chi tiết sản phẩm theo tham số <code>id</code> trên URL.</li>
+<li>Hiển thị thông tin danh mục, nhà cung cấp và nhiều hình ảnh của một
+    sản phẩm.</li>
+<li>Tổ chức hình ảnh sản phẩm responsive bằng Bootstrap và CSS.</li>
+<li>Bổ sung liên kết Sản phẩm vào thanh điều hướng Frontend.</li>
+</ul>
+<hr />
+<h2 id="1-chuan-bi">1. Chuẩn bị</h2>
+<p>Hands-on này tiếp tục trực tiếp từ <strong>Hands-on 08</strong>.</p>
+<p>Mở <strong>Command Prompt</strong> và chuyển đến thư mục dự án:</p>
+<pre><code class="language-cmd">cd /d D:\PTUDW-ST-2026\php-mysql-sales
+</code></pre>
+<p>Kiểm tra trạng thái Git:</p>
+<pre><code class="language-cmd">git status
+</code></pre>
+<p>Nên bắt đầu khi Git hiển thị:</p>
+<pre><code class="language-text">nothing to commit, working tree clean
+</code></pre>
+<p>Kiểm tra ứng dụng:</p>
+<pre><code class="language-cmd">docker compose ps
+</code></pre>
+<p>Nếu các container chưa chạy:</p>
+<pre><code class="language-cmd">docker compose up -d
+</code></pre>
+<p>Sau Hands-on 08, phần chính của dự án có dạng:</p>
+<pre><code class="language-text">public/
+├── index.php
+├── admin/
+│   ├── index.php
+│   ├── categories/
+│   ├── products/
+│   └── shippers/
+└── uploads/
+    └── products/
+
+src/includes/
+├── admin/
+│   ├── header.php
+│   ├── navbar.php
+│   └── footer.php
+└── frontend/
+    ├── header.php
+    ├── navbar.php
+    └── footer.php
+</code></pre>
+<p>Trong Hands-on này, ta sẽ bổ sung hai trang Frontend:</p>
+<pre><code class="language-text">public/
+├── products.php
+└── product-detail.php
+</code></pre>
+<hr />
+<h2 id="2-xac-inh-du-lieu-can-hien-thi">2. Xác định dữ liệu cần hiển thị</h2>
+<p>Trang quản trị và trang người dùng có mục đích khác nhau.</p>
+<p>Khu vực Admin tập trung vào thao tác quản lý dữ liệu:</p>
+<pre><code class="language-text">/admin/products/
+</code></pre>
+<p>Trong khi đó, Frontend chỉ hiển thị những thông tin phù hợp cho người
+dùng.</p>
+<p>Trang danh sách sản phẩm cần:</p>
+<ul>
+<li>mã sản phẩm;</li>
+<li>tên sản phẩm;</li>
+<li>giá;</li>
+<li>danh mục;</li>
+<li>ảnh chính.</li>
+</ul>
+<p>Trang chi tiết cần thêm:</p>
+<ul>
+<li>mô tả;</li>
+<li>đơn vị tính;</li>
+<li>số lượng tồn;</li>
+<li>nhà cung cấp;</li>
+<li>các hình ảnh của sản phẩm.</li>
+</ul>
+<h3 id="21-quan-he-du-lieu">2.1. Quan hệ dữ liệu</h3>
+<p>Bảng <code>products</code> có khóa ngoại:</p>
+<pre><code class="language-text">products.CategoryID
+    → categories.CategoryID
+
+products.SupplierID
+    → suppliers.SupplierID
+</code></pre>
+<p>Trong bài này, ta kết các bảng bằng cách liệt kê bảng trong <code>FROM</code> và
+đặt điều kiện liên kết khóa ngoại trong <code>WHERE</code>.</p>
+<p>Ví dụ:</p>
+<pre><code class="language-sql">FROM
+    products p,
+    categories c
+WHERE
+    p.CategoryID = c.CategoryID
+</code></pre>
+<p>!!! note "Quy ước của bài thực hành" Hands-on này sử dụng điều kiện liên
+kết <code>PK = FK</code> để người học quan sát rõ quan hệ giữa khóa chính và khóa
+ngoại.</p>
+<hr />
+<h2 id="3-bo-sung-lien-ket-san-pham-vao-frontend">3. Bổ sung liên kết Sản phẩm vào Frontend</h2>
+<p>Trang sản phẩm sắp được tạo tại:</p>
+<pre><code class="language-text">/products.php
+</code></pre>
+<p>Mở navbar Frontend:</p>
+<pre><code class="language-cmd">code src\includes\frontend\navbar.php
+</code></pre>
+<p>Tìm danh sách:</p>
+<pre><code class="language-html">&lt;ul class=&quot;navbar-nav&quot;&gt;
+</code></pre>
+<p>Bên dưới mục <strong>Trang chủ</strong>, thêm:</p>
+<pre><code class="language-html">&lt;li class=&quot;nav-item&quot;&gt;
+    &lt;a class=&quot;nav-link&quot; href=&quot;/products.php&quot;&gt;
+        Sản phẩm
+    &lt;/a&gt;
+&lt;/li&gt;
+</code></pre>
+<p>Nhấn <strong>Ctrl + S</strong> để lưu.</p>
+<p>!!! note "Chỉ sửa phần cần thiết" <code>navbar.php</code> đã được tạo ở Hands-on 08
+nên không cần thay toàn bộ tập tin. Chỉ bổ sung liên kết mới.</p>
+<hr />
+<h2 id="4-tao-trang-danh-sach-san-pham">4. Tạo trang danh sách sản phẩm</h2>
+<p>Tạo tập tin:</p>
+<pre><code class="language-cmd">type nul &gt; public\products.php
+</code></pre>
+<p>Mở:</p>
+<pre><code class="language-cmd">code public\products.php
+</code></pre>
+<p>Ở Hands-on này, trang danh sách trước hết được xây dựng ở phiên bản cơ
+bản. Chức năng tìm kiếm, lọc và phân trang sẽ được bổ sung ở Hands-on
+tiếp theo.</p>
+<hr />
+<h2 id="5-truy-van-danh-sach-san-pham">5. Truy vấn danh sách sản phẩm</h2>
+<p>Nhập phần PHP đầu tập tin:</p>
+<pre><code class="language-php">&lt;?php
+
+require_once '/var/www/src/config/database.php';
+
+$sql = &quot;
+    SELECT
+        p.ProductID,
+        p.ProductCode,
+        p.ProductName,
+        p.Price,
+        c.CategoryName,
+
+        (
+            SELECT pi.ImageFile
+            FROM product_images pi
+            WHERE pi.ProductID = p.ProductID
+              AND pi.IsPrimary = 1
+            LIMIT 1
+        ) AS ImageFile
+
+    FROM
+        products p,
+        categories c
+
+    WHERE
+        p.CategoryID = c.CategoryID
+        AND p.IsActive = 1
+
+    ORDER BY
+        p.ProductID DESC
+&quot;;
+
+$result = $conn-&gt;query($sql);
+
+$pageTitle = 'Sản phẩm';
+
+require_once '/var/www/src/includes/frontend/header.php';
+require_once '/var/www/src/includes/frontend/navbar.php';
+?&gt;
+</code></pre>
+<h3 id="51-y-nghia-cua-truy-van">5.1. Ý nghĩa của truy vấn</h3>
+<p>Điều kiện:</p>
+<pre><code class="language-sql">p.CategoryID = c.CategoryID
+</code></pre>
+<p>kết bảng <code>products</code> với <code>categories</code> thông qua khóa ngoại.</p>
+<p>Điều kiện:</p>
+<pre><code class="language-sql">p.IsActive = 1
+</code></pre>
+<p>chỉ đưa các sản phẩm đang hoạt động ra Frontend.</p>
+<p>Truy vấn con:</p>
+<pre><code class="language-sql">(
+    SELECT pi.ImageFile
+    FROM product_images pi
+    WHERE pi.ProductID = p.ProductID
+      AND pi.IsPrimary = 1
+    LIMIT 1
+) AS ImageFile
+</code></pre>
+<p>lấy <strong>ảnh chính</strong> của từng sản phẩm.</p>
+<p>Nếu một sản phẩm chưa có ảnh chính, <code>ImageFile</code> nhận giá trị <code>NULL</code>. Sản
+phẩm vẫn xuất hiện trong danh sách.</p>
+<hr />
+<h2 id="6-hien-thi-danh-sach-bang-bootstrap-card">6. Hiển thị danh sách bằng Bootstrap Card</h2>
+<p>Tiếp tục bên dưới phần PHP vừa nhập:</p>
+<pre><code class="language-php">&lt;main class=&quot;container py-5&quot;&gt;
+
+    &lt;div class=&quot;mb-4&quot;&gt;
+
+        &lt;h1&gt;Sản phẩm&lt;/h1&gt;
+
+        &lt;p class=&quot;text-muted&quot;&gt;
+            Khám phá các sản phẩm hiện có tại cửa hàng.
+        &lt;/p&gt;
+
+    &lt;/div&gt;
+
+    &lt;?php if ($result-&gt;num_rows &gt; 0): ?&gt;
+
+        &lt;div class=&quot;row g-4&quot;&gt;
+
+            &lt;?php while ($product = $result-&gt;fetch_assoc()): ?&gt;
+
+                &lt;div class=&quot;col-md-6 col-lg-4&quot;&gt;
+
+                    &lt;div class=&quot;card h-100&quot;&gt;
+
+                        &lt;?php if (!empty($product['ImageFile'])): ?&gt;
+
+                            &lt;div
+                                class=&quot;bg-light d-flex
+                                       align-items-center
+                                       justify-content-center
+                                       p-3&quot;
+                                style=&quot;height: 260px;&quot;
+                            &gt;
+
+                                &lt;img
+                                    src=&quot;/uploads/products/&lt;?=
+                                        htmlspecialchars(
+                                            $product['ImageFile']
+                                        )
+                                    ?&gt;&quot;
+                                    alt=&quot;&lt;?=
+                                        htmlspecialchars(
+                                            $product['ProductName']
+                                        )
+                                    ?&gt;&quot;
+                                    style=&quot;
+                                        width: 100%;
+                                        height: 100%;
+                                        object-fit: contain;
+                                    &quot;
+                                &gt;
+
+                            &lt;/div&gt;
+
+                        &lt;?php else: ?&gt;
+
+                            &lt;div
+                                class=&quot;bg-light d-flex
+                                       align-items-center
+                                       justify-content-center
+                                       text-muted&quot;
+                                style=&quot;height: 260px;&quot;
+                            &gt;
+                                Chưa có hình ảnh
+                            &lt;/div&gt;
+
+                        &lt;?php endif; ?&gt;
+
+                        &lt;div class=&quot;card-body d-flex flex-column&quot;&gt;
+
+                            &lt;p class=&quot;text-muted small mb-1&quot;&gt;
+                                &lt;?=
+                                    htmlspecialchars(
+                                        $product['CategoryName']
+                                    )
+                                ?&gt;
+                            &lt;/p&gt;
+
+                            &lt;h5 class=&quot;card-title&quot;&gt;
+                                &lt;?=
+                                    htmlspecialchars(
+                                        $product['ProductName']
+                                    )
+                                ?&gt;
+                            &lt;/h5&gt;
+
+                            &lt;p class=&quot;text-muted small&quot;&gt;
+                                Mã sản phẩm:
+                                &lt;?=
+                                    htmlspecialchars(
+                                        $product['ProductCode']
+                                    )
+                                ?&gt;
+                            &lt;/p&gt;
+
+                            &lt;p class=&quot;fw-bold fs-5 mb-3&quot;&gt;
+                                &lt;?=
+                                    number_format(
+                                        (float) $product['Price'],
+                                        0,
+                                        ',',
+                                        '.'
+                                    )
+                                ?&gt; đ
+                            &lt;/p&gt;
+
+                            &lt;a
+                                href=&quot;/product-detail.php?id=&lt;?=
+                                    (int) $product['ProductID']
+                                ?&gt;&quot;
+                                class=&quot;btn btn-outline-primary mt-auto&quot;
+                            &gt;
+                                Xem chi tiết
+                            &lt;/a&gt;
+
+                        &lt;/div&gt;
+
+                    &lt;/div&gt;
+
+                &lt;/div&gt;
+
+            &lt;?php endwhile; ?&gt;
+
+        &lt;/div&gt;
+
+    &lt;?php else: ?&gt;
+
+        &lt;div class=&quot;alert alert-info&quot;&gt;
+            Hiện chưa có sản phẩm nào để hiển thị.
+        &lt;/div&gt;
+
+    &lt;?php endif; ?&gt;
+
+&lt;/main&gt;
+
+&lt;?php
+
+$result-&gt;free();
+
+require_once '/var/www/src/includes/frontend/footer.php';
+</code></pre>
+<p>Nhấn <strong>Ctrl + S</strong> để lưu.</p>
+<h3 id="61-vi-sao-dung-object-fit-contain">6.1. Vì sao dùng <code>object-fit: contain</code>?</h3>
+<p>Khung ảnh có chiều cao cố định:</p>
+<pre><code class="language-css">height: 260px;
+</code></pre>
+<p>nhưng ảnh thực tế có thể ngang, dọc hoặc vuông.</p>
+<p>Thuộc tính:</p>
+<pre><code class="language-css">object-fit: contain;
+</code></pre>
+<p>giúp ảnh:</p>
+<ul>
+<li>giữ đúng tỷ lệ;</li>
+<li>không bị kéo méo;</li>
+<li>không bị cắt nội dung;</li>
+<li>nằm gọn trong vùng ảnh của Card.</li>
+</ul>
+<p>Kết hợp với:</p>
+<pre><code class="language-html">&lt;div class=&quot;card h-100&quot;&gt;
+</code></pre>
+<p>các Card trong cùng hàng có chiều cao cân đối hơn.</p>
+<hr />
+<h2 id="7-kiem-tra-trang-danh-sach">7. Kiểm tra trang danh sách</h2>
+<p>Kiểm tra cú pháp:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/html/products.php
+</code></pre>
+<p>Kết quả đúng:</p>
+<pre><code class="language-text">No syntax errors detected in /var/www/html/products.php
+</code></pre>
+<p>Mở:</p>
+<pre><code class="language-text">http://localhost:8080/products.php
+</code></pre>
+<p>Kiểm tra:</p>
+<ul>
+<li>chỉ sản phẩm có <code>IsActive = 1</code> xuất hiện;</li>
+<li>tên danh mục hiển thị đúng;</li>
+<li>giá lấy từ trường <code>Price</code>;</li>
+<li>ảnh chính hiển thị;</li>
+<li>sản phẩm chưa có ảnh vẫn xuất hiện;</li>
+<li>ảnh không bị kéo méo hoặc cắt;</li>
+<li>các Card hiển thị tốt ở nhiều kích thước màn hình;</li>
+<li>nút <strong>Xem chi tiết</strong> chứa đúng <code>id</code> sản phẩm.</li>
+</ul>
+<p>!!! success "Checkpoint" Chỉ tiếp tục khi trang <code>/products.php</code> hiển thị
+đúng dữ liệu và hình ảnh.</p>
+<hr />
+<h2 id="8-tao-trang-chi-tiet-san-pham">8. Tạo trang chi tiết sản phẩm</h2>
+<p>Tạo tập tin:</p>
+<pre><code class="language-cmd">type nul &gt; public\product-detail.php
+</code></pre>
+<p>Mở:</p>
+<pre><code class="language-cmd">code public\product-detail.php
+</code></pre>
+<p>Trang này nhận ProductID từ URL.</p>
+<p>Ví dụ:</p>
+<pre><code class="language-text">/product-detail.php?id=3
+</code></pre>
+<p>Trong đó:</p>
+<pre><code class="language-text">id=3
+</code></pre>
+<p>cho biết người dùng muốn xem sản phẩm có <code>ProductID = 3</code>.</p>
+<hr />
+<h2 id="9-nhan-va-kiem-tra-productid">9. Nhận và kiểm tra ProductID</h2>
+<p>Nhập:</p>
+<pre><code class="language-php">&lt;?php
+
+require_once '/var/www/src/config/database.php';
+
+$productID = isset($_GET['id'])
+    ? (int) $_GET['id']
+    : 0;
+
+if ($productID &lt;= 0) {
+    header('Location: /products.php');
+    exit;
+}
+</code></pre>
+<p>Việc ép kiểu:</p>
+<pre><code class="language-php">(int) $_GET['id']
+</code></pre>
+<p>đảm bảo biến <code>$productID</code> được xử lý dưới dạng số nguyên.</p>
+<p>Nếu <code>id</code> không hợp lệ, người dùng được đưa về:</p>
+<pre><code class="language-text">/products.php
+</code></pre>
+<hr />
+<h2 id="10-truy-van-thong-tin-chi-tiet">10. Truy vấn thông tin chi tiết</h2>
+<p>Tiếp tục bên dưới:</p>
+<pre><code class="language-php">$sql = &quot;
+    SELECT
+        p.ProductID,
+        p.ProductCode,
+        p.ProductName,
+        p.Description,
+        p.Unit,
+        p.Price,
+        p.StockQuantity,
+        c.CategoryName,
+        s.SupplierName
+
+    FROM
+        products p,
+        categories c,
+        suppliers s
+
+    WHERE
+        p.CategoryID = c.CategoryID
+        AND p.SupplierID = s.SupplierID
+        AND p.ProductID = ?
+        AND p.IsActive = 1
+&quot;;
+
+$stmt = $conn-&gt;prepare($sql);
+
+$stmt-&gt;bind_param(
+    'i',
+    $productID
+);
+
+$stmt-&gt;execute();
+
+$result = $stmt-&gt;get_result();
+
+$product = $result-&gt;fetch_assoc();
+
+$result-&gt;free();
+$stmt-&gt;close();
+
+if (!$product) {
+    header('Location: /products.php');
+    exit;
+}
+</code></pre>
+<h3 id="101-quan-he-giua-ba-bang">10.1. Quan hệ giữa ba bảng</h3>
+<p>Hai điều kiện:</p>
+<pre><code class="language-sql">p.CategoryID = c.CategoryID
+</code></pre>
+<p>và:</p>
+<pre><code class="language-sql">p.SupplierID = s.SupplierID
+</code></pre>
+<p>kết <code>products</code> với <code>categories</code> và <code>suppliers</code> thông qua các khóa ngoại.</p>
+<p>Điều kiện:</p>
+<pre><code class="language-sql">p.ProductID = ?
+</code></pre>
+<p>sử dụng placeholder <code>?</code>.</p>
+<p>Giá trị <code>$productID</code> được truyền vào bằng:</p>
+<pre><code class="language-php">$stmt-&gt;bind_param(
+    'i',
+    $productID
+);
+</code></pre>
+<p>Ký tự:</p>
+<pre><code class="language-text">i
+</code></pre>
+<p>cho biết tham số là số nguyên.</p>
+<hr />
+<h2 id="11-lay-danh-sach-hinh-anh-cua-san-pham">11. Lấy danh sách hình ảnh của sản phẩm</h2>
+<p>Sau khi đã lấy thông tin sản phẩm, tiếp tục:</p>
+<pre><code class="language-php">$sqlImages = &quot;
+    SELECT
+        ImageID,
+        ImageFile,
+        IsPrimary
+
+    FROM
+        product_images
+
+    WHERE
+        ProductID = ?
+
+    ORDER BY
+        IsPrimary DESC,
+        ImageID ASC
+&quot;;
+
+$stmtImages = $conn-&gt;prepare($sqlImages);
+
+$stmtImages-&gt;bind_param(
+    'i',
+    $productID
+);
+
+$stmtImages-&gt;execute();
+
+$imageResult = $stmtImages-&gt;get_result();
+
+$images = [];
+
+while ($image = $imageResult-&gt;fetch_assoc()) {
+    $images[] = $image;
+}
+
+$imageResult-&gt;free();
+$stmtImages-&gt;close();
+</code></pre>
+<p>Ảnh chính được sắp trước nhờ:</p>
+<pre><code class="language-sql">ORDER BY
+    IsPrimary DESC,
+    ImageID ASC
+</code></pre>
+<p>Sau đó đặt tiêu đề và nạp layout Frontend:</p>
+<pre><code class="language-php">$pageTitle = $product['ProductName'];
+
+require_once '/var/www/src/includes/frontend/header.php';
+require_once '/var/www/src/includes/frontend/navbar.php';
+?&gt;
+</code></pre>
+<hr />
+<h2 id="12-hien-thi-chi-tiet-san-pham">12. Hiển thị chi tiết sản phẩm</h2>
+<p>Tiếp tục:</p>
+<pre><code class="language-php">&lt;main class=&quot;container py-5&quot;&gt;
+
+    &lt;div class=&quot;mb-4&quot;&gt;
+
+        &lt;a
+            href=&quot;/products.php&quot;
+            class=&quot;text-decoration-none&quot;
+        &gt;
+            &amp;larr; Quay lại danh sách sản phẩm
+        &lt;/a&gt;
+
+    &lt;/div&gt;
+
+    &lt;div class=&quot;row g-5&quot;&gt;
+
+        &lt;div class=&quot;col-lg-6&quot;&gt;
+
+            &lt;?php if (!empty($images)): ?&gt;
+
+                &lt;div
+                    class=&quot;bg-light d-flex
+                           align-items-center
+                           justify-content-center
+                           p-3 mb-3&quot;
+                    style=&quot;height: 420px;&quot;
+                &gt;
+
+                    &lt;img
+                        src=&quot;/uploads/products/&lt;?=
+                            htmlspecialchars(
+                                $images[0]['ImageFile']
+                            )
+                        ?&gt;&quot;
+                        alt=&quot;&lt;?=
+                            htmlspecialchars(
+                                $product['ProductName']
+                            )
+                        ?&gt;&quot;
+                        style=&quot;
+                            width: 100%;
+                            height: 100%;
+                            object-fit: contain;
+                        &quot;
+                    &gt;
+
+                &lt;/div&gt;
+
+                &lt;?php if (count($images) &gt; 1): ?&gt;
+
+                    &lt;div class=&quot;row g-2&quot;&gt;
+
+                        &lt;?php foreach ($images as $image): ?&gt;
+
+                            &lt;div class=&quot;col-4&quot;&gt;
+
+                                &lt;div
+                                    class=&quot;border rounded
+                                           bg-light
+                                           d-flex
+                                           align-items-center
+                                           justify-content-center
+                                           p-2&quot;
+                                    style=&quot;height: 120px;&quot;
+                                &gt;
+
+                                    &lt;img
+                                        src=&quot;/uploads/products/&lt;?=
+                                            htmlspecialchars(
+                                                $image['ImageFile']
+                                            )
+                                        ?&gt;&quot;
+                                        alt=&quot;&lt;?=
+                                            htmlspecialchars(
+                                                $product['ProductName']
+                                            )
+                                        ?&gt;&quot;
+                                        style=&quot;
+                                            width: 100%;
+                                            height: 100%;
+                                            object-fit: contain;
+                                        &quot;
+                                    &gt;
+
+                                &lt;/div&gt;
+
+                            &lt;/div&gt;
+
+                        &lt;?php endforeach; ?&gt;
+
+                    &lt;/div&gt;
+
+                &lt;?php endif; ?&gt;
+
+            &lt;?php else: ?&gt;
+
+                &lt;div
+                    class=&quot;bg-light d-flex
+                           align-items-center
+                           justify-content-center
+                           text-muted&quot;
+                    style=&quot;height: 420px;&quot;
+                &gt;
+                    Chưa có hình ảnh
+                &lt;/div&gt;
+
+            &lt;?php endif; ?&gt;
+
+        &lt;/div&gt;
+
+        &lt;div class=&quot;col-lg-6&quot;&gt;
+
+            &lt;p class=&quot;text-muted mb-2&quot;&gt;
+                &lt;?=
+                    htmlspecialchars(
+                        $product['CategoryName']
+                    )
+                ?&gt;
+            &lt;/p&gt;
+
+            &lt;h1 class=&quot;mb-3&quot;&gt;
+                &lt;?=
+                    htmlspecialchars(
+                        $product['ProductName']
+                    )
+                ?&gt;
+            &lt;/h1&gt;
+
+            &lt;p class=&quot;text-muted&quot;&gt;
+                Mã sản phẩm:
+                &lt;?=
+                    htmlspecialchars(
+                        $product['ProductCode']
+                    )
+                ?&gt;
+            &lt;/p&gt;
+
+            &lt;p class=&quot;fs-3 fw-bold&quot;&gt;
+                &lt;?=
+                    number_format(
+                        (float) $product['Price'],
+                        0,
+                        ',',
+                        '.'
+                    )
+                ?&gt; đ
+            &lt;/p&gt;
+
+            &lt;hr&gt;
+
+            &lt;dl class=&quot;row&quot;&gt;
+
+                &lt;dt class=&quot;col-sm-4&quot;&gt;
+                    Danh mục
+                &lt;/dt&gt;
+
+                &lt;dd class=&quot;col-sm-8&quot;&gt;
+                    &lt;?=
+                        htmlspecialchars(
+                            $product['CategoryName']
+                        )
+                    ?&gt;
+                &lt;/dd&gt;
+
+                &lt;dt class=&quot;col-sm-4&quot;&gt;
+                    Nhà cung cấp
+                &lt;/dt&gt;
+
+                &lt;dd class=&quot;col-sm-8&quot;&gt;
+                    &lt;?=
+                        htmlspecialchars(
+                            $product['SupplierName']
+                        )
+                    ?&gt;
+                &lt;/dd&gt;
+
+                &lt;dt class=&quot;col-sm-4&quot;&gt;
+                    Đơn vị tính
+                &lt;/dt&gt;
+
+                &lt;dd class=&quot;col-sm-8&quot;&gt;
+                    &lt;?=
+                        htmlspecialchars(
+                            $product['Unit'] ?? ''
+                        )
+                    ?&gt;
+                &lt;/dd&gt;
+
+                &lt;dt class=&quot;col-sm-4&quot;&gt;
+                    Tồn kho
+                &lt;/dt&gt;
+
+                &lt;dd class=&quot;col-sm-8&quot;&gt;
+                    &lt;?= (int) $product['StockQuantity'] ?&gt;
+                &lt;/dd&gt;
+
+            &lt;/dl&gt;
+
+            &lt;?php if (!empty($product['Description'])): ?&gt;
+
+                &lt;hr&gt;
+
+                &lt;h5&gt;Mô tả sản phẩm&lt;/h5&gt;
+
+                &lt;p&gt;
+                    &lt;?=
+                        nl2br(
+                            htmlspecialchars(
+                                $product['Description']
+                            )
+                        )
+                    ?&gt;
+                &lt;/p&gt;
+
+            &lt;?php endif; ?&gt;
+
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+
+&lt;/main&gt;
+
+&lt;?php
+require_once '/var/www/src/includes/frontend/footer.php';
+</code></pre>
+<p>Nhấn <strong>Ctrl + S</strong> để lưu.</p>
+<hr />
+<h2 id="13-kiem-tra-trang-chi-tiet">13. Kiểm tra trang chi tiết</h2>
+<p>Kiểm tra cú pháp:</p>
+<pre><code class="language-cmd">docker compose exec web php -l /var/www/html/product-detail.php
+</code></pre>
+<p>Mở trang danh sách:</p>
+<pre><code class="language-text">http://localhost:8080/products.php
+</code></pre>
+<p>Nhấn <strong>Xem chi tiết</strong> trên một sản phẩm.</p>
+<p>Kiểm tra:</p>
+<ul>
+<li>đúng sản phẩm được mở;</li>
+<li>tên, mã, giá và mô tả hiển thị đúng;</li>
+<li>danh mục hiển thị đúng;</li>
+<li>nhà cung cấp hiển thị đúng;</li>
+<li>đơn vị tính và tồn kho hiển thị đúng;</li>
+<li>ảnh chính hiển thị ở vùng ảnh lớn;</li>
+<li>các ảnh còn lại xuất hiện bên dưới;</li>
+<li>sản phẩm không có ảnh vẫn hiển thị được;</li>
+<li>nút quay lại danh sách hoạt động.</li>
+</ul>
+<p>Thử URL không hợp lệ:</p>
+<pre><code class="language-text">http://localhost:8080/product-detail.php?id=0
+</code></pre>
+<p>và một <code>id</code> không tồn tại.</p>
+<p>Ứng dụng phải quay về:</p>
+<pre><code class="language-text">/products.php
+</code></pre>
+<hr />
+<h2 id="14-kiem-tra-responsive">14. Kiểm tra responsive</h2>
+<p>Mở trang:</p>
+<pre><code class="language-text">/products.php
+</code></pre>
+<p>và:</p>
+<pre><code class="language-text">/product-detail.php?id=...
+</code></pre>
+<p>Trong trình duyệt Chrome hoặc Edge:</p>
+<ol>
+<li>Nhấn <strong>F12</strong>.</li>
+<li>Nhấn <strong>Ctrl + Shift + M</strong> để bật chế độ mô phỏng thiết bị.</li>
+<li>Thử một số kích thước màn hình.</li>
+</ol>
+<p>Ở trang danh sách:</p>
+<ul>
+<li>màn hình lớn hiển thị tối đa 3 Card trên một hàng;</li>
+<li>màn hình trung bình hiển thị 2 Card;</li>
+<li>màn hình nhỏ các Card tự xếp theo chiều dọc;</li>
+<li>ảnh giữ nguyên tỷ lệ.</li>
+</ul>
+<p>Ở trang chi tiết:</p>
+<ul>
+<li>màn hình lớn chia thành vùng ảnh và vùng thông tin;</li>
+<li>màn hình nhỏ hai vùng tự xếp theo chiều dọc;</li>
+<li>ảnh không tràn khỏi khung.</li>
+</ul>
+<hr />
+<h2 id="15-kiem-tra-toan-bo-hands-on-09">15. Kiểm tra toàn bộ Hands-on 09</h2>
+<p>Đánh dấu sau khi kiểm tra:</p>
+<p>Nội dung                Kết quả mong đợi</p>
+<hr />
+<p>Navbar Frontend         Có liên kết Sản phẩm
+  <code>/products.php</code>         Hiển thị danh sách sản phẩm đang hoạt động
+  Category                Tên danh mục hiển thị đúng
+  Ảnh chính               Hiển thị đúng từ <code>/uploads/products/</code>
+  Sản phẩm chưa có ảnh    Vẫn xuất hiện
+  Card                    Responsive và chiều cao cân đối
+  Xem chi tiết            Truyền đúng ProductID qua <code>id</code>
+  <code>/product-detail.php</code>   Hiển thị đúng sản phẩm
+  Supplier                Tên nhà cung cấp hiển thị đúng
+  Nhiều ảnh               Hiển thị được danh sách ảnh
+  <code>id</code> không hợp lệ       Quay về <code>/products.php</code>
+  Responsive              Danh sách và chi tiết hoạt động tốt trên màn hình nhỏ</p>
+<p>!!! success "Hoàn thành" Khi tất cả nội dung trên hoạt động đúng, bạn đã
+hoàn thành phần Frontend cơ bản cho sản phẩm.</p>
+<hr />
+<h2 id="16-cau-truc-sau-hands-on-09">16. Cấu trúc sau Hands-on 09</h2>
+<p>Chạy:</p>
+<pre><code class="language-cmd">tree public /F
+</code></pre>
+<p>Phần Frontend đã có thêm:</p>
+<pre><code class="language-text">public/
+├── index.php
+├── products.php
+├── product-detail.php
+├── admin/
+│   ├── index.php
+│   ├── categories/
+│   ├── products/
+│   └── shippers/
+└── uploads/
+    └── products/
+</code></pre>
+<p>Hai khu vực hiện có vai trò rõ ràng:</p>
+<pre><code class="language-text">Frontend
+├── /
+├── /products.php
+└── /product-detail.php?id=...
+
+Admin
+├── /admin/
+├── /admin/categories/
+├── /admin/products/
+└── /admin/shippers/
+</code></pre>
+<hr />
+<h2 id="17-luu-phien-ban-bang-git">17. Lưu phiên bản bằng Git</h2>
+<p>Kiểm tra:</p>
+<pre><code class="language-cmd">git status
+</code></pre>
+<p>Kiểm tra lỗi khoảng trắng trước khi commit:</p>
+<pre><code class="language-cmd">git diff --check
+</code></pre>
+<p>Nếu kết quả ổn, thêm các thay đổi:</p>
+<pre><code class="language-cmd">git add .
+</code></pre>
+<p>Kiểm tra:</p>
+<pre><code class="language-cmd">git diff --cached --check
+</code></pre>
+<p>Xem tóm tắt:</p>
+<pre><code class="language-cmd">git diff --cached --stat
+</code></pre>
+<p>Commit:</p>
+<pre><code class="language-cmd">git commit -m &quot;feat: add product storefront and detail page&quot;
+</code></pre>
+<p>Đẩy lên GitHub:</p>
+<pre><code class="language-cmd">git push
+</code></pre>
+<hr />
+<h2 id="18-ket-qua-at-uoc">18. Kết quả đạt được</h2>
+<p>Sau Hands-on 09, ứng dụng không còn chỉ có các trang quản trị.</p>
+<p>Người dùng đã có thể:</p>
+<pre><code class="language-text">Trang chủ
+    ↓
+Danh sách sản phẩm
+    ↓
+Xem chi tiết sản phẩm
+</code></pre>
+<p>Dữ liệu hiển thị trên Frontend vẫn lấy trực tiếp từ cơ sở dữ liệu mà khu
+vực Admin đang quản lý.</p>
+<p>Đây là nền tảng để tiếp tục bổ sung:</p>
+<ul>
+<li>tìm kiếm sản phẩm;</li>
+<li>lọc theo danh mục;</li>
+<li>phân trang.</li>
+</ul>
+<p>Các chức năng này sẽ được thực hiện ở Hands-on tiếp theo.</p>
+<hr />
+<h2 id="cau-hoi-cung-co">Câu hỏi củng cố</h2>
+<ol>
+<li>Vì sao Frontend chỉ hiển thị sản phẩm có <code>IsActive = 1</code>?</li>
+<li>Điều kiện <code>p.CategoryID = c.CategoryID</code> thể hiện quan hệ nào giữa
+    hai bảng?</li>
+<li>Vì sao trang danh sách chỉ lấy ảnh có <code>IsPrimary = 1</code>?</li>
+<li>Vì sao sử dụng <code>object-fit: contain</code> khi hiển thị hình ảnh sản phẩm?</li>
+<li>Tham số <code>id</code> trong <code>/product-detail.php?id=3</code> được dùng để làm gì?</li>
+<li>Vì sao truy vấn chi tiết sản phẩm sử dụng prepared statement?</li>
+<li>Vì sao danh sách hình ảnh được sắp xếp theo <code>IsPrimary DESC</code>?</li>
+<li>Admin Products và Frontend Products khác nhau về mục đích sử dụng
+    như thế nào?</li>
+</ol>
+<h2 id="bai-tap-cung-co">Bài tập củng cố</h2>
+<p>Thực hiện các kiểm tra sau với dữ liệu của bạn:</p>
+<ol>
+<li>Chọn một sản phẩm đang hoạt động và kiểm tra toàn bộ thông tin giữa
+    Admin và Frontend.</li>
+<li>Chọn một sản phẩm có nhiều ảnh và xác nhận ảnh chính được hiển thị
+    trước.</li>
+<li>Chọn hoặc tạo một sản phẩm chưa có ảnh và kiểm tra cách Frontend
+    hiển thị.</li>
+<li>Thay đổi trạng thái <code>IsActive</code> của một sản phẩm trong khu vực Admin
+    và quan sát sự thay đổi trên Frontend.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
