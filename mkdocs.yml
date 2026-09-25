@@ -25,5 +25,6 @@ nav:
       - Hands-on 12 – Xử lý đặt hàng và lưu đơn hàng vào MySQL: hands-on/Hands-on-12_Checkout-and-Order-Processing.md
       - Hands-on 13 – Quản lý đơn hàng trong khu vực Admin: hands-on/Hands-on-13_Admin-Order-Management.md
       - Hands-on 14 – Đăng ký, đăng nhập và tài khoản khách hàng: hands-on/Hands-on-14_Customer-Authentication-and-Accounts.md
+      - Hands-on 15 – REST API và Fetch API: hands-on/Hands-on-15_REST-API-and-Fetch.md
   - Hướng dẫn:
       - Git và GitHub: guides/Mini-Hands-on_Git-Push-GitHub.md
